@@ -1,0 +1,335 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block main %}
+{% include 'tutor/navbar.html' %}
+<section class="std-profile d-flex flex-wrap">
+    {% include 'tutor/tutor_tab.html' %} 
+    <div class="tchRight">
+        <div class="tchCourse">
+            <div class="mt-3 mb-5">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="sc-breadcrump d-flex align-items-center bg-white">
+                        <div class="mt-2">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                            href="{% url 'home' %}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                            href="#">Add Course</a>
+                                    </li>
+                                    <li class="breadcrumb-item active fw-bold" aria-current="page">{{course.course_title}}
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    {% comment %} <div>
+                        <button class="bg-cl-grey3 cl-pm fw-bold px-3 py-2 border-0 rounded-3 me-2">Save As
+                            Draft</button>
+                        <button
+                            class="bg-cl-green color-white fw-bold px-3 py-2 border-0 rounded-3">Publish</button>
+                    </div> {% endcomment %}
+                </div>
+                <section class="tchAddCourse mt-3">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+
+                            <!-- Course add option start -->
+                            <div class="col-xxl-7 col-xl-6 col-md-12 col-12">
+
+                               
+
+                                <!-- Add lesson start -->
+                                <div class="addLesson">
+                                    <h6 class="fw-bold mb-4">Add Lesson</h6>
+
+                                    <!-- Add lesson content start -->
+                                    <div class="addLessonContent adlc-border">
+                                        <div class="p-4">
+                                            
+
+                                                <div class="mb-5">
+                                                    <label class="cl-pm mb-2 fw-bold" for="Chapter Title">Lesson
+                                                        Title</label>
+                                                    <input class="tchAddCourseTopRightinput bg-white px-2 py-3"
+                                                        type="text" placeholder="Type Lesson Title" name="lesson_title" required {% if lesson.lesson_title %}value="{{lesson.lesson_title}}"{% endif %}>
+                                                </div>
+                                                <div class="mb-5">
+                                                    <label class="cl-pm mb-2 fw-bold" for="Chapter Title">Lesson
+                                                        Position</label>
+                                                    <input class="tchAddCourseTopRightinput bg-white px-2 py-3"
+                                                        type="number" placeholder="Type Lesson Position" name="lesson_position" required {% if lesson.lesson_position %}value="{{lesson.lesson_position}}"{% endif %}>
+                                                </div>
+                                                <input type="hidden" id="lesson_type" name="lesson_type" {% if lesson %}value="{{lesson.lesson_type}}"{% else %}value="V"{% endif %}/>
+                                                <div class=" ms-1 addCourseReplaceBtn">
+                                                    <label class="cl-pm mb-2 fw-bold" for="Chapter Title">Add
+                                                        Content</label>
+
+                                                    <!-- All button start-->
+                                                    <div class="d-grid  d-md-block mb-5">
+
+                                                        <button
+                                                            class="{% if lesson %}{% if lesson.lesson_type == 'V' %}active{% endif %}{% else %}active{% endif %} bg-cl-grey3 color-grey px-3 py-2 me-3 mb-2 border-0 rounded-3 cursor2"
+                                                            type="button" onclick="btnCheck2('uploadVideo')">
+                                                            <i class="fas fa-video me-2"></i>Upload Video
+                                                        </button>
+
+                                                        <button
+                                                            class="{% if lesson %}{% if lesson.lesson_type == 'I' %}active{% endif %}{% endif %} bg-cl-grey3 color-grey px-3 py-2 me-3 mb-2 border-0 rounded-3 cursor2"
+                                                            type="button" onclick="btnCheck2('instruction')">
+                                                            <i class="fas fa-folder me-2"></i>Instructions
+                                                        </button>
+
+                                                        <button
+                                                            class="{% if lesson %}{% if lesson.lesson_type == 'Q' %}active{% endif %}{% endif %} bg-cl-grey3 color-grey px-3 py-2 me-3 mb-2 border-0 rounded-3 cursor2"
+                                                            type="button" onclick="btnCheck2('quiz')">
+                                                            <i class="fas fa-file-signature me-2"></i>Quiz
+                                                        </button>
+
+                                                        <button
+                                                            class="{% if lesson %}{% if lesson.lesson_type == 'A' %}active{% endif %}{% endif %} bg-cl-grey3 color-grey px-3 py-2 me-3 mb-2 border-0 rounded-3 cursor2"
+                                                            type="button" onclick="btnCheck2('assignment')">
+                                                            <i class="fas fa-file me-2"></i>Assignment
+                                                        </button>
+
+                                                    </div>
+                                                    
+                                                    <div class="fileUpload uploadVideo {% if lesson %}{% if lesson.lesson_type != 'V' %}dnone{% endif %}{% endif %}">
+                                                        <!-- We'll transform this input into a pond  -->
+                                                        <input type="file" class="filepond mb-3" 
+                                                             data-max-file-size="1TB" data-max-files="1" name="lesson_video" />
+
+                                                       
+                                                    </div>
+
+                                                    <!-- step-2 -->
+                                                    <!-- Instruction -->
+                                                    <div class="addLesson-instruction  instruction {% if lesson %}{% if lesson.lesson_type != 'I' %}dnone{% endif %}{% else %}dnone{% endif %}">
+                                                        <div class="mb-3">
+                                                            <h5 class="fw-bold mb-2">Instrauction</h5>
+                                                            <textarea class="tchAddCourseTopRightinput p-2" name="instruction"
+                                                                id="" rows="7"
+                                                                placeholder="Type Here .   .   .   ." >{% if lesson.text_instruction %}{{lesson.text_instruction}}{% endif %}</textarea>
+                                                        </div>
+
+                                                        
+                                                    </div>
+
+                                                    <!-- step-3 -->
+                                                    <div class="addLesson-quiz quiz {% if lesson %}{% if lesson.lesson_type != 'Q' %}dnone{% endif %}{% else %}dnone{% endif %} ">
+                                                        <!-- replace content-1 -->
+                                                        <div class="none-createQuiz replaceContent1 ">
+                                                            
+                                                                <div class="row justify-content-center">
+                                                                    <div class="col-xxl-4 col-xl-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="exampleFormControlInput1"
+                                                                                class="form-label">Quiz
+                                                                                Instrauction</label>
+                                                                            <input type="text" class="form-control"  name="quiz_instruction" {% if lesson.quiz_instruction %}value="{{lesson.quiz_instruction}}"{% endif %}>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xxl-4 col-xl-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="exampleFormControlInput1"
+                                                                                class="form-label">Quiz
+                                                                                Total Time</label>
+                                                                            <input type="number" class="form-control" placeholder="Enter quiz time in minutes" name="quiz_time" {% if lesson.quiz_time %}value="{{lesson.quiz_time}}"{% endif %}>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xxl-4 col-xl-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="exampleFormControlInput1"
+                                                                                class="form-label">Total
+                                                                                Number</label>
+                                                                            <input type="number" class="form-control" name="quiz_total_mark" {% if lesson.quiz_total_mark %}value="{{lesson.quiz_total_mark}}"{% endif %}>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xxl-4 col-xl-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="exampleFormControlInput1"
+                                                                                class="form-label">Pass
+                                                                                Number</label>
+                                                                            <input type="number" class="form-control" name="quiz_pass_mark" {% if lesson.quiz_pass_mark %}value="{{lesson.quiz_pass_mark}}"{% endif %}>
+                                                                        </div>
+                                                                    </div>
+                                                                   {% if lesson %}
+                                                                    <a
+                                                                        class="mt-3 bg-cl-pm text-white px-3 py-2  mb-2 border-0 rounded-3  w35"
+                                                                        type="button"
+                                                                        href="{% url 'tutor:addQuiz' lesson.id %}">View/Create
+                                                                        Quiz
+                                                                    </a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            
+                                                        </div>
+
+                                                       
+                                                    </div>
+
+                                                    <!-- step-4 -->
+                                                    <div class="addLesson-assignment assignment {% if lesson %}{% if lesson.lesson_type != 'A' %}dnone{% endif %}{% else %}dnone{% endif %}">
+                                                        <div class="mb-5">
+                                                            <label class="mb-2 fw-bold"
+                                                                for="Chapter Title">Assignment
+                                                                Total Mark</label>
+                                                            <input
+                                                                class="tchAddCourseTopRightinput bg-white px-2 py-3"
+                                                                type="number" name="total_mark" 
+                                                                {% if lesson.assignment_total_mark %}value="{{lesson.assignment_total_mark}}"{% endif %}>
+                                                        </div>
+                                                        <div class="mb-5">
+                                                            <label class="mb-2 fw-bold"
+                                                                for="Chapter Title">Assignment
+                                                                Pass Mark</label>
+                                                            <input
+                                                                class="tchAddCourseTopRightinput bg-white px-2 py-3"
+                                                                type="number"
+                                                                name="pass_mark" {% if lesson.assignment_pass_mark %}value="{{lesson.assignment_pass_mark}}"{% endif %}>
+                                                        </div>
+
+                                                        <div class="mb-5">
+                                                            <h5 class="fw-bold mb-2">Instrauction</h5>
+                                                            <textarea class="tchAddCourseTopRightinput p-2" name="ainstruction"
+                                                                id="" rows="4"
+                                                                placeholder="Type Here .   .   .   ." >{% if lesson.assignment_instruction %}{{lesson.assignment_instruction}}{% endif %}</textarea>
+                                                        </div>
+
+                                                        <div class="addCourseAssignmentUpload mb-5">
+                                                            <input type="file" id="real-file" hidden="hidden" name="asfile"/>
+                                                            <button class="mb-3" type="button" id="custom-button">
+                                                                Drop your file here, or <span
+                                                                    class="fw-bold cl-light-blue">Browse</span>
+                                                                <br>
+                                                                Supports: doc, pdf
+                                                            </button>
+                                                            <span class="" id="custom-text"><i
+                                                                    class="fas fa-file-alt me-2"></i> No file
+                                                                chosen, yet.</span>
+                                                        </div>
+
+                                                        <!-- Submit/Cancel Button Start-->
+                                                        {% comment %} <div class="d-grid  d-md-block">
+                                                            <button
+                                                                class="bg-cl-green text-white px-3 py-2 me-3 mb-2 border-0 rounded-3"
+                                                                type="submit">Submit
+                                                            </button>
+                                                            <button
+                                                                class="bg-cl-pink2 text-white px-3 py-2 me-3 mb-2 border-0 rounded-3"
+                                                                type="submit">Cancel
+                                                            </button>
+                                                        </div> {% endcomment %}
+                                                        <!-- Submit/Cancel Button End-->
+                                                    </div>
+                                                    <button
+                                                        class="bg-cl-green text-white px-3 py-2 me-3 mb-2 border-0 rounded-3"
+                                                        type="submit">Submit
+                                                    </button>
+                                                    
+                                                    <!-- All button Active content end-->
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- Add lesson content end -->
+                                </div>
+                                <!-- Add lesson end -->
+                            </div>
+                            <!-- Course add option end -->
+
+                            <!-- Course dashbord start -->
+
+                            <div class="col-xxl-5 col-xl-6 col-md-12 col-12 px5 mt-3">
+                                <!-- <div> -->
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            {% comment %} <h5 class="fw-bold">AWS Course</h5> {% endcomment %}
+                                        </div>
+                                        <div>
+                                            <button class="bg-cl-pm color-white px-3 py-2 border-0 rounded-3"
+                                                type="button" onclick="location.href='{% url 'tutor:addChapter' course.id %}'"><i class="fas fa-plus me-1"></i>Add Chapter</button>
+                                        </div>
+                                    </div>
+                                    {% if chapters %}
+                                    {% for chapter in chapters %}
+                                    <div class="bg-cl-grey4 py-4 px5 mb-3 rounded-3">
+                                        <div class="d-flex flex-wrap justify-content-between align-items-center">
+                                            <div>
+                                                <div class="addLesson">
+                                                    <a  class="cl-pm fw-bold" href="{% url 'tutor:editChapter' chapter.id %}">
+                                                        {{chapter.chapter_name}}
+                                                        <i class="fas fa-pencil-alt mx-1"></i>
+                                                    </a>
+                                                    <a  class="cl-pm fw-bold" href="{% url 'tutor:deleteChapter' chapter.id %}">
+                                                        <i class="fas fa-trash-alt cursor me-3 cl-pm"></i>
+                                                    </a>
+                                                </div>
+                                                <small class="color-grey"> <span>{{chapter.total_lesson}}</span> Lessons</small>
+                                            </div>
+                                            <div class="addLesson">
+                                                <a  class="cl-pm" href="{% url 'tutor:addLesson' course.id chapter.id %}">
+                                                    <i class="fas fa-plus me-1"></i>
+                                                    Add New Lesson
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="tchAddCourseChapterList">
+                                            {% for lesson in lessons %}
+                                            {% if lesson.chapter_id.id == chapter.id %}
+                                            <div
+                                                class="d-flex justify-content-between align-items-center bg-white rounded-3 mb-2">
+                                                <div class="d-flex align-items-center">
+                                                    <span
+                                                        class="d-flex align-items-center px-3 py-2 bg-cl-pm color-white rounded-3 me-2">L{{lesson.lesson_position}}</span>
+                                                    {% if lesson.lesson_type == 'V' %}
+                                                    <i
+                                                        class="tchAddCourseChapterListIcon fas fa-video me-2 cl-pm p-2"></i>
+                                                    {% elif lesson.lesson_type == 'I' %}
+                                                    <i
+                                                            class="tchAddCourseChapterListIcon far fa-folder me-2 cl-pm p-2"></i>
+                                                    {% elif lesson.lesson_type == 'A' %}
+                                                    <i
+                                                            class="tchAddCourseChapterListIcon far fa-address-book me-2 cl-pm p-2"></i>
+                                                    {% elif lesson.lesson_type == 'Q' %}
+                                                    <i
+                                                            class="tchAddCourseChapterListIcon far fa-file-pdf me-2 cl-pm p-2"></i>
+                                                    {% endif %}
+                                                    <small class="color-grey fw-bold">
+                                                        {{lesson.lesson_title}}
+                                                    </small>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a class="cl-pm " href="{% url 'tutor:deleteLesson' lesson.id %}">
+                                                    <i class="fas fa-trash-alt cursor me-3 cl-pm"></i>
+                                                    </a>
+                                                    <a  class="cl-pm " href="{% url 'tutor:editLesson' lesson.id %}">
+                                                        <i class="fas fa-pencil-alt cursor me-3 cl-pm"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% else %}
+                                    <div class="tchAddCourseNoChapter bg-cl-grey4 px-5 py-4 rounded-3">
+                                        <p class="cl-pm fw-bold my-auto">No Chapter yet!!</p>
+                                    </div>
+                                    {% endif %}
+                                <!-- </div> -->
+                            </div>
+
+                            <!-- Course dashbord end -->
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main %}

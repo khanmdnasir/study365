@@ -1,0 +1,127 @@
+ {% extends 'app/base.html' %}
+  {% load static %}
+  {% load mathfilters %}
+  {% block title %}Poralekha|Account Settings{% endblock title %}
+  {% block content %}
+
+   <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Account Settings</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--bread crump end -->
+
+
+<section class="std-profile">
+    <div class="container">
+        <div class="row">
+            <!-- leftbar desktop version start-->
+            <div class="col-xl-3 col-lg-3 mt-5 mb-5 std-leftTab h-100  desktopVersion">
+
+                <div class="nav flex-column nav-tabs">
+                    <a class="nav-link me-3  " href="{% url 'stdprofile' %}">
+                        <i class="far fa-user me-1"></i>
+                        Profile</a>
+
+                    <a class="nav-link me-3 " href="{% url 'ccourses' %}">
+                        <i class="fas fa-tv me-1"></i>
+                        Continue Courses</a>
+
+                    <a class="nav-link me-3 "  href="{% url 'mybooks' %}">
+                        <i class="fas fa-book me-1"></i>
+                        My books</a>
+
+                    <a class="nav-link me-3 "  href="{% url 'wishlist' %}">
+                        <i class="far fa-heart me-1"></i>
+                        Wishlist</a>
+
+                    <a class="nav-link me-3 active"  href="{% url 'account_settings' %}">
+                        <i class="fas fa-user-check me-1"></i>
+                        Account Settings</a>
+
+                    <a class="nav-link me-3 "  href="{% url 'payment_method' %}">
+                        <i class="far fa-credit-card me-1"></i>
+                        Payment Method</a>
+
+                    <a class="nav-link me-3 "  href="{% url 'helpdesk' %}">
+                        <i class="fas fa-hands-helping me-1"></i>
+                        Help Desk</a>
+
+                    <a class="nav-link me-3"  href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt me-1"></i>
+                        Logout</a>
+                </div>
+            </div>
+            <!-- leftbar desktop version end-->
+
+            <!-- leftbar mobile version start-->
+            <div class="col-xl-3 mt-3 std-leftTab h-100 mobileVersion">
+                <div class="nav flex-column nav-tabs">
+                    <a class="nav-link w-100  {  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'stdprofile' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            Profile
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+
+                    <div class="collapse navbar-collapse" id="navContentMobile1">
+                        <a class="nav-link me-3" href="{% url 'ccourses' %}" >
+                            <i class="fas fa-tv me-1"></i>
+                            Continue Courses</a>
+
+                        <a class="nav-link me-3" href="{% url 'mybooks' %}">
+                            <i class="fas fa-book me-1"></i>
+                            My books</a>
+
+                        <a class="nav-link me-3" href="{% url 'wishlist' %}">
+                            <i class="far fa-heart me-1"></i>
+                            Wishlist</a>
+
+                        <a class="nav-link me-3 active" href="{% url 'account_settings' %}">
+                            <i class="fas fa-user-check me-1"></i>
+                            Account Settings</a>
+
+                        <a class="nav-link me-3" href="{% url 'payment_method' %}">
+                            <i class="far fa-credit-card me-1"></i>
+                            Payment Method</a>
+
+                        <a class="nav-link me-3" href="{% url 'helpdesk' %}">
+                            <i class="fas fa-hands-helping me-1"></i>
+                            Help Desk</a>
+
+                        <a class="nav-link me-3" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt me-1"></i>
+                            Logout</a>
+                    </div>
+                </div>
+            </div>
+            <!-- leftbar desktop version end-->
+
+                <!-- mt5 media query desktop version -->
+                <div class="col-xl-9 col-lg-9 mtResponsive mb-5 ">
+                                            
+                    <div
+                    class="signUpcongratulationRightContent d-flex flex-column justify-content-center align-items-center">
+                    <div class="SCRCI bg-cl-pm d-flex justify-content-center align-items-center mb-5">
+                        <i class="flaticon-verified-1 color-white"></i>
+                    </div>
+                    <h4 class="cl-pm fw-bold mb-5">Congratulations Your Password Has Been Updated Successfully</h4>
+                    <button class="bg-cl-pm color-white" onclick="location.href='{% url 'account_settings' %}'">Let's Go</button>
+                </div>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock content %}

@@ -1,0 +1,283 @@
+ {% extends 'app/base.html' %}
+  {% load static %}
+  {% load mathfilters %}
+  {% block title %}Poralekha|Payment Method{% endblock title %}
+  {% block content %}
+
+     <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Payment Method</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--bread crump end -->
+
+
+{% include 'app/std-profile-nav.html' %}
+
+            <!-- mt5 media query desktop version -->
+            <div class="col-xl-9 col-lg-9 mtResponsive mb-5 ">
+                    <div class="col-lg-10 paymentMethodHeading d-flex justify-content-between mb-3">
+                        <h5 class="color-span">Payment method</h5>
+                        <button class="btn btn3 bg-cl-pm" onclick="toggleChange('change','pmMain')"><i
+                                class="fas fa-plus me-2"></i>Add New</button>
+                    </div>
+                    <nav class="">
+                        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                            <a class="nav-link active me-3" id="nav-payment1tab" data-bs-toggle="tab"
+                                href="#nav-payment1" role="tab" aria-controls="nav-payment1" aria-selected="true">
+                                Saved Method</a>
+
+                            <a class="nav-link me-3" id="nav-payment2tab" data-bs-toggle="tab" href="#nav-payment2"
+                                role="tab" aria-controls="nav-payment2" aria-selected="false">
+                                Payment History</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="saved-method tab-pane fade show active edit" id="nav-payment1" role="tabpanel"
+                            aria-labelledby="nav-payment1-tab">
+                            <div class="content1 none-pmMain">
+
+
+                                <div class="none-pmAcc">
+                                    <p class="mt-4 mb-3 fw-bold">Cards</p>
+                                    <div class="row align-items-center gx-1">
+                                        <div class="box-1 col-xl-4 col-9">
+                                            <div
+                                                class="box-1inner d-flex flex-wrap justify-content-between align-items-center">
+                                                <div class="box-1img">
+                                                    <img src="Assets/Images/card/1card.png" alt="">
+                                                </div>
+                                                <div class="">
+                                                    <p class="cl-pm d-flex justify-content-end">4321****1111</p>
+                                                    <p class="color-grey">Brac Bank Credit Card</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-2 d-flex mx-2">
+
+                                            <li class="bookmark me-2">
+                                                <p onclick="toggleChange('change','pmAcc')">
+                                                    <a href="#"><i class="fas fa-pencil-alt cl-green"></i></a>
+                                                </p>
+                                            </li>
+                                            <li class="bookmark me-2">
+                                                <p data-bs-toggle="modal" data-bs-target="#popUp">
+                                                    <a href="#"><i class="far fa-trash-alt cl-lpink"></i></a>
+                                                </p>
+                                            </li>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Section-2 -->
+                                    <p class="mt-4 mb-3 fw-bold">Mobile Banking</p>
+                                    <div class="row align-items-center gx-1 mb-3">
+                                        <div class="box-1 col-xl-4 col-9">
+                                            <div
+                                                class="box-1inner d-flex flex-wrap justify-content-between align-items-center">
+                                                <div class="box-1img">
+                                                    <img src="Assets/Images/card/2card.png" alt="">
+                                                </div>
+                                                <div>
+                                                    <p class="cl-pm d-flex justify-content-end">4321****1111</p>
+                                                    <p class="color-grey">Brac Bank Credit Card</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-2 d-flex mx-2">
+
+                                            <li class="bookmark me-2">
+                                                <p onclick="toggleChange('change','pmAcc')">
+                                                    <a href="#"><i class="fas fa-pencil-alt cl-green"></i></a>
+                                                </p>
+                                            </li>
+                                            <li class="bookmark me-2">
+                                                <p data-bs-toggle="modal" data-bs-target="#popUp">
+                                                    <a href="#"><i class="far fa-trash-alt cl-lpink"></i></a>
+                                                </p>
+                                            </li>
+
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center gx-1">
+                                        <div class="box-1 col-xl-4 col-9">
+                                            <div
+                                                class="box-1inner d-flex flex-wrap justify-content-between align-items-center">
+                                                <div class="box-1img">
+                                                    <img src="Assets/Images/card/2card.png" alt="">
+                                                </div>
+                                                <div>
+                                                    <p class="cl-pm d-flex justify-content-end">4321****1111</p>
+                                                    <p class="color-grey">Brac Bank Credit Card</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-2 d-flex mx-2">
+
+                                            <li class="bookmark me-2">
+                                                <p onclick="toggleChange('change','pmAcc')">
+                                                    <a href="#"><i class="fas fa-pencil-alt cl-green"></i></a>
+                                                </p>
+                                            </li>
+                                            <li class="bookmark me-2">
+                                                <p data-bs-toggle="modal" data-bs-target="#popUp">
+                                                    <a href="#"><i class="far fa-trash-alt cl-lpink"></i></a>
+                                                </p>
+                                            </li>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <!--------------Section 2----------->
+                                <div class="paymentSaveMethodHideSection content3 paymentHistoryInput mt-3 block-pmAcc">
+                                    <div class="accountTitle mb-3">
+                                        <h5 class="color-span">Account Title</h5>
+                                        <input class="w-75" type="text" placeholder="Arif Bipu">
+                                    </div>
+                                    <div class="accountNumber mb-3">
+                                        <h5 class="color-span">Account Number</h5>
+                                        <input class="w-75" type="text" placeholder="4050 4149 3344">
+                                    </div>
+                                    <div class="expDate d-flex mb-3">
+                                        <div class="expdate1 me-5">
+                                            <h5 class="color-span">Expiration Date</h5>
+                                            <input class="input2 w-100" placeholder="22-9-23" class="form-control"
+                                                type="text" onfocus="(this.type='date')" onblur="(this.type='text')"
+                                                id="date">
+                                        </div>
+                                        <div class="expdate1">
+                                            <h5 class="color-span">CCV</h5>
+                                            <input class="w-100" type="text" placeholder="***">
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn3 bg-cl-pm" onclick="toggleChange('unchange','pmAcc')">
+                                        save Changes
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--------------Hide Section------------->
+                            <div class="paymentSaveMethodHideSection content2 paymentHistoryInput mt-3 block-pmMain">
+                                <div class="accountTitle mb-3">
+                                    <h5 class="color-span">Account Title</h5>
+                                    <input class="w-75" type="text" placeholder="Enter Title Here...">
+                                </div>
+                                <div class="accountNumber mb-3">
+                                    <h5 class="color-span">Account Number</h5>
+                                    <input class="w-75" type="text" placeholder="Account Number...">
+                                </div>
+                                <div class="expDate d-flex mb-3">
+                                    <div class="expdate1 me-5">
+                                        <h5 class="color-span">Expiration Date</h5>
+                                        <input class="input2 w-100" placeholder="Enter Date" class="form-control"
+                                            type="text" onfocus="(this.type='date')" onblur="(this.type='text')"
+                                            id="date">
+                                    </div>
+                                    <div class="expdate1">
+                                        <h5 class="color-span">CCV</h5>
+                                        <input class="w-100" type="text" placeholder="Enter ccv">
+                                    </div>
+                                </div>
+
+                                <!-- onclick="toggleChange('unchange','pmMain')" -->
+
+                                <button type="submit" class="btn btn3 bg-cl-pm" onClick="window.location.reload()">
+                                    save Changes
+                                </button>
+                            </div>
+
+                            <!-----------------------Modal------------------>
+                            <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content py-4">
+                                        <div class="modal-body d-flex justify-content-center">
+                                            Are you sure to delete this?
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <button type="button" class="btnModalYes px-5 me-2 color-white"
+                                                data-bs-dismiss="modal">Yes</button>
+                                            <button type="button" class="btnModalNo px-5 color-white">No</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-payment2" role="tabpanel" aria-labelledby="nav-payment2tab">
+                            <div class="paymentHistoryInput d-flex justify-content-end my-4">
+                                <input class="input1 me-2 mb-2" type="text" placeholder="Search">
+                                <input class="input2 me-2 mb-2" placeholder="From" class="form-control" type="text"
+                                    onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                <input class="input2 mb-2" placeholder="To" class="form-control" type="text"
+                                    onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                            </div>
+                            <div class="paymentHistoryList col-lg-12">
+                                <table class="table">
+                                    <thead class="cl-pm">
+                                        <tr class="tableRow">
+                                            <th class="border-0" scope="col">Transaction ID</th>
+                                            <th class="border-0 tableHide" scope="col">Item Name</th>
+                                            <th class="border-0 tableHide" scope="col">Date</th>
+                                            <th class="border-0 tableHide" scope="col">Amount</th>
+                                            <th class="border-0 tableHide" scope="col">Method</th>
+                                            <th class="border-0" scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="color-span">
+                                        <tr class="tableRow">
+                                            <td>AC0015202</td>
+                                            <td class="tableHide">Course Name 01</td>
+                                            <td class="tableHide">01/04/20</td>
+                                            <td class="tableHide">Tk 12,000</td>
+                                            <td class="tableHide">Brac (4321********5572</td>
+                                            <td><a href="" class="color-span"><i class="far fa-eye"></i>
+                                                    View</a></td>
+                                        </tr>
+                                        <tr class="tableRow">
+                                            <td>AC0015202</td>
+                                            <td class="tableHide">Course Name 01</td>
+                                            <td class="tableHide">01/04/20</td>
+                                            <td class="tableHide">Tk 12,000</td>
+                                            <td class="tableHide">Brac (4321********5572</td>
+                                            <td><a href="" class="color-span"><i class="far fa-eye"></i>
+                                                    View</a></td>
+                                        </tr>
+                                        <tr class="tableRow">
+                                            <td>AC0015202</td>
+                                            <td class="tableHide">Course Name 01</td>
+                                            <td class="tableHide">01/04/20</td>
+                                            <td class="tableHide">Tk 12,000</td>
+                                            <td class="tableHide">Brac (4321********5572</td>
+                                            <td><a href="" class="color-span"><i class="far fa-eye"></i>
+                                                    View</a></td>
+                                        </tr>
+                                        <tr class="tableRow">
+                                            <td>AC0015202</td>
+                                            <td class="tableHide">Course Name 01</td>
+                                            <td class="tableHide">01/04/20</td>
+                                            <td class="tableHide">Tk 12,000</td>
+                                            <td class="tableHide">Brac (4321********5572</td>
+                                            <td><a href="" class="color-span"><i class="far fa-eye"></i>
+                                                    View</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock content%}

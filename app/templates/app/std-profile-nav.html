@@ -1,0 +1,97 @@
+<!-- Student Profile Start -->
+<section class="std-profile">
+    <div class="container">
+        <div class="row">
+            <!-- leftbar desktop version start-->
+            <div class="col-xl-3 col-lg-3 mt-5 mb-5 std-leftTab h-100  desktopVersion">
+
+                <div class="nav flex-column nav-tabs">
+                    <a class="nav-link me-3  {{p_active}}" href="{% url 'stdprofile' %}">
+                        <i class="far fa-user me-1"></i>
+                        Profile</a>
+
+                    <a class="nav-link me-3 {{cc_active}}" href="{% url 'ccourses' %}">
+                        <i class="fas fa-tv me-1"></i>
+                        Continue Courses</a>
+
+                    <a class="nav-link me-3 {{mb_active}}"  href="{% url 'mybooks' %}">
+                        <i class="fas fa-book me-1"></i>
+                        My books</a>
+
+                    <a class="nav-link me-3 {{t_active}}"  href="{% url 'mocktest:mytests' %}">
+                        <i class="fas fa-book me-1"></i>
+                        My Test</a>
+
+                    <a class="nav-link me-3 {{w_active}}"  href="{% url 'wishlist' %}">
+                        <i class="far fa-heart me-1"></i>
+                        Wishlist</a>
+
+                    <a class="nav-link me-3 {{as_active}}"  href="{% url 'account_settings' %}">
+                        <i class="fas fa-user-check me-1"></i>
+                        Account Settings</a>
+
+                    <a class="nav-link me-3 {{pm_active}}"  href="{% url 'payment_method' %}">
+                        <i class="far fa-credit-card me-1"></i>
+                        Payment Method</a>
+
+                    <a class="nav-link me-3 {{hd_active}}"  href="{% url 'helpdesk' %}">
+                        <i class="fas fa-hands-helping me-1"></i>
+                        Help Desk</a>
+
+                    <a class="nav-link me-3"  href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt me-1"></i>
+                        Logout</a>
+                </div>
+            </div>
+            <!-- leftbar desktop version end-->
+
+            <!-- leftbar mobile version start-->
+            <div class="col-xl-3 mt-3 std-leftTab h-100 mobileVersion">
+                <div class="nav flex-column nav-tabs">
+                    <a class="nav-link w-100  {{p_active}}  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'stdprofile' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            Profile
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+
+                    <div class="collapse navbar-collapse" id="navContentMobile1">
+                        <a class="nav-link me-3 {{cc_active}}" href="{% url 'ccourses' %}" >
+                            <i class="fas fa-tv me-1"></i>
+                            Continue Courses</a>
+
+                        <a class="nav-link me-3 {{mb_active}}" href="{% url 'mybooks' %}">
+                            <i class="fas fa-book me-1"></i>
+                            My books</a>
+
+                        <a class="nav-link me-3 {{t_active}}" href="{% url 'mocktest:mytests' %}">
+                            <i class="fas fa-book me-1"></i>
+                            My Test</a>
+
+                        <a class="nav-link me-3 {{w_active}}" href="{% url 'wishlist' %}">
+                            <i class="far fa-heart me-1"></i>
+                            Wishlist</a>
+
+                        <a class="nav-link me-3 {{as_active}}" href="{% url 'account_settings' %}">
+                            <i class="fas fa-user-check me-1"></i>
+                            Account Settings</a>
+
+                        <a class="nav-link me-3 {{pm_active}}" href="{% url 'payment_method' %}">
+                            <i class="far fa-credit-card me-1"></i>
+                            Payment Method</a>
+
+                        <a class="nav-link me-3 {{hd_active}}" href="{% url 'helpdesk' %}">
+                            <i class="fas fa-hands-helping me-1"></i>
+                            Help Desk</a>
+
+                        <a class="nav-link me-3" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt me-1"></i>
+                            Logout</a>
+                    </div>
+                </div>
+            </div>
+            <!-- leftbar desktop version end-->

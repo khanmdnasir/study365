@@ -1,0 +1,631 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block main %}
+{% include 'tutor/navbar.html' %}
+
+<section class="std-profile d-flex flex-wrap">
+   
+    {% include 'tutor/tutor_tab.html' %}   
+   
+
+    <div class="tchRight w-100">
+        <!-- Dashboard -->
+        <div class="mt-3 mb-5">
+            <div class="sc-breadcrump d-flex align-items-center bg-white">
+                <div class="mt-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                    href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active fw-bold" aria-current="page">Dashboard
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-12 mb-2">
+                    <div class="tchCard tchCard1 p-3 d-flex flex-column justify-content-center rounded-3">
+                        <div class="tchCardContent d-flex justify-content-between">
+                            <div class="tchCardContentLeft">
+                                <div
+                                    class="tchCardContentLeft1 d-flex justify-content-center align-items-center mb-5">
+                                    <i class="fas fa-user-graduate text-white"></i>
+                                </div>
+                                <div class="tchCardContentLeft2">
+                                    <h6 class="text-white">Total Students</h6>
+                                </div>
+                            </div>
+                            <div class="tchCardContentRight mt-2" id="tchTotalStd">
+                                <h1 class="color-white fw-bold">250</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-12 mb-2">
+                    <div class="tchCard tchCard2 p-3 d-flex flex-column justify-content-center rounded-3">
+                        <div class="tchCardContent d-flex justify-content-between">
+                            <div class="tchCardContentLeft">
+                                <div
+                                    class="tchCardContentLeft1 d-flex justify-content-center align-items-center mb-5">
+                                    <i class="far fa-file-word text-white"></i>
+                                </div>
+                                <div class="tchCardContentLeft2">
+                                    <h6 class="text-white">Total Courses</h6>
+                                </div>
+                            </div>
+                            <div class="tchCardContentRight mt-2" id="tchTotalCurs">
+                                <h1 class="color-white fw-bold">150</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-12 mb-2">
+                    <div class="tchCard tchCard3 p-3 d-flex flex-column justify-content-center rounded-3">
+                        <div class="tchCardContent d-flex justify-content-between">
+                            <div class="tchCardContentLeft">
+                                <div
+                                    class="tchCardContentLeft1 d-flex justify-content-center align-items-center mb-5">
+                                    <i class="fas fa-money-check-alt text-white"></i>
+                                </div>
+                                <div class="tchCardContentLeft2">
+                                    <h6 class="text-white">Earning of tdis montd</h6>
+                                </div>
+                            </div>
+                            <div class="tchCardContentRight mt-2" id="tchTotalEarn">
+                                <h1 class="color-white fw-bold">5,000</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-12 mb-2">
+                    <div class="tchCard tchCard4 p-3 d-flex flex-column justify-content-center rounded-3">
+                        <div class="tchCardContent d-flex justify-content-between">
+                            <div class="tchCardContentLeft">
+                                <div
+                                    class="tchCardContentLeft1 d-flex justify-content-center align-items-center mb-5">
+                                    <i class="fas fa-money-bill-alt text-white"></i>
+                                </div>
+                                <div class="tchCardContentLeft2">
+                                    <h6 class="text-white">Total Income</h6>
+                                </div>
+                            </div>
+                            <div class="tchCardContentRight mt-2" id="tchTotalIncome">
+                                <h1 class="color-white fw-bold">43,000</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-9 col-lg-12 col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <Section class="homeWhatsNew mb-5">
+                                <div class="homeWhatsNewHeading mb-4">
+                                    <h6 class="fw-bold">Course of this month</h6>
+                                </div>
+                                <div class="homeWhatsNewcarousel owl-carousel">
+                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
+                                        <div class="card">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top "
+                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <a href="">
+                                                <div class="card-body card-body-height">
+                                                    <h5 class="fw-bold">Video Editing 2022</h5>
+                                                    <div class="card-body-text">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center">
+                                                            <div class="fs10">
+                                                                <div>
+                                                                    <small class="color-grey">20
+                                                                        Classes</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fs10">
+                                                                <div class="text-end">
+                                                                    <small class="color-grey">10 may
+                                                                        2021</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
+                                        <div class="card">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top "
+                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <a href="">
+                                                <div class="card-body card-body-height">
+                                                    <h5 class="fw-bold">Video Editing 2022</h5>
+                                                    <div class="card-body-text">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center">
+                                                            <div class="fs10">
+                                                                <div>
+                                                                    <small class="color-grey">20
+                                                                        Classes</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fs10">
+                                                                <div class="text-end">
+                                                                    <small class="color-grey">10 may
+                                                                        2021</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
+                                        <div class="card">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top "
+                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <a href="">
+                                                <div class="card-body card-body-height">
+                                                    <h5 class="fw-bold">Video Editing 2022</h5>
+                                                    <div class="card-body-text">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center">
+                                                            <div class="fs10">
+                                                                <div>
+                                                                    <small class="color-grey">20
+                                                                        Classes</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fs10">
+                                                                <div class="text-end">
+                                                                    <small class="color-grey">10 may
+                                                                        2021</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
+                                        <div class="card">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top "
+                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <a href="">
+                                                <div class="card-body card-body-height">
+                                                    <h5 class="fw-bold">Video Editing 2022</h5>
+                                                    <div class="card-body-text">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center">
+                                                            <div class="fs10">
+                                                                <div>
+                                                                    <small class="color-grey">20
+                                                                        Classes</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fs10">
+                                                                <div class="text-end">
+                                                                    <small class="color-grey">10 may
+                                                                        2021</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
+                                        <div class="card">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top "
+                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <a href="">
+                                                <div class="card-body card-body-height">
+                                                    <h5 class="fw-bold">Video Editing 2022</h5>
+                                                    <div class="card-body-text">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center">
+                                                            <div class="fs10">
+                                                                <div>
+                                                                    <small class="color-grey">20
+                                                                        Classes</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fs10">
+                                                                <div class="text-end">
+                                                                    <small class="color-grey">10 may
+                                                                        2021</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
+                                        <div class="card">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top "
+                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <a href="">
+                                                <div class="card-body card-body-height">
+                                                    <h5 class="fw-bold">Video Editing 2022</h5>
+                                                    <div class="card-body-text">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center">
+                                                            <div class="fs10">
+                                                                <div>
+                                                                    <small class="color-grey">20
+                                                                        Classes</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fs10">
+                                                                <div class="text-end">
+                                                                    <small class="color-grey">10 may
+                                                                        2021</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
+                                        <div class="card">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top "
+                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <a href="">
+                                                <div class="card-body card-body-height">
+                                                    <h5 class="fw-bold">Video Editing 2022</h5>
+                                                    <div class="card-body-text">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center">
+                                                            <div class="fs10">
+                                                                <div>
+                                                                    <small class="color-grey">20
+                                                                        Classes</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fs10">
+                                                                <div class="text-end">
+                                                                    <small class="color-grey">10 may
+                                                                        2021</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Section>
+                        </div>
+                        <div class="col-lg-12 mb-2">
+                            <div class="tchDashTable table-responsive">
+                                <h6 class="fw-bold mb-4">Withdrawal History this month</h6>
+                                <table class="table">
+                                    <tbody class="color-grey">
+                                        <tr class="bg-cl-ash text-white">
+                                            <td scope="col">#</td>
+                                            <td scope="col">Date</td>
+                                            <td scope="col">Account No.</td>
+                                            <td scope="col">Name</td>
+                                            <td scope="col">Amount</td>
+                                            <td scope="col">Method</td>
+                                            <td scope="col">Status</td>
+                                            <td scope="col" class="tchTableLastChild d-flex justify-content-end">
+                                                Action
+                                            </td>
+                                        </tr>
+                                        <tr class="">
+                                            <td scope="row">1</td>
+                                            <td>13 Jun 2020</td>
+                                            <td>12345678973563</td>
+                                            <td>Bipu</td>
+                                            <td>500.00</td>
+                                            <td>DBBL</td>
+                                            <td>
+                                                <small
+                                                    class="bg-cl-parrot px-3 py-1 d-flex justify-content-center cl-green rounded-3">
+                                                    Paid
+                                                </small>
+                                            </td>
+                                            <td class="tchTableLastChild">
+                                                <div class="tchDashTableLastContent d-flex justify-content-end">
+                                                    <div class="tchDashTableLastContent1 me-2">
+                                                        <small
+                                                            class="bg-cl-light-green cursor px-3 py-1 d-flex justify-content-center cl-green rounded-3">
+                                                            <i
+                                                                class="far fa-eye d-flex align-items-center me-1"></i>
+                                                            View
+                                                        </small>
+                                                    </div>
+                                                    <div class="tchDashTableLastContent2">
+                                                        <small
+                                                            class="bg-cl-light-red cursor px-3 py-1 d-flex justify-content-center color-red rounded-3">
+                                                            <i
+                                                                class="far fa-trash-alt d-flex align-items-center me-1"></i>
+                                                            Delete
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="">
+                                            <td scope="row">2</td>
+                                            <td>13 Jun 2020</td>
+                                            <td>12345678973563</td>
+                                            <td>Bipu</td>
+                                            <td>500.00</td>
+                                            <td>DBBL</td>
+                                            <td>
+                                                <small
+                                                    class="bg-cl-parrot px-3 py-1 d-flex justify-content-center cl-green rounded-3">
+                                                    Paid
+                                                </small>
+                                            </td>
+                                            <td class="tchTableLastChild">
+                                                <div class="tchDashTableLastContent d-flex justify-content-end">
+                                                    <div class="tchDashTableLastContent1 me-2">
+                                                        <small
+                                                            class="bg-cl-light-green cursor px-3 py-1 d-flex justify-content-center cl-green rounded-3">
+                                                            <i
+                                                                class="far fa-eye d-flex align-items-center me-1"></i>
+                                                            View
+                                                        </small>
+                                                    </div>
+                                                    <div class="tchDashTableLastContent2">
+                                                        <small
+                                                            class="bg-cl-light-red cursor px-3 py-1 d-flex justify-content-center color-red rounded-3">
+                                                            <i
+                                                                class="far fa-trash-alt d-flex align-items-center me-1"></i>
+                                                            Delete
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="">
+                                            <td scope="row">3</td>
+                                            <td>13 Jun 2020</td>
+                                            <td>12345678973563</td>
+                                            <td>Bipu</td>
+                                            <td>500.00</td>
+                                            <td>DBBL</td>
+                                            <td>
+                                                <small
+                                                    class="bg-cl-parrot px-3 py-1 d-flex justify-content-center cl-green rounded-3">
+                                                    Paid
+                                                </small>
+                                            </td>
+                                            <td class="tchTableLastChild">
+                                                <div class="tchDashTableLastContent d-flex justify-content-end">
+                                                    <div class="tchDashTableLastContent1 me-2">
+                                                        <small
+                                                            class="bg-cl-light-green cursor px-3 py-1 d-flex justify-content-center cl-green rounded-3">
+                                                            <i
+                                                                class="far fa-eye d-flex align-items-center me-1"></i>
+                                                            View
+                                                        </small>
+                                                    </div>
+                                                    <div class="tchDashTableLastContent2">
+                                                        <small
+                                                            class="bg-cl-light-red cursor px-3 py-1 d-flex justify-content-center color-red rounded-3">
+                                                            <i
+                                                                class="far fa-trash-alt d-flex align-items-center me-1"></i>
+                                                            Delete
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="">
+                                            <td scope="row">4</td>
+                                            <td>13 Jun 2020</td>
+                                            <td>12345678973563</td>
+                                            <td>Bipu</td>
+                                            <td>500.00</td>
+                                            <td>DBBL</td>
+                                            <td>
+                                                <small
+                                                    class="bg-cl-parrot px-3 py-1 d-flex justify-content-center cl-green rounded-3">
+                                                    Paid
+                                                </small>
+                                            </td>
+                                            <td class="tchTableLastChild">
+                                                <div class="tchDashTableLastContent d-flex justify-content-end">
+                                                    <div class="tchDashTableLastContent1 me-2">
+                                                        <small
+                                                            class="bg-cl-light-green cursor px-3 py-1 d-flex justify-content-center cl-green rounded-3">
+                                                            <i
+                                                                class="far fa-eye d-flex align-items-center me-1"></i>
+                                                            View
+                                                        </small>
+                                                    </div>
+                                                    <div class="tchDashTableLastContent2">
+                                                        <small
+                                                            class="bg-cl-light-red cursor px-3 py-1 d-flex justify-content-center color-red rounded-3">
+                                                            <i
+                                                                class="far fa-trash-alt d-flex align-items-center me-1"></i>
+                                                            Delete
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 tchgraph">
+                            <div style="overflow-x: scroll;">
+                                <canvas id="income" width="1100" height="400"></canvas>
+                            </div>
+                            <script>
+                                var barData = {
+                                    labels: ["January", "February", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                                    datasets: [
+                                        {
+                                            fillColor: "#48A497",
+                                            data: [4056, 4079, 3024, 5069, 7002, 6000, 10000, 10500, 7500, 8000, 10000, 4500]
+                                        }
+                                    ]
+                                }
+                                // get bar chart canvas
+                                var income = document.getElementById("income").getContext("2d");
+                                // draw bar chart
+                                new Chart(income).Bar(barData);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 col-lg-4">
+                    <h6 class="fw-bold px-4 mb-3">Reviews at a Glance</h6>
+                    <div class="tchDashReview  px-4">
+                        <div class="tchDashReviewCard p-2 d-flex">
+                            <div class="tchDashReviewCardImg">
+                                <img src="{% static 'app/Assets/Images/Author/1Author.jpeg' %}" alt="">
+                            </div>
+                            <div class="tchDashReviewCardContent ms-2">
+                                <div class="tchDashReviewCardContent1">
+                                    <small class="color-span">Md Sadik Hossain</small>
+                                </div>
+                                <div class="tchDashReviewCardContent2 color-yellow">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tchDashReviewCard p-2 d-flex">
+                            <div class="tchDashReviewCardImg">
+                                <img src="{% static 'app/Assets/Images/Author/1Author.jpeg' %}" alt="">
+                            </div>
+                            <div class="tchDashReviewCardContent ms-2">
+                                <div class="tchDashReviewCardContent1">
+                                    <small class="color-span">Md Sadik Hossain</small>
+                                </div>
+                                <div class="tchDashReviewCardContent2 color-yellow">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tchDashReviewCard p-2 d-flex">
+                            <div class="tchDashReviewCardImg">
+                                <img src="{% static 'app/Assets/Images/Author/1Author.jpeg' %}" alt="">
+                            </div>
+                            <div class="tchDashReviewCardContent ms-2">
+                                <div class="tchDashReviewCardContent1">
+                                    <small class="color-span">Md Sadik Hossain</small>
+                                </div>
+                                <div class="tchDashReviewCardContent2 color-yellow">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tchDashReviewCard p-2 d-flex">
+                            <div class="tchDashReviewCardImg">
+                                <img src="{% static 'app/Assets/Images/Author/1Author.jpeg' %}" alt="">
+                            </div>
+                            <div class="tchDashReviewCardContent ms-2">
+                                <div class="tchDashReviewCardContent1">
+                                    <small class="color-span">Md Sadik Hossain</small>
+                                </div>
+                                <div class="tchDashReviewCardContent2 color-yellow">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tchDashReviewCard p-2 d-flex">
+                            <div class="tchDashReviewCardImg">
+                                <img src="{% static 'app/Assets/Images/Author/1Author.jpeg' %}" alt="">
+                            </div>
+                            <div class="tchDashReviewCardContent ms-2">
+                                <div class="tchDashReviewCardContent1">
+                                    <small class="color-span">Md Sadik Hossain</small>
+                                </div>
+                                <div class="tchDashReviewCardContent2 color-yellow">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tchDashReviewCard p-2 d-flex">
+                            <div class="tchDashReviewCardImg">
+                                <img src="{% static 'app/Assets/Images/Author/1Author.jpeg' %}" alt="">
+                            </div>
+                            <div class="tchDashReviewCardContent ms-2">
+                                <div class="tchDashReviewCardContent1">
+                                    <small class="color-span">Md Sadik Hossain</small>
+                                </div>
+                                <div class="tchDashReviewCardContent2 color-yellow">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Teacher Profile End -->
+
+<!-- Bottom Section -->
+
+<footer class="CopyRight ">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="copyRightContentLeft">
+            &copy; 2021 livetechltd. All rights Reserved
+        </div>
+        <div class="copyRightContentRight text-white">
+            <a href=""><i class="fab fa-facebook-f me-3"></i></a>
+            <a href=""> <i class="fab fa-twitter me-3"></i></a>
+            <a href=""><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+</footer>
+{% endblock main %}

@@ -1,0 +1,292 @@
+ {% extends 'app/base.html' %}
+  {% load static %}
+  {% load mathfilters %}
+  {% block title %}Poralekha|Library{% endblock title %}
+  {% block content %}
+
+
+    <!-- mobile version filter start -->
+    <section class="mobileVersion">
+
+        <!-- main filter -->
+        <div class="mainFilter">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: white !important;">
+                <div class="container-fluid">
+                    <div class="singleCtagoryRight1 d-flex flex-column mt-3 ps-4">
+                        <div class="singleCtagoryRight1Heading cl-pm">
+                            <a href="{% url 'all_books' %}">
+                            <h4><span class="color-span">All Books</span></h4>
+                            </a>
+                        </div>
+                        <div class="singleCtagoryRight1Catagory mt-3">
+                            <ul class="navbar-nav">
+                                <li class="nav-item ">
+                                    <form action="{% url 'all_books' %}" method="GET">
+                                    <select id="inputState" class="form-select color-span" name="perpage" onchange='this.form.submit()'>
+                                        <option value="15" selected>15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
+                                        <option value="60">60</option>
+                                    </select>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-5 pe-3">
+                        <button
+                            class="navbar-toggler filterTabToggle border-0 bg-cl-grey4 d-flex justify-content-center align-items-center"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-filter cl-pm"></i>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse mt-5 px-4" id="navbarSupportedContent1">
+                        <form action="{% url 'all_books' %}" method='GET'>
+                            <div class="d-flex flex-column align-items-center">
+                                <div
+                                    class="singleCtagoryLeft1 mt-5 mb-4 d-flex justify-content-center align-items-center">
+                                    <input style="font-family:'Font Awesome 5 Free'; " class="" type="search"
+                                        placeholder="&#61442 Search" aria-label="Search" name="search">
+                                </div>
+                                <div class="allCoursescheckbox mb-4 py-4 ps-3">
+                                {% for cat in categories %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="{{cat.id}}" id="flexCheckDefault" name="cat">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            {{cat.category_name}}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                                    
+                                </div>
+                                <div class="multiHandleRange">
+                                    <div class="multiHandleInput">
+                                        <h6 class="fw-bold ms-2">Price</h6>
+                                        <div class="RangeSlider-track"></div>
+                                        <input type="range" min="{{minp.book_price}}" max="{{maxp.book_price}}" value="{{minPrice}}" id="slider-1"
+                                            oninput="slideOne()" name="minPrice">
+                                        <input type="range" min="{{minp.book_price}}" max="{{maxp.book_price}}" value="{{maxPrice}}" id="slider-2"
+                                            oninput="slideTwo()" name="maxPrice">
+                                    </div>
+                                    <div class="multiHandleValues mb-4">
+                                        <span id="multiHandleRange1">
+                                            {{minPrice}}
+                                        </span>
+                                        <span> &dash; </span>
+                                        <span id="multiHandleRange2">
+                                            {{maxPrice}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="singleCtagoryLeft4 mt-3">
+                                    <button class="btn btn3 bg-cl-pm w-100" type="submit">Apply Filter</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <!-- mobile version filter end -->
+
+    <!-- header end -->
+
+    <!------------All Books Breadcrumb-------------------->
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+   
+    <section class="singleCtagory">
+        <div class="container">
+            <div class="row my-5">
+                <div class="col-xl-3 col-lg-4 filter d-flex flex-column">
+                    <h4 class="color-span">Filter</h4>
+                    <form action="{% url 'all_books' %}" method='GET'>
+                        <div class="singleCtagoryLeft1 mt-5 mb-4 d-flex justify-content-center align-items-center">
+                            <input style="font-family:'Font Awesome 5 Free'; " class="" type="search"
+                                placeholder="&#61442 Search" aria-label="Search" name="search">
+                        </div>
+                        <div class="allCoursescheckbox mb-4 py-4 ps-3">
+                        {% for cat in categories %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{cat.id}}" id="flexCheckDefault" name="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault" value="hello">
+                                    {{cat.category_name}}
+                                </label>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="multiHandleRangeb">
+                            <div class="multiHandleInputb">
+                                <h6 class="fw-bold ms-2">Price</h6>
+                                <div class="RangeSliderb-track"></div>
+                                <input type="range" min="{{minp.book_price}}" max="{{maxp.book_price}}" value="{{minPrice}}" id="sliderb-1"
+                                    oninput="slideOne1()" name="minPrice">
+                                <input type="range" min="{{minp.book_price}}" max="{{maxp.book_price}}" value="{{maxPrice}}" id="sliderb-2"
+                                    oninput="slideTwo1()" name="maxPrice">
+                            </div>
+                            <div class="multiHandleValuesb mb-4">
+                                <span id="multiHandleRangeb1">
+                                    {{minPrice}}
+                                </span>
+                                <span> &dash; </span>
+                                <span id="multiHandleRangeb2">
+                                    {{maxPrice}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="singleCtagoryLeft4 mt-4">
+                            <button class="btn btn3 bg-cl-pm w-100" type="submit">Apply Filter</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="singleCtagoryRight1 singleCatWeb d-flex justify-content-between">
+                        <div class="singleCtagoryRight1Heading cl-pm">
+                            <a href="{% url 'all_books' %}">
+                            <h4><span class="color-span">All Books</span></h4>
+                            </a>
+                        </div>
+                        <div class="singleCtagoryRight1Catagory">
+                            <ul class="navbar-nav">
+                                <li class="nav-item ">
+                                    <form action="{% url 'all_books' %}" method="GET">
+                                    <select id="inputState" class="form-select color-span" name="perpage" onchange='this.form.submit()'>
+                                        <option value="15" >15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
+                                        <option value="60">60</option>
+                                    </select>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="singleCtagoryRight2">
+                        <div class="row mt-5">
+                        {% if page_obj %}
+                        {% for book in page_obj %}
+                            <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
+                                <div class="homeWhatsNewImg booksCard">
+                                    <div class="card card-height">
+                                        <div class="card-img d-flex  justify-content-end">
+                                            <img class="card-img-top " src="{{book.book_image.url}}"
+                                                alt="Card image cap">
+                                            <li class="bookmark click-icon">
+                                                {% if user.is_authenticated %}
+                                                {% if book in bwishlist %}
+                                                    <p> <i class="fas fa-heart toggle-box toggle-pressed add-bwishlist"  data-product="{{book.id}}"></i>
+                                                {% else %}
+                                                    <p> <i class="fas fa-heart toggle-box add-bwishlist" data-product="{{book.id}}" ></i>
+                                                {% endif %}
+                                                {% else %}
+                                                <p> <i class="fas fa-heart "  onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                                                {% endif %}
+                                            </li>
+                                        </div>
+                                        <div class="cardOverlay px-3 d-flex justify-content-center align-items-center">
+                                            <i class="fas fa-cart-plus me-2"></i>
+                                            {% if user.is_authenticated %}
+                                            <p class="mt-3 add-bcart" data-product="{{book.id}}" data-qty="1">Add to cart</p>
+                                            {% else %}
+                                            <p class="mt-3 " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});">Add to cart</p>
+                                            {% endif %}
+                                        </div>
+                                        <a href="{% url 'book_details' book.id %}">
+                                            <div class="card-body card-body-height">
+                                                <h5 class="fw-bold">{{book.book_title}}</h5>
+                                                <div class="homeFeaturedCardTag mb-2">
+                                                {% for i in book.book_tag %}
+                                                    <small class="cl-pm">{{i}}</small>
+                                                {% endfor %}
+                                                    
+                                                </div>
+                                                <div class="card-body-text">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="">
+                                                            <div>
+                                                                <small>{{book.author_id.author_name}}</small>
+                                                            </div>
+                                                            <div class="d-flex align-items-center mt-2">
+                                                                <h5 class="cl-pm m-0 fw-bold">{{book.discounted_price}} Tk</h5>
+                                                                <strike class="color-grey  mx-2"><small>{{book.book_price}} Tk</small>
+                                                                </strike>
+                                                                <small class="color-green">{{book.book_offer}}%</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="fs10">
+                                                            <div class="d-flex align-items-center mt-1">
+                                                                <small class="me-1 ">
+                                                                    <i class="fas fa-star {% if book.book_review > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    <i class="fas fa-star {% if book.book_review > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    <i class="fas fa-star {% if book.book_review > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    <i class="fas fa-star {% if book.book_review > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    <i class="fas fa-star {% if book.book_review > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                </small>
+                                                                <small class="color-grey">{{book.no_of_ratings}}</small>
+                                                            </div>
+                                                            <div class="text-end mt-2">
+                                                                <small class="color-grey">{{book.total_sales}} Sales</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <h4>No Book Found</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                </div>
+                 <div class="pagination d-flex justify-content-center">
+                    <ul class="d-flex flex-wrap align-items-center">
+                        {% if page_obj.has_previous %}
+                        <a  href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-double-left px-2 cl-pm"></i></a>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if num == page_obj.number %}
+                                <li class="px-3 py-1 mx-1 bg-cl-pm color-white rounded-3">{{num}}</li>
+                            {% else %}
+                                {% if num == 1 %}
+                                <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% else %}
+                                    {% if num|add:"-3" <= page_obj.number and page_obj.number <= num|add:"3" %}
+                                    <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                    {% elif num|divisibleby:"10" or num == page_obj.paginator.num_pages %}
+                                    <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-double-right px-2 cl-pm"></i></a>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+
+            </div>
+        </div>
+    </section>
+
+    
+{% endblock content %}

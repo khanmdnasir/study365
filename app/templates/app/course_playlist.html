@@ -1,0 +1,473 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|Course Playlist{% endblock title %}
+{% block link %} 
+<style>
+{% for c in chapters %}
+.coursePlaylistAccordionBtn{{c.id}}{
+  position: relative;
+}
+.coursePlaylistAccordionBtn{{c.id}}::before{
+  content: '{{c.total_lesson}}';
+  position: absolute;
+  color: #380E86;
+  font-weight: 600;
+  font-size: 12px;
+  right: 13%;
+}
+.coursePlaylistAccordionBtn{{c.id}}:not(.collapsed) {
+  background-color: #E9EDF3;
+}
+{% endfor %}
+</style>
+
+{% endblock link %}
+{% block content %}
+ <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="#">Courses</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{course.course_title}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+   
+    <section class="coursePlaylist">
+        <div class="container">
+            <div class="row mt-5">
+                    <div class="col-xl-8 col-lg-7 col-md-12 col-12 cplist-showcase">
+                        {% comment %} <div class="demo dnone">
+                            <video src="{% static 'app/Assets/Video/test.mkv' %}" controls width="100%" height="100%"
+                                class="rounded-3"></video>
+                        </div> {% endcomment %}
+                        
+                        
+                        {% for l in lessons %}
+                        
+
+                        {% if l.lesson_type == 'V' %}
+                        <div class="v{{l.id}} demo  {% if forloop.counter != 1 %}dnone{% endif %}">
+                            {% if l.lesson_video %}
+                            <video src="{{l.lesson_video.url}}"   controls width="100%" height="100%"
+                                class="rounded-3"></video>
+                            {% endif %}
+                        </div>
+                        
+                        {% endif %}
+
+                        {% if l.lesson_type == 'A' %}
+                        <div class="a{{l.id}} demo {% if forloop.counter != 1 %}dnone{% endif %}">
+                        <!-- We'll transform this input into a pond -->
+                            <div class="courseAssignment d-flex">
+                                <div class="courseAssignmentLeft col-lg-6 col-md-12 col-12  px-3 py-4 bg-cl-grey4">
+                                    {% comment %} <h4 class="fw-bold">Assignment Title</h4> {% endcomment %}
+                                    <small class="color-grey">
+                                        {{l.assignment_instruction}}
+                                    </small>
+                                    <hr>
+                                    <h4 class="fw-bold">Upload Files</h4>
+                                    <div class="coursePlayInstructionBtn  align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="far fa-file-pdf cl-pm me-4" style="font-size: 24px;"></i> <small
+                                                class="color-grey">{{l.assignment_file.name}}</small>
+                                        </div>
+                                        <div class="mb-2">
+                                                {% if l.assignment_file %}
+                                            <a href="{{l.assignment_file.url}}" Download
+                                                class="px-4 py-2 border-0 bg-cl-pm rounded-3 color-white">Download</a>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-12 bg-cl-grey5">
+                                    
+                                    <form method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="courseAssignmentRight">
+                                            <div class="courseAssignmentUpload  mb-5 py-5">
+                                                <input type='hidden' value="{{l.id}}" name="lesson_id" />
+                                                <input type="file" id="real-file" hidden="hidden" name="afile"/>
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <div class="text-center">
+                                                        <h5 class="fw-bold">Browse Your Files</h5>
+                                                        <p class="color-grey">Support pdf,doc,ppt</p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            class="mb-3 border-0 bg-cl-pm color-white px-5 py-2 rounded-3"
+                                                            type="button" id="custom-button">
+                                                            Browse
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <span class="d-flex justify-content-center" id="custom-text"><i
+                                                        class="fas fa-file-alt me-2"></i> No file
+                                                    chosen, yet.</span>
+                                                <div class="courseAssignmentBtn d-flex justify-content-center mt-5 px-5">
+                                                    <button class="bg-cl-grey5 cl-pm py-2 rounded-3 w-100"
+                                                        type="submit">Submit</button>
+                                                </div>
+    
+                                            </div>
+                                            <!-- <div class="">
+                                                <button class="border-0 bg-cl-pm color-white px-5 py-2 rounded-3"
+                                                    type="submit">Submit</button>
+                                            </div> -->
+                                        </div>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if l.lesson_type == 'I' %}
+                        <div class="i{{l.id}} demo {% if forloop.counter != 1 %}dnone{% endif %}">
+                            <div class="courseAssignment">
+                                <div class="courseAssignmentLeft  px-3 py-4 bg-cl-grey4 rounded-3">
+                                    {% comment %} <h4 class="fw-bold">Assignment Title</h4> {% endcomment %}
+                                    <small class="color-grey ">
+                                        {{l.text_instruction}}
+                                    </small>   
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if l.lesson_type == 'Q' %}
+                        <div class=" q{{l.id}} demo {% if forloop.counter != 1 %}dnone{% endif %}">
+                            <div class="">
+                                <div class="mcqMainDivBg">
+                                    <div {% if l.id in squiz %} class="mcqMainDiv disappear1{{l.id}} dnone" {% else %} class="mcqMainDiv disappear1{{l.id}}" {% endif %}>
+                                        <h3 class="cl-pm mb-4">MCQ Test</h3>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-6">
+                                                <p>Topics :</p>
+                                            </div>
+                                            <div class="col-lg-9 col-6">
+                                                <p>{{l.lesson_title}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-6">
+                                                <p>Total QS :</p>
+                                            </div>
+                                            <div class="col-lg-9 col-6">
+                                                <p>{{l.total_quiz}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-6">
+                                                <p>Total Marks :</p>
+                                            </div>
+                                            <div class="col-lg-9 col-6">
+                                                <p>{{l.quiz_total_mark}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-6">
+                                                <p>Pass Score :</p>
+                                            </div>
+                                            <div class="col-lg-9 col-6">
+                                                <p>{{l.quiz_pass_mark}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-6">
+                                                <p>Negative Marking :</p>
+                                            </div>
+                                            <div class="col-lg-9 col-6">
+                                                {% if l.quiz_negative %}
+                                                <p>Yes</p>
+                                                {% else %}
+                                                <p>No</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <p><span class="cl-pm fw-bold">Note : </span>No worries..!!! if you fail to gain
+                                            pass score, then you can participate this exam again.</p>
+
+
+                                        <button type="button" class="mt-3 btn btn-3  btn-light cl-pm fw-bold"
+                                            onclick="startMcq({{l.id}})">Let's Start &nbsp;&nbsp;&nbsp; <i
+                                                class="fas fa-arrow-right"></i></button>
+
+                                    </div>
+
+
+                                    <div {% if l.id in squiz %} class="mcqMainDiv disappear2{{l.id}} " {% else %} class="mcqMainDiv disappear2{{l.id}} dnone" {% endif %}>
+                                        <h3 class="cl-pm mb-4">MCQ Test Result</h3>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-6">
+                                                <p>Topics :</p>
+                                            </div>
+                                            <div class="col-lg-9 col-6">
+                                                <p>{{l.lesson_title}}</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-6">
+                                                <p class="fw-bold">Total Marks Earns:</p>
+                                            </div>
+                                            <div class="col-lg-9 col-6">
+                                                <p class="fw-bold" id="correctAnswer{{l.id}}">{{l.quiz_mark}}</p>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+                                        {% comment %} <button type="button" class="mt-3 btn btn-3  btn-light cl-pm fw-bold"
+                                            onclick="btnCheck('video')">Next Page &nbsp;&nbsp;&nbsp; <i
+                                                class="fas fa-arrow-right"></i></button> {% endcomment %}
+
+                                    </div>
+                                </div>
+
+                                <div   class="quizContainer container-fluid  appear1{{l.id}} dnone "  >
+                                    <div id="quiz1">
+
+                                        <div class="mb-2" style="color:#380E86;"><span id="iTimeShow{{l.id}}">
+                                            </span><br /><span id='timer{{l.id}}' style="font-size:25px;"></span>
+                                        </div>
+
+
+
+                                        <section class="quizJScontainer ">
+                                            <div class="question"></div>
+                                            <ul class="choiceList mt-5 mb-5"></ul>
+                                            <div class="quizMessage" style="position: absolute;top: 8.3%; right: 3.5%;">
+                                            </div>
+                                            <!-- <div class="result"></div> -->
+                                            <div class="mcqButton d-flex justify-content-evenly ">
+                                                <button type="button" class="mb-3 btn btn3 bg-cl-pm preButton">Previous
+                                                    Question</button>
+                                                <button type="button" class="mb-3 btn btn3 bg-cl-pm nextButton">Next
+                                                    Question</button>
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        
+                        {% endfor %}
+                    </div>
+                    <div class="courseAccordion col-xl-4 col-lg-5 col-md-12 col-12">
+                        <div class="accordion" id="accordionExample">
+                        {% for c in chapters %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">                                    
+                                    <button class="accordion-button coursePlaylistAccordionBtn{{c.id}}" type="button" 
+                                        data-bs-toggle="collapse" data-bs-target="#faq{{forloop.counter}}" {% if forloop.counter > 0 %} aria-expanded="false" {% else %} aria-expanded="true" {% endif %}
+                                        aria-controls="faq{{forloop.counter}}">
+                                        <span class="bg-cl-pm px-2 py-1 rounded-3 text-white me-2">{{forloop.counter}}</span> <small
+                                            class="color-span">{{c.chapter_name}}</small>{{c.total_clesson}}
+                                    </button>
+                                    
+                                </h2>
+                                <div id="faq{{forloop.counter}}" {% if forloop.counter == 1 %}class="accordion-collapse collapse show " {% else %} class="accordion-collapse collapse " {% endif %} aria-labelledby="heading{{forloop.counter}}"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        {% for l in lessons %}
+                                        {% if c.id == l.chapter_id.id%}
+                                        {% if l.lesson_type == 'V' %}
+                                        <div class="d-flex justify-content-between cursor color-span mb-3" 
+                                            onclick="btnCheck('{{l.id}}')">
+    
+                                            <div>
+                                                <small>{% if l.id in svideo %}<i class="fas fa-check me-2 cl-green  "></i>{% endif %}{{l.lesson_title}}</small>
+                                            </div>
+                                            <div>
+                                                <small><i class="far fa-play-circle me-2"></i> </small>
+                                            </div>
+    
+                                        </div>
+                                        {% endif %}
+                                        
+                                        {% if l.lesson_type == 'A' %}
+                                        <div class="d-flex justify-content-between cursor color-span mb-3"
+                                            onclick="btnCheck('{{l.id}}')">
+    
+                                            <div>
+                                                <small>{% if l.id in sassignment %}<i class="fas fa-check me-2 cl-green  "></i>{% endif %}{{l.lesson_title}}</small>
+                                            </div>
+                                            <div>
+                                                <small><i class="far fa-file-alt me-2"></i></small>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if l.lesson_type == 'I' %}
+                                        <div class="d-flex justify-content-between cursor color-span mb-3"
+                                        onclick="btnCheck('{{l.id}}')">
+
+                                        <div>
+                                            <small>{{l.lesson_title}}</small>
+                                        </div>
+                                        <div>
+                                            <small>txt</small>
+                                        </div>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if l.lesson_type == 'Q' %}
+                                        <div class="d-flex justify-content-between cursor  color-span mb-3"
+                                            onclick="btnCheck('{{l.id}}')">
+    
+    
+                                            <div>
+                                                <small>{% if l.id in squiz %}<i class="fas fa-check me-2 cl-green  "></i>{% endif %}{{l.lesson_title}}</small>
+                                            </div>
+                                            <div>
+
+                                                <small>{{l.total_quiz}} Mcq</small>
+                                            </div>
+    
+                                        </div>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {% endfor %}
+                        </div>
+                    </div> 
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div>
+                            <nav class="px-0">
+                                <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
+                                    <a class="nav-link active me-3" id="nav-test1-tab" data-bs-toggle="tab"
+                                        href="#nav-test1" role="tab" aria-controls="nav-test1" aria-selected="true">
+                                        Course Progress</a>
+    
+                                    <a class="nav-link me-3" id="nav-test2-tab" data-bs-toggle="tab" href="#nav-test2"
+                                        role="tab" aria-controls="nav-test2" aria-selected="false">
+                                        Q&A</a>
+    
+                                    <a class="nav-link me-3" id="nav-test3-tab" data-bs-toggle="tab" href="#nav-test3"
+                                        role="tab" aria-controls="nav-test2" aria-selected="false">
+                                        My Submission</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content mb-5" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-test1" role="tabpanel"
+                                    aria-labelledby="nav-test1-tab">
+                                    <div class="row">
+                                        <div class="col-lg-12 ">
+                                            <div class="courseProgressDiv px-3">
+                                                {% for sq in studentQuiz %}
+                                                <div class="courseProgress bg-white p-3 my-3">
+                                                    <div class="courseProgressContent  d-flex justify-content-between">
+                                                        <div
+                                                            class="courseProgressContentleft d-flex align-items-center">
+                                                            <div
+                                                                class="courseProgressContentleft1 d-flex justify-content-center align-items-center bg-cl-green">
+                                                                <i class="fas fa-mug-hot color-white"></i>
+                                                            </div>
+                                                            <div
+                                                                class="courseProgressContentleft2 d-flex flex-column ms-4">
+                                                                <small class="cl-green fw-bold">{{sq.lesson.lesson_title}}
+                                                                    </small>
+                                                                <small class="color-span">{{sq.quiz_mark}} out of {{sq.lesson.quiz_total_mark}}</small>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="courseProgressContentright d-flex align-items-center">
+                                                            <i class="far fa-check-circle cl-green"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-test2" role="tabpanel"
+                                    aria-labelledby="nav-test2-tab">
+                                    <div class="row">
+                                        <div class="col-md-12" id="fbcomment">
+                                            <div class="body_comment">
+                                                <div class="row align-items-center">
+                                                    <div class="col-xl-1 col-lg-1 col-md-2 col-2 mb-2">
+                                                        <div class="avatar_comment">
+                                                            <img src="https://static.xx.fbcdn.net/rsrc.php/v1/yi/r/odA9sNLrE86.jpg"
+                                                                alt="avatar" />
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-xl-10 col-lg-10 col-md-12 col-12 d-flex">
+                                                        <textarea class="form-control box_comment commentar w-75 me-2"
+                                                            placeholder="Type your topic..."></textarea>
+                                                        <button class="commentBtn btn btn3 bg-cl-pm px-4"
+                                                            onclick="submit_comment()" type="button"
+                                                            value="1">Post</button>
+                                                    </div>
+    
+                                                </div>
+    
+                                                <div class="row">
+                                                    <ul id="list_comment" class="col-md-12">
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-test3" role="tabpanel"
+                                    aria-labelledby="nav-test3-tab">
+                                    <div class="row">
+                                        <div class="col-lg-12 courseProgressDiv">
+                                            {% for sa in studentAssignment %}
+                                            <div class="courseProgress bg-white p-3 my-3">
+                                                <div class="courseProgressContent  d-flex justify-content-between">
+                                                    <div class="courseProgressContentleft d-flex align-items-center">
+                                                        <div
+                                                            class="courseProgressContentleft1 d-flex justify-content-center align-items-center bg-cl-grey2">
+                                                            <i class="far fa-file-pdf cl-pm"></i>
+                                                        </div>
+                                                        <div class="courseProgressContentleft2 d-flex flex-column ms-4">
+                                                            <small class="fw-bold">{{sa.lesson.lesson_title}}</small>
+                                                            <small class="color-span">{{sa.mark}}/{{sa.lesson.assignment_total_mark}}</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="courseProgressContentright d-flex align-items-center">
+                                                        <small class="color-span">{{sa.submitted_date}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+    </section>
+         
+    
+ {% endblock content %}

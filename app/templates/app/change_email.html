@@ -1,0 +1,99 @@
+ {% extends 'app/base.html' %}
+  {% load static %}
+  {% load mathfilters %}
+  {% block title %}Poralekha|Account Settings{% endblock title %}
+  {% block content %}
+
+   <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Account Settings</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--bread crump end -->
+
+
+{% include 'app/std-profile-nav.html' %}
+
+                <!-- mt5 media query desktop version -->
+                <div class="col-xl-9 col-lg-9 mtResponsive mb-5 ">
+                                            
+                    <div class="row mb-4">
+                        <div class="col-xl-4 col-md-4 col-12 pass-hU phoneContent none-phNumber">
+                        
+                            <label for="inputEmail4" class="form-label fw-bold">Phone Number</label>
+                            <p class="fw-bold m-0" ><a href="{% url 'change_phone' %}">Change</a></p>
+                            <input type="text" class="form-control" id="inputEmail4" value="{{user.phone_number}}" readonly>
+                        </div>
+                        
+
+                        {% comment %} <div class="col-xl-4 col-md-4 col-12 pass-hU emailContent none-email">
+                            <label for="inputEmail4" class="form-label fw-bold">Email Address</label>
+                            <p class="fw-bold m-0" onclick="toggleChange('change','email')">Change</p>
+                            <input type="email" class="form-control" id="inputEmail4" value="{{user.email}}" readonly>
+                        </div> {% endcomment %}
+                        <div class="col-xl-4 col-md-4 col-12 pass-hU  block-email">
+                        <form  method="POST">
+                            {% csrf_token %}
+                            {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
+                                <div class="alert alert-success" role="alert">
+                                {{ message }}
+                                </div>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            {% if uForm.non_field_errors  %}
+                            {% for error in uForm.non_field_errors %}
+                            <p class="alert alert-danger my-3">{{error}}</p>
+                            {% endfor %}
+                            {% endif %}
+                            
+                            <label for="inputEmail4" class="form-label  fw-bold">Email Address</label>
+                            <small class="text-danger">{{uForm.email.errors}}</small>
+                            {{uForm.email}}
+                            <button class="btn btn3 bg-cl-pm mt-3"  type="submit">Save
+                                Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+
+                    <a href='{% url 'changepassword' %}'>Change Password</a>
+                    {% comment %} <form class="col mt-3">
+                        <div class="col-xl-4 mb-2">
+                            <label for="inputPassword4" class="form-label fw-bold">Current Password</label>
+                            <div class="pass-hU">
+                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
+                                <i class="toggle-password fas fa-eye"></i>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 mb-2">
+                            <label for="inputPassword4" class="form-label fw-bold">New Password</label>
+                            <div class="pass-hU">
+                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
+                                <i class="toggle-password fas fa-eye"></i>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 mb-2">
+                            <label for="inputPassword4" class="form-label fw-bold">Confirm Password</label>
+                            <div class="pass-hU">
+                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
+                                <i class="toggle-password fas fa-eye"></i>
+                            </div>
+                        </div>
+                        <div class="col-4 mt-4 mb-2">
+                            <button type="submit" class="btn btn3 bg-cl-pm">Save Changes</button>
+                        </div>
+                    </form> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock content %}

@@ -1,0 +1,167 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|Author Profile{% endblock title %}
+{% block content %}
+ 
+ <!------------Breadcrumb-------------------->
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="#"> Author</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{author.author_name}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <section class="authorTop my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-5 col-12">
+                    <div class="homeWhatsNewImg authorCard">
+                        <div class="card">
+                            <div class="authorCardImg d-flex align-items-center justify-content-center">
+                                <img class="card-img-top" src="{{author.author_image.url}}" alt="Card image cap">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="cl-pm">{{author.author_name}}</h5>
+                                <small class="color-span">{{author.author_designation}}</small> <br>
+                                <small class="color-span">{{author.author_address}}</small>
+                                <p class="cl-pm mt-3"><span class="color-grey fw-bolder">{{author.author_total_book}}</span> Books</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-7 pt-3 ps-4 pe-5 authorCardContent">
+                    <h4 class="fw-bolder mb-4">About Author</h4>
+                    <p class="color-span">
+                        {{author.author_introduction}}
+                    </p>
+                    <div class="authorContact">
+                        <div class="col-lg-10">
+                            <table class="table table-borderless gx-0">
+                                <tbody>
+                                    <tr class="color-span">
+                                        <th class="text-start w-15" scope="row">Email</th>
+                                        <td class="text-start">{{author.author_email}}</td>
+                                    </tr>
+                                    <tr class="color-span">
+                                        <th class="text-start w-15" scope="row">Contact</th>
+                                        <td class="text-start">{{author.author_contact}}</td>
+                                    </tr>
+                                    <tr class="color-span">
+                                        <th class="text-start w-15" scope="row">Residence</th>
+                                        <td class="text-start">{{author.author_address}}</td>
+                                    </tr>
+                                    <tr class="color-span">
+                                        <th class="text-start w-15" scope="row">Social</th>
+                                        <td class="text-start">
+                                            <div class="authorIcon">
+                                                <a href="{{author.author_facebook}}"><i class="fab fa-facebook-f me-3"></i></a>
+                                                <a href="{{author.author_twitter}}"><i class="fab fa-twitter me-3"></i></a>
+                                                <a href="{{author.author_linkedin}}"><i class="fab fa-linkedin"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="authorBottom mb-5">
+        <div class="container">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-link active me-3" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab"
+                        aria-controls="nav-home" aria-selected="true">Books <span>({{author.total_books}})</span></a>
+                    <a class="nav-link me-3" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab"
+                        aria-controls="nav-profile" aria-selected="false">Reviews (203)</a>
+                </div>
+            </nav>
+            <div class="tab-content mt-5" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row">
+                    {% for book in author_books %}
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
+                            <div class="homeWhatsNewImg booksCard">
+                                <div class="card card-height">
+                                    <div class="card-img d-flex  justify-content-end">
+                                        <img class="card-img-top " src="{{book.book_image.url}}"
+                                            alt="Card image cap">
+                                        <li class="bookmark click-icon">
+                                            {% if user.is_authenticated %}
+                                            {% if book in bwishlist %}
+                                                <p> <i class="fas fa-heart toggle-box toggle-pressed add-bwishlist"  data-product="{{book.id}}"></i>
+                                                {% else %}
+                                                    <p> <i class="fas fa-heart toggle-box add-bwishlist"  data-product="{{book.id}}"></i>
+                                                {% endif %}
+                                                {% else %}
+                                                <p> <i class="fas fa-heart "  onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                                                {% endif %}
+                                        </li>
+                                    </div>
+                                    <div class="cardOverlay px-3 d-flex justify-content-center align-items-center">
+                                        <i class="fas fa-cart-plus me-2"></i>
+                                        {% if user.is_authenticated %}
+                                        <p class="mt-3 add-bcart" data-product="{{book.id}}" data-qty="1">Add to cart</p>
+                                        {% else %}
+                                        <p class="mt-3 " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});">Add to cart</p>
+                                        
+                                        {% endif %}
+                                    </div>
+                                    <a href="{% url 'book_details' book.id %}">
+                                        <div class="card-body card-body-height">
+                                            <h5 class="fw-bold">{{book.book_title}}</h5>
+                                            <div class="card-body-text">
+                                                <div class="">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div>
+                                                            <small>{{author.author_name}}</small>
+                                                        </div>
+                                                        <div class="bookStar d-flex align-items-center mt-1">
+                                                            <small class="me-1 ">
+                                                                <i class="fas fa-star {% if book.book_review > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                <i class="fas fa-star {% if book.book_review > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                <i class="fas fa-star {% if book.book_review > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                <i class="fas fa-star {% if book.book_review > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                <i class="fas fa-star {% if book.book_review > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            </small>
+                                                            <small class="color-grey">{{book.book_review}}</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class=" d-flex justify-content-between">
+                                                        <div class="d-flex align-items-center mt-2">
+                                                            <h5 class="cl-pm m-0 fw-bold">{{book.discounted_price}} Tk</h5>
+                                                            <strike class="color-grey mx-2"><small>{{book.book_price}} Tk</small>
+                                                            </strike>
+                                                            <small class="color-green">{{book.book_offer}}%</small>
+                                                        </div>
+                                                        <div class="text-end mt-2">
+                                                            <small class="color-grey">290 Sales</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

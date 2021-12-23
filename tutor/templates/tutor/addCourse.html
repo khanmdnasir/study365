@@ -1,0 +1,191 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block main %}
+{% include 'tutor/navbar.html' %}
+<section class="std-profile d-flex flex-wrap">
+    {% include 'tutor/tutor_tab.html' %} 
+    
+    <!-- teacher profile mobile version end -->
+
+    <div class="tchRight">
+        <div class="tchCourse">
+            <div class="mt-3 mb-5">
+                <div class="sc-breadcrump d-flex align-items-center bg-white">
+                    <div class="mt-2">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                        href="{% url 'home' %}">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active fw-bold" aria-current="page">Add a Course
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <section class="tchAddCourse signUpcongratulationRightContent">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row align-items-center">
+                            <h6 class="fw-bold mb-4">Create Course</h6>
+                            <div class="col-xxl-5 col-md-6 col-12 mb-4">
+                                <small class="fw-bold">Upload Course Thumbnail</small>
+                                <div class="">
+                                    <div class="file-upload my-3">
+                                        <div class="image-upload-wrap">
+                                            <input class="file-upload-input" type='file' onchange="readURL(this);"
+                                                accept="image/*" name="course_image" value="{{course.course_image}}"/>
+                                            <div class="drag-text">
+                                                <p class="color-grey">
+                                                    <i class="fas fa-photo-video"></i>
+                                                    <br>
+                                                    Drop your image here , or <span
+                                                        class="fw-bold cl-pm">Browse</span>
+                                                    <br>
+                                                    Support JPG, JPEG & PNG
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="file-upload-content">
+                                            <img class="file-upload-image" src="{% if course.course_image %}{{course.course_image.url}}{% endif %}" alt="your image" />
+                                            <div class="image-title-wrap">
+                                                <button type="button" onclick="removeUpload()"
+                                                    class="remove-image">Remove
+                                                    <span class="image-title">Uploaded Image</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xxl-7 col-md-6 col-12 mb-4">
+                                <div class="tchAddCourseTopRight">
+                                    <div class="tchAddCourseTopRight1 row px-2">
+                                        <div class="col-lg-6 my-3">
+                                            <label class="mb-1 color-grey fw-bold" for="Course Name">Course
+                                                Name</label>
+                                            <input class="px-3 tchAddCourseTopRightinput bg-white" type="text"
+                                                placeholder="type Course Name" required name="course_title" {% if course.course_title %}value="{{course.course_title}}"{% endif %}>
+                                        </div>
+                                        <div class="col-lg-6  my-3">
+                                            <label class="mb-1 color-grey fw-bold" for="Course Name">Course Category</label>
+                                            <div class="selector">
+                                                <select class="form-select  mb-3 color-grey"
+                                                    aria-label="example" name="category">
+                                                    <option selected>Select Course Category</option>
+                                                    {% for c in category %}
+                                                    <option value="{{c.id}}" {% if course.course_category == c %}selected{% endif %}>{{c.category_name}}</option>
+                                                    {% endfor %}
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tchAddCourseTopRight1 row px-2">
+                                        <div class="col-lg-6 col-12 my-2">
+                                            <div class="tchAddCourseMidLeft mb-4">
+                                                <label class="color-grey fw-bold mb-1" for="Price">Price</label>
+                                                <input class="px-2 tchAddCourseTopRightinput bg-white" type="text"
+                                                    placeholder="Type Here Price...." required name="price" {% if course.course_price %}value="{{course.course_price}}"{% endif %}>
+                                            </div>
+                                            
+                                        </div>
+                                       
+                                        <div class="col-xl-5 col-lg-8 col-md-9 col-12 ">
+                                            <div
+                                                class="tchAddCourseMidmiddle d-flex flex-wrap justify-content-around align-items-center mb-4">
+                                                
+                                                <div class="mb-3 mt-4">
+                                                    <div class="tchAddCourseMidmiddleDisc d-flex align-items-center">
+                                                        <label class="color-grey fw-bold" for="Discount">Offer</label>
+                                                        <input class="mx-2 bg-white px-2" type="number" name="offer" {% if course.course_offer %}value="{{course.course_offer}}"{% endif %}> <span>%</span>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-4">
+                                <div class="row">
+                                    <!-- Price -->
+                                    <div class="col-xl-3 col-lg-4 col-md-3 col-12 ">
+                                        <div class="tchAddCourseMidLeft mb-4">
+                                            <label class="color-grey fw-bold mb-1" >Duration</label>
+                                            <input class="px-2 tchAddCourseTopRightinput bg-white" type="text"
+                                                placeholder="1:20:00" required name="duration" {% if course.course_duration %}value="{{course.course_duration}}"{% endif %}>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-md-3 col-12 ">
+                                        <label class="mb-1 color-grey fw-bold" for="Course Name">Course
+                                            Launguage</label>
+                                        <div class="selector">
+                                            <select class="form-select mb-3 color-grey"
+                                                aria-label="example" name="language">
+                                                <option selected>Select Course launguage</option>
+                                                <option value="bangla" {% if course.course_language == 'bangla' %}selected{% endif %}>Bangla</option>
+                                                <option value="english" {% if course.course_language == 'english' %}selected{% endif %}>English</option>
+                                                <option value="hindi" {% if course.course_language == 'hindi' %}selected{% endif %}>Hindi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Discount Amount -->
+                                    
+                                    <!-- Discount duration -->
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-4">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <h5 class="color-grey fw-bold mb-2">Course OverView</h5>
+                                        <textarea class="p-2 w-100" name="overview" id="" rows="7"
+                                            placeholder="Type Here">{% if course.course_overview %}{{course.course_overview}}{% endif %}</textarea>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <h5 class="color-grey fw-bold mb-2">The Course Includes</h5>
+                                        <textarea class="w-100 p-2" name="includes" id="" rows="7"
+                                            placeholder="Type Includes using comma separate">{% if course.course_include %}{% for include in course.course_include %}{{include}},{% endfor %}{% endif %}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-4">
+                                <div class="">
+                                    <h5 class="color-grey fw-bold mb-2">Course Description</h5>
+                                    <textarea class="w-100 p-2" name="description" id="" rows="7"
+                                        placeholder="Description Type Here">{% if course.course_description %}{{course.course_description}}{% endif %}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-4">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="">
+                                            <h5 class="color-grey fw-bold mb-2">What Students will learn by veiwing
+                                                this course</h5>
+                                            <textarea class="w-100 p-2" name="outcome" id="" rows="7"
+                                                placeholder="Type outcome using comma separate">{% if course.course_outcome %}{% for outcome in course.course_outcome %}{{outcome}},{% endfor %}{% endif %}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <h5 class="color-grey fw-bold mb-2">For whome people this course targated to
+                                        </h5>
+                                        <textarea class="w-100 p-2" name="target" id="" rows="7"
+                                            placeholder="Type target using comma separate">{% if course.course_target %}{% for target in course.course_target %}{{target}},{% endfor %}{% endif %}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex  addCourse1 justify-c-c">
+                                <button class="bg-cl-pm color-white px-4 w35" type="submit"
+                                    > Save
+                                    & Add Content
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main %}

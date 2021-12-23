@@ -1,0 +1,44 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block title %}Poralekha|Verification Success{% endblock title %}
+{% block main %}
+    <section class="signUpCongratulation d-flex">
+        <div class="signUpcongratulationsLeft d-flex align-items-center">
+            <div
+                class="signUpcongratulationLeftContent d-flex flex-column justify-content-center align-items-center color-white">
+                <div class="signInUpLeftImg">
+                    <img src="{% static 'app/Assets/Images/signUp/logo.svg' %}" alt="">
+                </div>
+                <h4 class="fw-bold text-center px-2">One platform for Learning</h4>
+                <small class="text-center px-5 mx-5">Gether Knowledge and your educational Guidline from just in one
+                    place.</small>
+            </div>
+        </div>
+        <div class="signUpCongratulationRight d-flex justify-content-center align-items-center w-100">
+            <div class="container">
+                <div class="signUpBack d-flex justify-content-between w-75">
+                    <div>
+                        {% comment %} <a href="stdCreatePass.html" class="cl-pm">
+                            <i class="fa fa-arrow-left me-2"></i>
+                            Back
+                        </a> {% endcomment %}
+                    </div>
+                    <div>
+                        <a href="{% url 'home' %}" class="cl-pm">
+                            Home
+                            <i class="fas fa-home ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div
+                    class="signUpcongratulationRightContent d-flex flex-column justify-content-center align-items-center">
+                    <div class="SCRCI bg-cl-pm d-flex justify-content-center align-items-center mb-5">
+                        <i class="flaticon-verified-1 color-white"></i>
+                    </div>
+                    <h4 class="cl-pm fw-bold mb-5">Registration Success</h4>
+                    <button class="bg-cl-pm color-white" onclick="location.href='{% url 'tutor:tutor_dashboard' %}'">Let's Go</button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock main %}

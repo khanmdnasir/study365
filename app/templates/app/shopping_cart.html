@@ -1,0 +1,262 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|All Courses{% endblock title %}
+{% block content %}
+
+
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+   
+    
+    <section class="cart my-5">
+        <div class="container">
+            <div class="row">
+                {% if ccart or bcart or tcart %}
+               
+                <div class="cartLeft col-xl-9 col-lg-8">
+                    <div class="text-end">
+                        <a href="#" class="text-danger fw-bold" data-bs-toggle="modal" data-bs-target="#popUp">Delete All</a>
+                    </div>
+                    <div class="cartLeftTop">
+                        <div class="col-lg-12">
+                            <div class="cartLeftTopHeading d-flex justify-content-between mb-4">
+                                <h5 class="fw-bold">Course</h5>
+                            </div>
+                            <div class="cartLeftTopProductHead d-flex justify-content-between w-100 mb-3">
+                                <div class="cartProductIamge ms-2">
+                                    <small class="fw-bold">Product Details</small>
+                                </div>
+                                <div class="cartProductDetails">
+                                    <div>
+                                        <small class="fw-bold mb-hd-1">Total</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% for c in ccart%}
+                             {% comment %} <input type='hidden' value="{{c.course.id}}" name='course{{c.course.id}}' /> {% endcomment %}
+                            <div class="cartLeftTopProduct d-flex justify-content-between">
+                                <div class="cartProductIamge mx-2">
+                                    <div class="d-flex">
+                                        <div class="cartProductImg rounded-3 me-4">
+                                            <img src="{{c.course.course_image.url}}"
+                                                alt="">
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <h6 class="cl-pm fw-bold">{{c.course.course_title}}</h6>
+                                            <small class="color-grey mb-1">{{c.course.course_category.category_name}}</small>
+                                            <small class="cl-pm">{{c.course.instructor_id.user.first_name}} {{c.course.instructor_id.user.last_name}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cartProductDetails justify-content-end align-items-center">
+                                    <div class="cartTotal d-flex align-items-center text-end">
+                                        <h6 class="text-dark fw-bold mb-3">Tk <span class="course-price">{{c.course.course_price}}</span>
+                                        </h6>
+                                    </div>
+                                    <li class="bookmark d-flex justify-content-end ms-3">
+                                        <form action="{% url 'delete_ccart' c.course.id %}" id="dccart{{c.course.id}}">
+                                        
+                                        <p><i class="far fa-trash-alt color-red" onclick="document.getElementById('dccart{{c.course.id}}').submit();"></i>
+                                        </p>
+                                        </form>
+                                    </li>
+                                </div>
+                            </div>
+                            <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="cartLeftMiddle mt-5">
+                        <div class="col-lg-12">
+                            <div class="cartLeftTopHeading d-flex justify-content-between mb-4">
+                                <h5 class="fw-bold">Quiz</h5>
+                            </div>
+                            <div class="cartLeftTopProductHead d-flex justify-content-between w-100 mb-3">
+                                <div class="cartProductIamge ms-2">
+                                    <small class="fw-bold">Product Details</small>
+                                </div>
+                                <div class="cartProductDetails">
+                                    <div>
+                                        <small class="fw-bold mb-hd-1">Total</small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% for t in tcart %}
+                            <div class="cartLeftTopProduct d-flex justify-content-between">
+                                <div class="cartProductIamge mx-2">
+                                    <div class="d-flex">
+                                        {% comment %} <div class="cartProductImg rounded-3 me-4">
+                                            <img src="https://images.unsplash.com/photo-1516414447565-b14be0adf13e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1073&q=80"
+                                                alt="">
+                                        </div> {% endcomment %}
+                                        <div class="d-flex flex-column">
+                                            <h6 class="cl-pm fw-bold">{{t.test.title}}</h6>
+                                            <small class="color-grey mb-1">{{t.test.total_set}} Set</small>
+                                            <small class="cl-pm">{{t.test.total_qstn}} qestions</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cartProductDetails justify-content-end align-items-center">
+                                    <div class="cartTotal d-flex align-items-center text-end">
+                                        <h6 class="text-dark fw-bold mb-3">Tk <span class="quiz-price">{{t.test.price}}</span>
+                                        </h6>
+                                    </div>
+                                    <li class="bookmark d-flex justify-content-end ms-3">
+                                        <form action="{% url 'delete_tcart' t.test.id %}" id="dtcart{{t.test.id}}">
+                                        
+                                        <p><i class="far fa-trash-alt color-red" onclick="document.getElementById('dtcart{{t.test.id}}').submit();"></i>
+                                        </p>
+                                        </form>
+                                    </li>
+                                </div>
+                            </div>
+                            <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="cartLeftBottom mt-5">
+                        <div class="col-lg-12">
+                            <div class="cartLeftBottomHeading d-flex justify-content-between mb-4">
+                                <h5 class="fw-bold">Books</h5>
+                            </div>
+                            <div class="cartLeftBottomProductHead d-flex justify-content-between mb-3">
+                                <div class="cartProductIamge mx-2">
+                                    <small class="fw-bold">Product Details</small>
+                                </div>
+                                <div class="">
+                                    <div>
+                                        <small class="mb-hd-1 fw-bold">Total Price</small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% for b in bcart %}
+                            {% comment %} <input type='hidden' value="{{b.book.id}}" name='book{{b.book.id}}' /> {% endcomment %}
+                            <div class="cartLeftBottomProduct d-flex justify-content-between">
+                                <div class="cartProductIamge mx-2">
+                                    <div class="d-flex">
+                                        <div class="cartProductImg rounded-3 me-4">
+                                            <img src="{{b.book.book_image.url}}"
+                                                alt="">
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <h6 class="cl-pm fw-bold">{{b.book.book_title}}</h6>
+                                            <small class="color-grey mb-1">{{b.book.book_category.category_name}}</small>
+                                            <small class="cl-pm">{{b.book.author_id.author_name}}</small>
+                                            <small class="fw-bold mt-1">Tk <span id="{{b.book.id}}cart1-total" >{{b.book.book_price}}</span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="cartProductDetails">
+                                        <div class="cartTotal mb-3">
+                                            <h6 class="d-flex fw-bold justify-content-end"><span
+                                                    class="fw-bold mb-hd-2 d-none me-2">Total</span>Tk <span
+                                                    id="{{b.book.id}}cart2-total" class="book-price">{{b.total_price}}</span></h6>
+                                        </div>
+                                        <div class="bookWish cartQuantity d-flex align-items-center ms-2 mt-2">
+                                            <li class="bookmark me-2 align-items-center">
+                                                <form action="{% url 'delete_bcart' b.book.id %}" id="dbcart{{b.book.id}}">                                        
+                                                <p><i class="far fa-trash-alt color-red" onclick="document.getElementById('dbcart{{b.book.id}}').submit();"></i>
+                                                </p>
+                                                </form>
+                                            </li>
+                                            <div class="button-inDecrement mb-2">
+                                                <div>
+                                                    <button class="sub" 
+                                                        onclick="cartValueChange('count{{b.book.id}}', false ,'{{b.book.id}}cart1','{{b.book.id}}cart2')">-</button>
+                                                    <input type="text" id="count{{b.book.id}}" value="{{b.qty}}"  name="qty{{b.book.id}}"  readonly>
+                                                    <button class="add"
+                                                        onclick="cartValueChange('count{{b.book.id}}', true , '{{b.book.id}}cart1','{{b.book.id}}cart2')">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="cartRight col-xl-3 col-lg-4 mt-5">
+                    <div class="bg-cl-grey4 p-4 rounded-3">
+                        
+                        <form method="POST" action="{% url 'checkout' %}">
+                        {% csrf_token %}
+                        <input type='hidden' value="" name='amount' id='amount' />
+                        <input type='hidden' value="{{request.user.id}}" name="user_id" />
+                        {% for b in bcart %}
+                        <input type='hidden' id="count{{b.book.id}}" value="{{b.qty}}"  name="qty{{b.book.id}}" />
+                        {% endfor %}
+                       
+                        
+                        
+                            <div>
+                                <h6 class="fw-bold mb-4">Order Summery</h6>
+                            </div>
+                            <div class="cartItemCount d-flex justify-content-between">
+                                <small class="fw-bold">Items <span
+                                        class="bg-cl-light-blue color-white px-2 py-1 rounded-3 ms-2">{{total_items}}</span></small>
+                                <h6>Tk <span id="totalPrice">{{total_price}}</span></h6>
+                            </div>
+                            <div class="cartCoupon my-3">
+                                <small class="cl-pm fw-bold" onclick="tchBtnCheck('cartInput')">Apply
+                                    Coupon</small><span class="color-span">(optional)</span>
+                            </div>
+                            <div class="cartInput my-3">
+                                <div class="d-flex">
+                                    <input class="border-0 p-2 rounded-3 me-2" type="text" placeholder="Coupon Code" id="coupon">
+                                    <button type="button" class="bg-cl-pm color-white px-3 border-0 rounded-3" onclick="applyCoupon()">Apply</button>
+                                </div>
+                            </div>
+                            <div class="cartButton d-flex">
+                                <button type="submit" class="bg-cl-pm py-2 border-0 color-white" >Checkout</button>
+                                <span
+                                    class="bg-cl-green color-white d-flex justify-content-center align-items-center">Tk &nbsp; 
+                                    <span id="totalPrice1"></span></span>
+                            </div>
+                            </form>
+                        
+                    </div>
+                </div>
+                {% else %}
+                    <h4>No cart added</h4>
+                {% endif %}
+
+                
+                <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content py-4">
+                            <div class="modal-body d-flex justify-content-center">
+                                Are you sure to delete this?
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <form action="{% url 'delete_cart'  %}" id="dcart"> 
+                                <button type="button" class="btnModalYes px-5 me-2 color-white"
+                                    data-bs-dismiss="modal" onclick="document.getElementById('dcart').submit();">Yes</button>
+                                </form>
+                                <button type="button" class="btnModalNo px-5 color-white" data-bs-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    {% endblock content %}

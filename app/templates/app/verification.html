@@ -1,0 +1,65 @@
+ {% extends 'app/header&footer.html' %}
+{% load static %}
+{% block title %}Poralekha|Verification{% endblock title %}
+{% block main %}
+    <section class="signUpCongratulation otpVn d-flex">
+        <div class="signUpcongratulationsLeft otpVnLeft d-flex align-items-center">
+            <div
+                class="signUpcongratulationLeftContent d-flex flex-column justify-content-center align-items-center color-white">
+                <div class="signInUpLeftImg">
+                    <img src="{% static 'app/Assets/Images/signUp/logo.svg' %}" alt="">
+                </div>
+                <h4 class="fw-bold text-center px-2">One platform for Learning</h4>
+                <small class="text-center px-5 mx-5">Gether Knowledge and your educational Guidline from just in one
+                    place.
+                </small>
+            </div>
+        </div>
+        <div class="signUpCongratulationRight otpVnRight d-flex justify-content-center align-items-center w-100">
+            <div class="container">
+                <div class="signUpBack d-flex justify-content-between w-75">
+                    <div>
+                        {% comment %} <a href="stdSignUp.html" class="cl-pm">
+                            <i class="fa fa-arrow-left me-2"></i>
+                            Back
+                        </a> {% endcomment %}
+                    </div>
+                    <div>
+                        <a href="{% url 'home' %}" class="cl-pm">
+                            Home
+                            <i class="fas fa-home ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="forgetPassContent otpContent align-items-center px-5">
+                    <div class="otpContent-header mb-4">
+                        <h4 class="cl-pm fw-bold">Phone Verification</h4>
+                        <small class="color-grey">A verification code is sent to your number provided <span
+                                class="mx-1 cl-pm fw-bold">{{phone_number}}</span></small>
+                    </div>
+                    <div class="mb-3">
+                        <form  method="post">
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                            <p class="alert alert-danger my-3">{{error}}</p>
+                            {% endfor %}
+                            {% endif %}
+                            
+                            {% for fm in form %}
+                            <small class="text-danger">{{fm.errors|striptags}}</small>{{fm}}
+                            {% endfor %}
+                                
+                            </br></br>
+                            <button type="submit" class="btn btn3 bg-cl-pm btn1">Verify Number</button>
+                        </form>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a class="btn-anchor cl-pm" href="#" role="button" style="outline: none;">Resend Code</a>
+                        <small class="color-grey">00:38</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock main %}

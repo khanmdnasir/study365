@@ -1,0 +1,1547 @@
+  {% extends 'app/base.html' %}
+  {% load static %}
+  {% block title %}Poralekha|Home{% endblock title %}
+  {% block content %}
+
+    <!----------------HomeTopBannner------------>
+    <section class="sec1 homeTopBanner ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12 mt-3 mb-3 d-flex align-items-center ">
+                    <div class="homeTopBannerContent ">
+                        <h2 class="">Learn from <span style="font-weight: bold;">Nothing <br> </span>to be<span style="font-weight: bold;"> Something</span></h2>
+                        <p>Nor again is there anyone who loves or pursues or desires. <br> Nam libero tempore, cum
+                            soluta and nobis est eligendi optio</p>
+                        <div class="homeTopBannerContentBottom d-flex flex-wrap mt-5 ">
+                            <a href="{% url 'find_course' %}" class="mb-3">
+                                <div
+                                    class="homeTopBannerContentBottom1 active d-flex flex-column align-items-center justify-content-center me-3">
+                                    <div class="homeTopBannerContentBottom1img">
+                                        <i class="flaticon-online-course-6 color-white"></i>
+                                    </div>
+                                    
+                                    <div class="homeTopBannerContentBottom1Content">
+                                        <small>Find Course</small>
+                                    </div>
+                                   
+                                </div>
+                            </a>
+                            <a href="{% url 'mocktest:mocktests' %}" class="mb-3">
+                                <div
+                                    class="homeTopBannerContentBottom1 me-3 d-flex flex-column align-items-center justify-content-center">
+                                    <div class="homeTopBannerContentBottom1img">
+                                        <i class="flaticon-test-1 cl-pm"></i>
+                                    </div>
+                                    <div class="homeTopBannerContentBottom1Content">
+                                        <small>Mock Test</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="" class="mb-3">
+                                <div
+                                    class="homeTopBannerContentBottom1 d-flex flex-column align-items-center justify-content-center me-3">
+                                    <div class="homeTopBannerContentBottom1img">
+                                        <i class="flaticon-assignment cl-pm"></i>
+                                    </div>
+                                    <div class="homeTopBannerContentBottom1Content">
+                                        <small>Assignment</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{% url 'all_books' %}" class="mb-3">
+                                <div
+                                    class="homeTopBannerContentBottom1 me-3 d-flex flex-column align-items-center justify-content-center">
+                                    <div class="homeTopBannerContentBottom1img">
+                                        <i class="flaticon-book-1 cl-pm"></i>
+                                    </div>
+                                    <div class="homeTopBannerContentBottom1Content">
+                                        <small>Library</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="homeTopBannerImage">
+                        <img src="{% static 'app/Assets/Images/HomeBody/2HomeTopGirl.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="sec2 homeTopBannerBottom">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-4 col-md-4 col-12 mt-5">
+                    <div class="homeTopBannerBottomContent d-flex align-items-center">
+                        <div class="homeTopBannerBottomContentImg d-flex justify-content-center align-items-center">
+                            <img src="{% static 'app/Assets/Images/HomeBody/4student.png' %}" alt="">
+                        </div>
+                        <div class="homeTopBannerBottomContentText">
+                            <h6 class="mb-1">{{total_course}} Online Course</h6>
+                            <small>Nor again is there anyone who loves or <br> pursues or desires</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12 mt-5">
+                    <div class="homeTopBannerBottomContent d-flex align-items-center">
+                        <div class="homeTopBannerBottomContentImg d-flex justify-content-center align-items-center">
+                            <img src="{% static 'app/Assets/Images/HomeBody/4expert.png' %}" alt="">
+                        </div>
+                        <div class="homeTopBannerBottomContentText">
+                            <h6 class="mb-1">1000+ Expert Instructor</h6>
+                            <small>Nor again is there anyone who loves or <br> pursues or desires</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12 mt-5 mb-5">
+                    <div class="homeTopBannerBottomContent d-flex align-items-center">
+                        <div class="homeTopBannerBottomContentImg d-flex justify-content-center align-items-center">
+                            <img src="{% static 'app/Assets/Images/HomeBody/4books.png' %}" alt="">
+                        </div>
+                        <div class="homeTopBannerBottomContentText">
+                            <h6 class="mb-1">{{total_book}} Books</h6>
+                            <small>Nor again is there anyone who loves or <br> pursues or desires</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="sec3 homePopularCatagory">
+        <div class="container">
+            <div class="homePopularCatagoryHeading mt-5 d-flex justify-content-between align-items-center">
+                <h3 class="cl-pm w-50">Popular Catagories</h3>
+                <a href="{% url 'find_course' %}" class="">
+                    <p class="cl-pm">View All <i class="fas fa-arrow-right"></i></p>
+                </a>
+            </div>
+            <div class="row mt-3 mb-5 ">
+            {% for category in pcategories %}
+                <div class="col-lg-4 col-md-4 col-12 mt-2 mb-2">
+                    <a href="{% url 'find_category' category.id %}">
+                        <div class="homePopularCatagoryContent d-flex align-items-center">
+                            <div
+                                class="homePopularCatagoryContentImg mx-3 d-flex justify-content-center align-items-center">
+                                {% if category.category_image %}
+                                <img src="{{category.category_image.url}}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="homePopularCatagoryContentText d-flex flex-column justify-content-center">
+                                <h6 class="cl-pm">{{category.category_name}}</h6>
+                                <small class="color-span"><i class="fas fa-arrow-right me-2"></i>{{category.total_course}} Courses</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+   
+    <section class="sec4 popularCourses ">
+        <div class="container py-5">
+            <div class="homePopularCoursesHeading">
+                <span class="color-span">Courses</span>
+                <h3 class="cl-pm">Popular Courses</h3>
+            </div>
+            <div class="row mt-3">
+                <div class="owl-carousel owl-theme" id="carousel0">
+
+                {% for course in pcourses %}
+                    
+                    <div class="item mb-3">
+                        <div class="card card-height">
+                            <div class="card-img d-flex  justify-content-end">
+                                <img class="card-img-top " src="{{course.course_image.url}}"
+                                    alt="Card image cap">
+
+                                <li class="bookmark click-icon">
+                                    
+                                    {% comment %} <p> <button classs="add-cwishlist" data-product="{{course.id}}"><i class="fas fa-heart" ></i></button> {% endcomment %}
+                                    {% if user.is_authenticated %}
+                                    {% if course in cwishlist %}
+                                    <p> <i class="fas fa-heart toggle-box toggle-pressed add-cwishlist" data-product="{{course.id}}" ></i>
+
+                                    {% else %}
+                                    <p> <i class="fas fa-heart toggle-box add-cwishlist"  data-product="{{course.id}}"></i>
+                                    {% endif %}
+                                    {% else %}
+                                    <p> <i class="fas fa-heart "  onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                                    {% endif %}
+                                    
+                                </li>
+                            </div>
+                            <a href="{% url 'course_details' course.id %}">
+                                <div class="card-body card-body-height">
+                                    <h6 class="">{{course.course_title}}</h6>
+                                    <div class="card-body-text">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="">
+                                                <h5 class="color-yellow me-1">{{course.discounted_price}} Tk</h5>
+                                                <div class="d-flex align-items-center ">
+                                                    <strike class="color-grey">{{course.course_price}} Tk</strike>
+                                                    <small class="color-green mx-1">{{course.course_offer}}%</small>
+                                                </div>
+                                                <div class="d-flex mt-3 align-items-center">
+                                                    <i class="far fa-eye mx-1 color-yellow"></i>
+                                                    <small class="color-grey ">{{course.course_view}}</small>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="d-flex align-items-center ">
+                                                    <i class="fas fa-book me-1 color-yellow"></i>
+                                                    <small class="color-grey">{{course.total_lesson}} lessons</small>
+                                                </div>
+                                                <div class="d-flex align-items-center mt-3">
+                                                    <small class="me-1 ">
+                                                         <i class="fas fa-star {% if course.course_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                         <i class="fas fa-star {% if course.course_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                         <i class="fas fa-star {% if course.course_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                         <i class="fas fa-star {% if course.course_rating > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                         <i class="fas fa-star {% if course.course_rating > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                    </small>
+                                                    <small class="color-grey">{{course.no_of_ratings}}</small>
+                                                </div>
+                                                <div class="d-flex mt-3 align-items-center">
+                                                    <i class="far fa-clock me-1 color-yellow"></i>
+                                                    <small class="color-grey">{{course.course_duration}}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="sec5 homeFeaturedBooks mt-5">
+        <div class="container">
+            <div class="row">
+                <span class="color-span">Library</span>
+                <div class="homeFeaturedBooksHeading mb-4 d-flex justify-content-between align-items-center">
+                    <div class="homeFeaturedBooksHeadingLeft w-50">
+                        <h3 class="cl-pm">Featured Books</h3>
+                    </div>
+                    <div class="homeFeaturedBooksHeadingRight ">
+                        <a href="{% url 'all_books' %}">
+                            <p class="cl-pm">Visit Library <i class="fas fa-arrow-right"></i></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+            {% for book in fbooks %}
+               <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3  ">
+                    <div class="card homeFeaturedCard">
+                        <div class="card-img d-flex  justify-content-end">
+                            <img class="card-img-top " src="{{book.book_image.url}}" alt="Card image cap" onclick="window.location.href='{% url 'book_details' book.id %}'">
+
+                            <li class="bookmark click-icon">
+                                
+                                {% if user.is_authenticated %}
+                                {% if book in bwishlist %}
+                                    <p> <i class="fas fa-heart toggle-box toggle-pressed add-bwishlist"  data-product="{{book.id}}"></i>
+                                {% else %}
+                                    <p> <i class="fas fa-heart toggle-box add-bwishlist"  data-product="{{book.id}}"></i>
+                                {% endif %}
+                                {% else %}
+                                <p> <i class="fas fa-heart " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                                {% endif %}
+                                
+                            </li>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'book_details' book.id %}">
+                                <h6 class="card-title fw-bold">{{book.book_title}}</h6>
+                            </a>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="d-flex align-items-center">
+                                    <small class="cl-pm fw-bold">{{book.author_id.author_name}}</small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <small class="me-1 ">
+                                    <i class="fas fa-star {% if book.book_review > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if book.book_review > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if book.book_review > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if book.book_review > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if book.book_review > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    </small>
+                                    <small class="color-grey">{{book.no_of_ratings}}</small>
+                                </div>
+                            </div>
+                            <div class="homeFeaturedCardTag mb-2">
+                                {% for i in book.book_tag %}
+                                <a href="#" class="cl-pm">{{i}}</a>
+                                {% endfor %}
+                                
+                            </div>
+                            <div class="homeFeaturedCardBottom d-flex justify-content-between align-items-center">
+                                <div class="homeFeaturedCardBottomLeft d-flex mt-2">
+                                    <h6 class="me-2 cl-pm fw-bold">{{book.discounted_price}} Tk</h6>
+                                    <strike><span class="me-2">{{book.book_price}} Tk</span></strike>
+                                    <small class="cl-green2 fw-bold">{{book.book_offer}}%</small>
+                                </div>
+                                <div class="homeFeaturedCardBottomRight mt-0">
+                                    <small>{{book.total_sales}} Sales</small>
+                                </div>
+                            </div>
+                            <div class="homeFeaturedCardButton mt-1">
+                                {% if user.is_authenticated %}
+                                <a  class="btn d-flex justify-content-center bg-cl-pm color-white add-bcart" data-product="{{book.id}}" data-qty="1"><i
+                                        class="fas fa-cart-plus me-2 mt-1"></i>Add to Cart</a>
+                                {% else %}
+                                <a  class="btn d-flex justify-content-center bg-cl-pm color-white " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"><i
+                                        class="fas fa-cart-plus me-2 mt-1" ></i>Add to Cart</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-----------------------Whats New---------------------->
+    <Section class="sec6 homeWhatsNew mt-5 mb-5 d-none">
+        <div class="container homeWhatsNewHeading mb-5">
+            <span class="color-span">Top Ads</span>
+            <h3 class="cl-pm">Whats New</h3>
+        </div>
+        <div class="homeWhatsNewcarousel homeWhatsNewcarousel-lm owl-carousel">
+            <div class="homeWhatsNewImg">
+                <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add1.png' %}" alt=""></a>
+            </div>
+            <div class="homeWhatsNewImg">
+                <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add2.png' %}" alt=""></a>
+            </div>
+            <div class="homeWhatsNewImg">
+                <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add1.png' %}" alt=""></a>
+            </div>
+            <div class="homeWhatsNewImg">
+                <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add2.png' %}" alt=""></a>
+            </div>
+            <div class="homeWhatsNewImg">
+                <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add1.png' %}" alt=""></a>
+            </div>
+            <div class="homeWhatsNewImg">
+                <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add1.png' %}" alt=""></a>
+            </div>
+            <div class="homeWhatsNewImg">
+                <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add1.png' %}" alt=""></a>
+            </div>
+            <div class="homeWhatsNewImg">
+                <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add1.png' %}" alt=""></a>
+            </div>
+        </div>
+    </Section>
+
+      
+    <section class="sec7 featuredTopics mt-5 ">
+        <div class="container py-5">
+            <div class="homeFeaturedTopicsHeading">
+                <h3 class="cl-pm">Featured topics by category</h3>
+            </div>
+            <!-- tab start -->
+            <div class="mt-5">
+                <nav>
+                    <div class="nav nav-tabs justify-center" id="nav-tab" role="tablist">
+                        {% for i in fcategories %}
+                        <a class="nav-link {% if forloop.counter == 1 %}active{% endif %} me-3" id="nav-{{i.id}}-tab" data-bs-toggle="tab" href="#nav-{{i.id}}"
+                            role="tab" aria-controls="nav-{{i.id}}" aria-selected="true">{{i.category_name}}</a>
+                        {% endfor %}
+                    </div>
+                </nav>
+                <div class="tab-content mt-5" id="nav-tabContent">
+                    {% for i in fcategories %}
+                    <div class="tab-pane {% if forloop.counter == 1 %}active show{% endif %} fade  " id="nav-{{i.id}}" role="tabpanel" aria-labelledby="nav-{{i.id}}-tab">
+                        <div class="row justify-center">
+                        {% for c in fcourses %}
+                        {% if i.id == c.course_category.id %}
+                            <div class="col-lg-3 col-md-5 col-12 mb-3">
+                                <div class="card">
+                                    <div class="card-img topics-img-height">
+                                        <img class="card-img-top " src="{{c.course_image.url}}"
+                                            alt="Card image cap">
+                                    </div>
+                                    <div class="card-body topics-body-height">
+                                        <div class="row">
+                                            <h6 class="fw-bold">{{c.course_title}}</h6>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-lg-7 col-md-7 col-6">
+                                                <div class="d-flex align-items-center ">
+                                                    <small class="color-grey">{{c.course_view}} Students</small>
+                                                </div>
+                                                <div class=" mt-1 d-flex align-items-center">
+                                                    <small class="me-1 ">
+                                                        <i class="fas fa-star {% if c.coure_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        <i class="fas fa-star {% if c.course_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        <i class="fas fa-star {% if c.course_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        <i class="fas fa-star {% if c.course_rating > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        <i class="fas fa-star {% if c.course_rating > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                    </small>
+                                                    <span class="color-grey">{{c.no_of_ratings}}</span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="col-lg-5 col-md-5 col-6 d-flex align-items-end justify-content-end">
+                                                <a href="{% url 'course_details' c.id %}" class="cl-pm">View Courses</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+                            
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="sec8 homeRegisterToday mb-5 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 homeRegisterTodayContent col-12">
+                 {% if user.is_authenticated %}
+                    <h2>Register Today & get <br> <span>5 course</span> totally free</h2>
+                    <p>Start Learning from Today</p>
+                    <button onclick="window.location.href='{% url 'find_course' %}'">Start Learning</button>
+                    
+                {% else %}
+                    <h2>Register Today & get <br> <span>5 course</span> totally free</h2>
+                    <p>Start Learning from Today</p>
+                    <button onclick="window.location.href='{% url 'login' %}'">Register Today</button>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Rated Teacher by category start -->
+
+    <section class="sec9  topRatedTeacher">
+        <div class="container py-5">
+            <div class="homeTopRatedTeacherHeading">
+                <h3 class="cl-pm">Top Rated Teachers by Category</h3>
+            </div>
+            <!-- tab start -->
+            <div class="mt-5">
+                <nav class="">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-link active me-3" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home1"
+                            role="tab" aria-controls="nav-home" aria-selected="true">UI/UX</a>
+                        <a class="nav-link me-3" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile1"
+                            role="tab" aria-controls="nav-profile" aria-selected="false">Front-end</a>
+                        <a class="nav-link me-3" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-contact1"
+                            role="tab" aria-controls="nav-contact" aria-selected="false">Backend</a>
+
+                        <a class="nav-link me-3" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-python" role="tab"
+                            aria-controls="nav-contact" aria-selected="false">Python</a>
+                        <a class="nav-link me-3" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-django" role="tab"
+                            aria-controls="nav-contact" aria-selected="false">Django</a>
+                        <a class="nav-link me-3" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-wordpress"
+                            role="tab" aria-controls="nav-contact" aria-selected="false">Wordpress</a>
+                    </div>
+                </nav>
+                <div class="tab-content mt-5" id="nav-tabContent">
+                    <!-- tab1 -->
+                    <div class="tab-pane fade show active" id="nav-home1" role="tabpanel"
+                        aria-labelledby="nav-home-tab">
+                        <div class="row topRatedTeacherSlider ">
+                            <div class="owl-carousel owl-theme" id="carousel1">
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 2.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- tab2 -->
+                    <div class="tab-pane fade" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="row topRatedTeacherSlider ">
+                            <div class="owl-carousel owl-theme" id="carousel2">
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 2.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- tab3 -->
+                    <div class="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="row topRatedTeacherSlider ">
+                            <div class="owl-carousel owl-theme" id="carousel3">
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 2.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- tab4 -->
+
+                    <div class="tab-pane fade" id="nav-python" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="row topRatedTeacherSlider ">
+                            <div class="owl-carousel owl-theme" id="carousel4">
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 2.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- tab5-->
+
+                    <div class="tab-pane fade" id="nav-django" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="row topRatedTeacherSlider ">
+                            <div class="owl-carousel owl-theme" id="carousel5">
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 2.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- tab6 -->
+
+                    <div class="tab-pane fade" id="nav-wordpress" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="row topRatedTeacherSlider ">
+                            <div class="owl-carousel owl-theme" id="carousel6">
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 2.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="margin-top-minus">
+                                                        <img src="{% static 'app/Assets/Images/HomeBody/11teacher image 1.png' %}" alt="">
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                            class="btn btn-sm bg-cl-pm color-white">View
+                                                            Profile</button>
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-2">Lorem, ipsum dolor.</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="me-1 color-yellow">
+                                                        <i class="fas fa-star "></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="color-grey">(89)</span>
+                                                    </small>
+                                                    <small class="color-grey">120 Courses</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Top Rated Teacher by category end -->
+
+    
+    <section class="sec10  homeInstructor">
+        <div class="container">
+            <div class="row  px-5 align-items-center justify-content-center align-items-center">
+                <div class="col-lg-6 col-md-6  col-12 my-5 d-flex justify-content-center align-items-center">
+                    <div class="homeInstructorImg">
+                        <img src="{% static 'app/Assets/Images/HomeBody/11logo2.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 homeInstructorContent my-5 col-12">
+                    <h4 class="mb-3">Become an instructor</h4>
+                    <p>Instructors from around the world teach <br> millions of students on Udemy. We provide <br>
+                        the
+                        tools and skills to teach what you love.</p>
+                    <button class="bg-cl-pm">Start Teaching Today</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="sec11  homeDownloadApp ">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-6 homeDownloadAppContent  col-12">
+                    <div>
+                        <span>Download</span>
+                        <h2>We are also in <br>
+                            your hand grip</h2>
+                        <p>Download your app</p>
+                    </div>
+                    <div class="downloadAppContentIcons d-flex">
+                        <div class="downloadAppContentIcon d-flex">
+                            <a href="#" class="d-flex align-items-center ms-3"><i
+                                    class="flaticon-playstore cl-light-blue me-2 mt-1"></i>
+                                <p class="mt-3">Google Play <br> <span>get it now</span></p>
+                            </a>
+                        </div>
+                        <div class="downloadAppContentIcon d-flex ms-2">
+                            <a href="#" class="d-flex align-items-center ms-3"><i
+                                    class="flaticon-app-store cl-light-blue me-2 mt-1"></i>
+                                <p class="mt-3">App store <br> <span>get it now</span></p>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+   
+
+    
+
+    {% endblock content %}

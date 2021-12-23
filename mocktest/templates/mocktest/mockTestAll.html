@@ -1,0 +1,272 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|Mock Test All{% endblock title %}
+{% block content %}
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Mock Test</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <section class="mockTestDesc my-4">
+        <div class="container">
+            <div class="row">
+                <div class="toggleBtn-dflex align-items-center" id="rightHeading-mobile">
+                    <div class="right-heading d-flex flex-wrap justify-content-between mt-2 mb-3 me-2">
+                        <div class="d-flex flex-column">
+                            <h5 class="fw-bold">06 Tests Found</h5>
+                        </div>
+                        <div class="mockTestAll-rheading">
+                            <form action="">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Search Test"
+                                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <button class="button input-group-text bg-cl-pm" id="basic-addon2"
+                                        type="submit">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="border-0 bg-cl-grey4 toggleBtn" type="button" onclick="mockFilter()">
+                            <i class="fas fa-filter cl-pm p-2"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 mb-4" id="collapseExample1">
+                    <form action="{% url 'mocktest:mocktests' %}">
+                        <div class="bg-light-pink p-5">
+                            <div class="mb-4">
+                                <h5 class="fw-bold">Categories</h5>
+
+                                {% for cat in categories %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="{{cat.id}}" id="flexCheckDefault" name="checkbox" >
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{cat.category_name}}
+                                    </label>
+                                </div>
+                                {% endfor %} 
+                                
+                            </div>
+                            <div class="mb-4">
+                                <h5 class="fw-bold">Pricing</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="premuim" id="flexCheckDefault" name="price">
+                                    <label class="form-check-label cl-pm" for="flexCheckDefault" >
+                                        Premium
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="free" id="flexCheckDefault" name='price'>
+                                    <label class="form-check-label cl-pm" for="flexCheckDefault" >
+                                        Free
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h5 class="fw-bold">Rating</h5>
+                                <div class="">
+                                    
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="2" name="flexRadioDefault"
+                                            id="flexRadioDefault2" checked>
+                                        <label class="form-check-label color-yellow" for="flexRadioDefault2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="3" name="flexRadioDefault"
+                                            id="flexRadioDefault2" checked>
+                                        <label class="form-check-label color-yellow" for="flexRadioDefault2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="4" name="flexRadioDefault"
+                                            id="flexRadioDefault2" checked>
+                                        <label class="form-check-label color-yellow" for="flexRadioDefault2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="5" name="flexRadioDefault"
+                                            id="flexRadioDefault2" checked>
+                                        <label class="form-check-label color-yellow" for="flexRadioDefault2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="" name="flexRadioDefault"
+                                            id="flexRadioDefault2" checked>
+                                        <label class="form-check-label color-yellow"  for="flexRadioDefault2">
+                                            all
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <button class="btn btn3 bg-cl-pm w-100" type="submit">Apply Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xl-9 col-lg-8 ">
+                    <!-- right heading -->
+                    <div class="toggleBtn-dflex align-items-center" id="rightHeading-desktop">
+                        <div class="right-heading d-flex flex-wrap justify-content-between mt-2 mb-3">
+                            <div class="d-flex flex-column">
+                                <h5 class="fw-bold">{{num_of_test}} Tests Found</h5>
+                            </div>
+                            <div class="mockTestAll-rheading">
+                                <form action="{% url 'mocktest:mocktests' %}">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Search Test"
+                                            aria-label="Recipient's username" aria-describedby="basic-addon2" name="search">
+                                        <button class="button input-group-text" id="basic-addon2"
+                                            type="submit">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- right content -->
+                    <div class="row rightContent-card">
+                        {% if page_obj %}
+                        {% for test in page_obj %}
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-7 col-12  mb-4">
+                            <div class="right-content-bg rounded-3">
+                                <div class="p-3">
+                                    <div class="right-content">
+                                        <!-- upper section-->
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <div class="d-flex">
+                                                <div class="me-2 file-icon">
+                                                    <p> <i class="far fa-file-alt "></i></p>
+                                                </div>
+                                                <div>
+                                                    <h6 class="m-0 fw-bold">{{test.title}}</h6>
+                                                    <div class="content-star">
+                                                        <label class="form-check-label  me-2"
+                                                            for="flexRadioDefault2">
+                                                            <i class="fas fa-star {% if test.mocktest_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            <i class="fas fa-star {% if test.mocktest_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            <i class="fas fa-star {% if test.mocktest_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            <i class="fas fa-star {% if test.mocktest_rating > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            <i class="fas fa-star {% if test.mocktest_rating > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        </label>
+                                                        <small class="cl-ash ">{{test.no_of_ratings}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h6 class="fw-bold">{{test.price}} BDT</h6>
+                                            </div>
+                                        </div>
+                                        <!-- mid section -->
+                                        <div class="mb-3 mid-section">
+                                            <!-- mid section 1-->
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="cl-pm">{{test.total_set}} Sets</h6>
+                                                <h6 class="color-span">{{test.total_qstn}} Questions</h6>
+                                            </div>
+                                            <!-- mid section 2-->
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="cl-pm">Difficulty</h6>
+                                                <h6 class="cl-pm">{{test.difficulty}}</h6>
+                                            </div>
+                                            <div class="progress my-2">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-cl-green"
+                                                    role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                                    aria-valuemax="100" style="width: 75%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- bottom section -->
+                                        <div class="bottom-section">
+                                            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                                <li class="bookmark">
+                                                    {% if user.is_authenticated %}
+                                                    {% if test in twishlist %}
+                                                    <p> <i class="fas fa-heart toggle-box toggle-pressed add-twishlist" data-product="{{test.id}}" ></i>
+
+                                                    {% else %}
+                                                    <p> <i class="fas fa-heart toggle-box add-twishlist"  data-product="{{test.id}}"></i>
+                                                    {% endif %}
+                                                    {% else %}
+                                                    <p> <i class="fas fa-heart "  onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                                                    {% endif %}
+                                                </li>
+                                                <button type="button" class="btn cl-pm bg-white" onclick="location.href='{% url 'mocktest:mockTestDetails' test.id %}'">Details</button>
+                                                {% if user.is_authenticated %}
+                                                <button type="button" class="btn  btn3 bg-cl-pm add-tcart" data-product="{{test.id}}">Add to Cart</button>
+                                                {% else %}
+                                                <button type="button" class="btn  btn3 bg-cl-pm " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});">Add to Cart</button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                </div>
+                <div class="pagination d-flex justify-content-center">
+                    <ul class="d-flex flex-wrap align-items-center">
+                        {% if page_obj.has_previous %}
+                        <a  href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-double-left px-2 cl-pm"></i></a>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if num == page_obj.number %}
+                                <li class="px-3 py-1 mx-1 bg-cl-pm color-white rounded-3">{{num}}</li>
+                            {% else %}
+                                {% if num == 1 %}
+                                <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% else %}
+                                    {% if num|add:"-3" <= page_obj.number and page_obj.number <= num|add:"3" %}
+                                    <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                    {% elif num|divisibleby:"10" or num == page_obj.paginator.num_pages %}
+                                    <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-double-right px-2 cl-pm"></i></a>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

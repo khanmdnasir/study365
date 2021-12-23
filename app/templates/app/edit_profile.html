@@ -1,0 +1,173 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Poralekha|Edit Profile{% endblock title %}
+{% block content %}
+    
+     <!-- Middle Section -->
+    <!--bread crump start -->
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--bread crump end -->
+
+
+{% include 'app/std-profile-nav.html' %}
+
+            <!-- mt5 media query desktop version -->
+            <div class="col-xl-9 col-lg-9 mtResponsive mb-5 ">
+                    <!-- part-1 -->
+                   
+                    <!-- part-2 -->
+                    <div class=" block-profile">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
+                        <div class="alert alert-success" role="alert">
+                        {{ message }}
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                        <form method='POST' enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        {% if uForm.non_field_errors  %}
+                        {% for error in uForm.non_field_errors %}
+                        <p class="alert alert-danger my-3">{{error}}</p>
+                        {% endfor %}
+                        {% endif %}
+                        {% if pForm.non_field_errors  %}
+                        {% for error in pForm.non_field_errors %}
+                        <p class="alert alert-danger my-3">{{error}}</p>
+                        {% endfor %}
+                        {% endif %}
+                            <div class="row">
+                                
+                                <div class="col-md-8">
+                                    
+                                    <div class="file-upload">
+                                        <div class="image-upload-wrap">
+                                            <small class="text-danger">{{uForm.profile_image.errors}}</small>
+                                            {{uForm.profile_image}}
+                                            {% comment %} <input class="file-upload-input" type='file' onchange="readURL(this);"
+                                                accept="image/*" /> {% endcomment %}
+                                            <div class="drag-text">
+                                                <p class="color-grey">
+                                                    <i class="fas fa-photo-video"></i>
+                                                    <br>
+                                                    Drop your image here , or <span class="fw-bold cl-pm">Browse</span>
+                                                    <br>
+                                                    Support JPG, JPEG & PNG
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="file-upload-content">
+                                            
+                                            <img class="file-upload-image" {% if user.profile_image %} src="{{user.profile_image.url}}" {% else %} src="" {% endif %} alt="your image" />
+                                            
+                                            <div class="image-title-wrap">
+                                                <button type="button" onclick="removeUpload()"
+                                                    class="remove-image">Remove
+                                                    <span class="image-title">Uploaded Image</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row mt-5 mb-5">
+                                <div class="form-group col-md-4 ">
+                                    
+                                    <label  class="form-label color-grey">First Name</label>
+                                    <small class="text-danger">{{uForm.first_name.errors}}</small>
+                                    {{uForm.first_name}}
+                                    {% comment %} <input type="text" id="disabledTextInput" class="form-control" placeholder="Elan"> {% endcomment %}
+                                </div>
+                                <div class="form-group col-md-4">
+                                
+                                    <label  class="form-label color-grey">Last Name</label>
+                                    <small class="text-danger">{{uForm.last_name.errors}}</small>
+                                    {{uForm.last_name}}
+                                    {% comment %} <input type="text" id="disabledTextInput" class="form-control" placeholder="Kesava"> {% endcomment %}
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="form-group col-md-4 mb-3">
+                                    
+                                    <label  class="form-label color-grey">Username</label>
+                                    <small class="text-danger">{{uForm.username.errors}}</small>
+                                    {{uForm.username}}
+                                    {% comment %} <input type="email" id="disabledTextInput" class="form-control"
+                                        placeholder="elan@gmail.com"> {% endcomment %}
+                                </div>
+                                <div class="form-group col-md-4 mb-3">
+                                    
+                                    <label  class="form-label color-grey">Address</label>
+                                    <small class="text-danger">{{uForm.address.errors}}</small>
+                                    {{uForm.address}}
+                                    {% comment %} <input type="number" id="disabledTextInput" class="form-control"
+                                        placeholder="+880-1676044462"> {% endcomment %}
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-5">
+
+                                <div class="col-md-4 mb-3">
+                                    
+                                    <label for="selectorTag" class="form-label color-grey">Education
+                                        Level</label>
+                                        <small class="text-danger">{{pForm.education.errors}}</small>
+                                        {{pForm.education_level}}
+                                    {% comment %} <select class="form-select">
+                                        <option>Class 9</option>
+                                        <option>Class 8</option>
+                                        <option>Class 7</option>
+                                        <option>Class 6</option>
+                                    </select> {% endcomment %}
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    
+                                    <label for="selectorTag" class="form-label color-grey">
+                                    Department</label>
+                                        <small class="text-danger">{{pForm.department.errors}}</small>
+                                        {{pForm.department}}
+                                    {% comment %} <select class="form-select">
+                                        <option>Science</option>
+                                        <option>Com</option>
+                                    </select> {% endcomment %}
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-8  mt-4 mb-5">
+                                <small class="text-danger">{{form.first_name.errors}}</small>
+                                <div class="form-group">
+                                    <label for="selectorTag" class="form-label ">About</label>
+                                    <small class="text-danger">{{pForm.about.errors}}</small>
+                                    {{pForm.about}}
+                                    {% comment %} <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"
+                                        placeholder="I want to welcome you to this Complete Networking Fundamentals course! I'm David Bombal, and I have been teaching networking  courses for over 15 years. I qualified as a Cisco Certified  Network Engineer (CCIE) in 2003 and hold with numerous other networking certifications. I'm also a Cisco and HPE  certified instructor where I have trained thousands of networking engineers in many of the largest  companies in the world including Fortune 100 companies."></textarea> {% endcomment %}
+                                </div>
+                            </div>
+
+                            <button  type="submit"
+                                class="btn btn3 bg-cl-pm">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    
+{% endblock content %}

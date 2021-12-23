@@ -1,0 +1,62 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|Mock Test{% endblock title %}
+{% block content %}
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'mocktest:mocktests' %}">Mock
+                            Test</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{mytest.testset.mocktest.title}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    
+    <section class="">
+        <div class="container mb-5">
+            <div class="mockTestAcheivement bg-light-pink d-flex flex-column align-items-center w-50 mx-auto mt-5 py-4 rounded-3 mb-3">
+                <div class="mb-2">
+                    <h4 class="cl-pm">Your Acheivement</h4>
+                </div>
+                <div class="mockTestAcheivemenNumber bg-white d-flex justify-content-center align-items-center mb-2">
+                    <h1 class="cl-pm" style="font-family: 'Montserrat', sans-serif;">{{mytest.total_mark}}</h1>
+                </div>
+                <div class="mb-2">
+                    <h5 class="cl-green2">Excellent</h5>
+                </div>
+                <div class="mb-2">
+                    <button class="bg-cl-pm color-white border-0 rounded-3 py-2 px-4" onclick="location.href='{% url 'mocktest:viewresult' mytest.testset.id %}'">See Answer</button>
+                </div>
+                <div>
+                    <a href="{% url 'mocktest:mytests' %}"><small class="color-grey cursor">Not Now</small></a>
+                </div>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <div class="mb-2">
+                    <small class="cl-pm fw-bold">Give a Review</small>
+                </div>
+                <div>
+                    <div class="mockTestRating d-flex align-items-center">
+                        <div class="me-2">
+                            <a href="#5" title="Give 5 stars" class="color-grey" ><i class="fas fa-star"></i></a>
+                            <a href="#4" title="Give 4 stars" class="color-grey me-1"><i class="fas fa-star"></i></a>
+                            <a href="#3" title="Give 3 stars" class="color-grey me-1"><i class="fas fa-star"></i></a>
+                            <a href="#2" title="Give 2 stars" class="color-grey me-1"><i class="fas fa-star"></i></a>
+                            <a href="#1" title="Give 1 star" class="color-grey me-1"><i class="fas fa-star"></i></a>
+                        </div>
+                        <div>
+                            <span class="color-grey">5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+    

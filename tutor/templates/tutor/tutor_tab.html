@@ -1,0 +1,131 @@
+{% load static %}
+<div class="tchLeft p-3 bg-cl-grey3 desktopVersion">
+    <div class="tchNavHeading d-flex flex-column justify-content-center align-items-center">
+        <div class="tchNavHeadingImg">
+            <img src="{{user.profile_image.url}}" alt="">
+        </div>
+        <div class="tchNavHeadingContent d-flex flex-column align-items-center mt-1 mb-3">
+            <small class="fw-bold">{{user.first_name}} {{user.last_name}}</small>
+            <small class="color-span fw-bold">{% if user.address %}{{user.address}}{% endif %}</small>
+        </div>
+    </div>
+    <!-- <nav class=""> -->
+    <div class="nav flex-column nav-tabs">
+        <a class="nav-link  me-3 {{active1}}" href="{% url 'tutor:tutor_dashboard' %}">
+            <i class="fas fa-home me-1"></i>
+            Dashboard</a>
+
+        <a class="nav-link me-3 {{active2}}" href="{% url 'tutor:tutor_profile' %}">
+            <i class="far fa-user me-1"></i>
+            Profile</a>
+
+        <a class="nav-link me-3 {{active3}}" href="{% url 'tutor:addCourse' %}">
+            <i class="far fa-file-word me-1"></i>
+            Add a Course</a>
+
+        <a class="nav-link me-3 {{active4}}" href="{% url 'tutor:myCourse' %}">
+            <i class="far fa-file-word me-1"></i>
+            My Course</a>
+
+        <a class="nav-link me-3 {{active5}} " href="{% url 'tutor:myStudents' %}">
+            <i class="fas fa-user-graduate me-1"></i>
+            My students</a>
+
+        <a class="nav-link me-3 {{active6}}" href="{% url 'tutor:allSubmission' %}">
+            <i class="fas fa-file-pdf me-1"></i>
+            Submission All
+        </a>
+
+        <a class="nav-link me-3 {{active7}}" href="{% url 'tutor:guidelines' %}">
+            <i class="far fa-credit-card me-1"></i>
+            Guidelines</a>
+
+        <a class="nav-link me-3 {{active8}}" href="{% url 'tutor:helpSupport' %}">
+            <i class="fas fa-hands-helping me-1"></i>
+            Help & Support</a>
+
+        <a class="nav-link me-3 {{active9}}" href="{% url 'tutor:payment' %}">
+            <i class="fas fa-money-bill-wave me-1"></i>
+            Payment</a>
+        <a class="nav-link me-3 {{active10}}" href="{% url 'tutor:settings' %}">
+            <i class="fas fa-user-cog me-1"></i>
+            Settings</a>
+        <a class="nav-link me-3 " href="{% url 'logout' %}">
+            <i class="fas fa-sign-out-alt me-1"></i>
+            Logout</a>
+    </div>
+    <!-- </nav> -->
+</div>
+
+<div class="tchLeft mt-3 p-3 bg-light-pink mobileVersion">
+
+    <div class="nav flex-column nav-tabs">
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="tchPaddCourse.html" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                Add a Course
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+
+        <div class="collapse navbar-collapse" id="navContentMobile1">
+
+            <a class="nav-link me-3" href="{% url 'tutor:tutor_dashboard' %}">
+                <i class="fas fa-home me-1"></i>
+                Dashboard
+            </a>
+
+            <a class="nav-link me-3" href="{% url 'tutor:tutor_profile' %}">
+                <i class="far fa-user me-1"></i>
+                Profile
+            </a>
+
+            <a class="nav-link me-3 " href="{% url 'tutor:addCourse' %}">
+                <i class="far fa-file-word me-1"></i>
+                Add Course
+            </a>
+            <a class="nav-link me-3 " href="{% url 'tutor:myCourse' %}">
+                <i class="far fa-file-word me-1"></i>
+                My Course
+            </a>
+
+            <a class="nav-link me-3 " href="{% url 'tutor:myStudents' %}">
+                <i class="fas fa-user-graduate me-1"></i>
+                My students
+            </a>
+
+            <a class="nav-link me-3 " href="{% url 'tutor:allSubmission' %}">
+                <i class="fas fa-file-pdf me-1"></i>
+                Submission All
+            </a>
+
+            <a class="nav-link me-3 " href="{% url 'tutor:guidelines' %}">
+                <i class="far fa-credit-card me-1"></i>
+                Guidelines
+            </a>
+
+            <a class="nav-link me-3 " href="{% url 'tutor:helpSupport' %}">
+                <i class="fas fa-hands-helping me-1"></i>
+                Help & Support
+            </a>
+
+            <a class="nav-link me-3 " href="{% url 'tutor:payment' %}">
+                <i class="fas fa-money-bill-wave me-1"></i>
+                Payment
+            </a>
+
+            <a class="nav-link me-3 " href="{% url 'tutor:settings' %}">
+                <i class="fas fa-user-cog me-1"></i>
+                Settings
+            </a>
+
+            <a class="nav-link me-3 " href="{% url 'logout' %}">
+                <i class="fas fa-sign-out-alt me-1"></i>
+                Logout
+            </a>
+        </div>
+    </div>
+
+</div>

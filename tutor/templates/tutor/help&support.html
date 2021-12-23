@@ -1,0 +1,293 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block main %}
+{% include 'tutor/navbar.html' %}
+<section class="std-profile d-flex flex-wrap">
+    {% include 'tutor/tutor_tab.html' %} 
+
+    <div class="tchRight">
+        <div class="mt-3 mb-5">
+            <div class="sc-breadcrump d-flex align-items-center bg-white">
+                <div class="mt-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                    href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active fw-bold" aria-current="page">
+                                Help & Support
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- Help & Support Body -->
+            <div class="searchTopic">
+                <div class="searchTopic-header col-xl-8 col-lg-10 col-md-12 col-12 m-auto mb-5">
+                    <div class="searchTopic-header-content w-50">
+                        <h4> Search Topic</h4>
+                        <form>
+                            <div class="input-group mt-3 mb-3">
+                                <input type="text" class="form-control" placeholder="Search Topic Here"
+                                    aria-label="Search Topic Here" aria-describedby="button-addon2">
+                                <button class="btn  btn3 bg-cl-pm" type="submit" id="button-addon2">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="searchTopic-body mb-3">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-2">
+                            <div class="box d-flex justify-content-center align-items-center">
+                                <a href="" class="">
+                                    <div class="mt-3 ">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Hlp & Sprt/chat.png' %}" alt="">
+                                        <h5 class="fw-bold   text-center mt-3">Chat to Us</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-2">
+                            <div class="box d-flex justify-content-center align-items-center"
+                                onclick="tchBtnCheck('searchTopic-footer')">
+                                <a class="">
+                                    <div class="mt-3 ">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Hlp & Sprt/mail.png' %}" alt="">
+                                        <h5 class="fw-bold   text-center mt-3">Mail</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-2">
+                            <div class="box tchFaq d-flex justify-content-center align-items-center"
+                                onclick="tchBtnCheck('tchFaqAccordian')">
+                                <a class="">
+                                    <div class="mt-3 ">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Hlp & Sprt/faq.png' %}" alt="">
+                                        <h5 class="fw-bold   text-center mt-3">FAQ</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="searchTopic-footer my-5">
+                    <div class="row justify-content-center">
+
+                        <div class="col-xl-6 col-lg-8 col-md-10 col-12">
+                            <h4 class="color-grey">Help by Category</h4>
+                            <div class="row mt-3 .accordion">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body ">
+                                            <ul class="m-2">
+                                                <a href="">
+                                                    <li class="cursor" style="font-size: 22px;color: #380E86;">
+                                                        Account
+                                                        &
+                                                        Settings</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Open an Account</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Verify Account</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Forget Password</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Account Security</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Change Password</li>
+                                                </a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body  ">
+                                            <ul class="m-2">
+                                                <a href="">
+                                                    <li class="cursor" style="font-size: 22px; color: #380E86;">
+                                                        Account
+                                                        &
+                                                        Settings</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Open an Account</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Verify Account</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Forget Password</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Account Security</li>
+                                                </a>
+                                                <a href="">
+                                                    <li class="cursor">Change Password</li>
+                                                </a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tchFaqAccordian col-lg-6 mx-auto">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                    How to open an account?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius illum expedita
+                                        quasi esse sapiente officiis voluptatem eligendi tenetur, perspiciatis
+                                        mollitia deleniti excepturi est assumenda exercitationem unde recusandae
+                                        eum. Dignissimos in amet maxime incidunt beatae praesentium non illo
+                                        accusamus aspernatur quo obcaecati expedita doloribus ab itaque,
+                                        consequuntur facere minus cum, alias facilis veritatis dicta nam voluptas,
+                                        adipisci deleniti? Impedit temporibus vitae debitis modi delectus ratione
+                                        explicabo voluptate reprehenderit, quam suscipit quod illum ab ducimus natus
+                                        sapiente provident qui quidem repellendus maiores laboriosam tenetur
+                                        expedita nemo non vero. Delectus deserunt maiores reprehenderit, ut
+                                        repellendus assumenda vel ducimus cum rerum quas iusto corrupti.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                    How to verify account?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, vel ducimus.
+                                        Non sit vel mollitia! At ullam culpa mollitia maiores autem nobis cumque
+                                        consectetur velit sapiente minima commodi error corporis optio, nisi
+                                        delectus? Esse praesentium adipisci ratione iste excepturi obcaecati
+                                        molestiae cupiditate corporis deleniti qui! Nulla accusamus reprehenderit
+                                        corporis voluptatibus! Eligendi officia ducimus eos sapiente repudiandae
+                                        explicabo possimus deserunt, aspernatur quam minima officiis sunt tempore ut
+                                        vel odio cupiditate! Quam nulla harum mollitia minima minus quaerat velit
+                                        obcaecati eos praesentium ipsam, animi aut dolorum laborum atque facilis,
+                                        nobis aliquam hic nisi. Officiis dolorum, enim rerum suscipit recusandae vel
+                                        natus. Beatae.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                    How to recover password?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi obcaecati
+                                        maiores quos consequuntur magni distinctio perspiciatis soluta laboriosam,
+                                        possimus quae mollitia vitae. Totam ab voluptatem odit optio ratione rerum
+                                        expedita animi perferendis illo harum. Enim sunt optio soluta reprehenderit
+                                        veritatis sed voluptatem sint sit ad hic nostrum sapiente ex facere
+                                        perspiciatis nam ipsa tenetur, debitis doloremque nihil provident animi
+                                        iusto distinctio incidunt! Sequi dignissimos debitis repudiandae provident
+                                        maxime nesciunt omnis impedit! Incidunt porro voluptas reiciendis non neque
+                                        nihil in reprehenderit sunt! Placeat perspiciatis obcaecati blanditiis porro
+                                        cum error laboriosam? Vel sequi necessitatibus omnis nobis esse laboriosam
+                                        magni reiciendis ex minus.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                    How to set password?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eaque
+                                        aliquam corporis tempora, cupiditate saepe deserunt eos officiis, ea
+                                        sapiente accusantium reiciendis dolorum minus illum dolore ipsum incidunt
+                                        eligendi pariatur porro qui deleniti amet numquam. Voluptatibus deserunt
+                                        natus, eos quam, incidunt blanditiis et ad ex ut eligendi modi perspiciatis
+                                        adipisci ea quasi sint praesentium nesciunt maxime consectetur, dolores
+                                        reprehenderit error esse velit. Ea, sunt ab nisi voluptatibus laboriosam qui
+                                        blanditiis nulla magnam a! Porro quos veniam eius in. Officia porro vel cum
+                                        commodi doloremque deleniti impedit eveniet dolore totam error facere quasi,
+                                        libero quas vero perspiciatis eligendi nihil illum enim.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                    How to Sequre account?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ipsa placeat
+                                        nobis totam, at quas a dicta eligendi perspiciatis officia corrupti, illo
+                                        nisi aliquam voluptates. Ducimus voluptas reiciendis repellat tenetur
+                                        dolorem earum a eius esse, ea, harum saepe laudantium officia velit ipsam
+                                        nobis sequi sint, consectetur similique! Harum inventore aspernatur,
+                                        pariatur rerum quibusdam quia ullam eos ut laborum a? In tenetur officiis
+                                        quaerat ea autem, atque vel impedit ullam necessitatibus esse cum eveniet
+                                        ut, corporis dolores consequuntur. Tenetur sapiente eos accusamus adipisci
+                                        iste id illum enim aut saepe qui soluta vitae, sint ipsam expedita quaerat
+                                        velit quasi consequatur assumenda natus?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
+                                    Others
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti placeat
+                                        adipisci voluptatem recusandae atque at, enim iusto, quibusdam, distinctio
+                                        veritatis deserunt quisquam ipsa accusamus? Iure officiis fugit debitis
+                                        laborum nostrum eum voluptatibus rerum nobis? Rem sed ex, debitis magnam
+                                        blanditiis illum explicabo sint tempora unde dicta hic eveniet eaque
+                                        molestiae corrupti reiciendis quae voluptates beatae atque quaerat, dolore
+                                        fuga? Iusto magnam eveniet nulla repudiandae odit, reiciendis ratione quos
+                                        molestiae eius qui sit facere nobis est? Eaque tenetur dolore mollitia
+                                        nostrum non itaque? Praesentium nesciunt optio quis sed obcaecati vero
+                                        commodi, eos suscipit repudiandae debitis itaque ipsa ad nulla veritatis
+                                        voluptate.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main %}

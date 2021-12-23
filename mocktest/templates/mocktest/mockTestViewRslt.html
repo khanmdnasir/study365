@@ -1,0 +1,82 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|Course Details{% endblock title %}
+{% block content %}
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'mocktest:mytests' %}">My Test</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{u.testset.mocktest.title}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    
+    <section class="mockTestViewRslts mb-5">
+        <!-- mockTestViewRslts -->
+        <div class="container">
+            <!-- single mockTestViewRslt -->
+            {% for u in usertest %}
+            <div class="mockTestViewRslt">
+                <div class="my-3">
+                <!-- mockTestViewRslt title -->
+                <div class="mockTestViewRslt-title bg-light-pink d-flex flex-wrap justify-content-between px-5 py-4">
+                    <div class="mockTestViewRslt-titleLeft w-80 mb-2">
+                        <div class="mb-3">
+                            <h5 class="cl-pm fw-bold">Question {{forloop.counter}}</h5>
+                        </div>
+                        <div class="mb-3">
+                            <small class="color-grey">{{u.question.question}}</small>
+                        </div>
+                            <div class="d-flex flex-wrap">
+                                <div class="me-3">
+                                    <small class=" fw-bold {% if u.question.option1 == u.question.correct %}color-green1{% elif u.question.correct != u.answer %}color-red{% endif %}">A. {{u.question.option1}}</small>
+                                </div>
+                                <div class="me-3">
+                                    <small class="fw-bold {% if u.question.option2 == u.question.correct %}color-green1{% elif u.question.correct != u.answer %}color-red{% endif %}">B. {{u.question.option2}}</small>
+                                </div>
+                                <div class="me-3">
+                                    <small class="fw-bold {% if u.question.option3 == u.question.correct %}color-green1{% elif u.question.correct != u.answer %}color-red{% endif %}">C. {{u.question.option3}}</small>
+                                </div>
+                                <div class="me-3">
+                                    <small class="fw-bold {% if u.question.option4 == u.question.correct %}color-green1{% elif u.question.correct != u.answer %}color-red{% endif %}">D. {{u.question.option4}}</small>
+                                </div>
+                            </div>
+                    </div>
+                    <div>
+                        <button type="button" class="mockTestViewRslt-btn d-flex bg-cl-pm color-white fw-light px-3 py-2 rounded-3 border-0">
+                            <div class="me-4">
+                                <small>View Solution</small>
+                            </div>
+                            <div>
+                                <span class="plus-icon">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                                <span class="minus-icon">
+                                    <i class="fas fa-chevron-up"></i>
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <!-- mockTestViewRslt text -->
+                <div class="mockTestViewRslt-text bg-cl-grey4 px-5 py-3">
+                    <small>
+                        {{u.question.solution}}
+                    </small>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- end of single mockTestViewRslt -->
+    </section>
+   
+{% endblock content %}
+    
+    

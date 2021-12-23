@@ -1,0 +1,452 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|Course Details{% endblock title %}
+{% block content %}
+<div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'find_course' %}">Course</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Course Details</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="singleCourse mt-5 mb-5">
+        <div class="container">
+            <!-- single course top  -->
+            <div class="row single-course-top mb-5 d-flex justify-content-center">
+                <!-- img -->
+                <div class="col-lg-4 col-md-6 col-12 sCtop-img mb-3">
+                    <img src="{{course.course_image.url}}" alt="">
+                </div>
+                <!-- description -->
+                <div class="col-lg-8 col-md-8 col-12">
+                    <!-- top heading -->
+                    <div class="row top-heading">
+                        <!-- top heading text-->
+                        <div class="col-lg-7 col-md-12 col-12 mb-3 singleCourseTopHead">
+                            <h4>{{course.course_title}}</h4>
+                            <div class="singleCourseTopHeadRating d-flex align-items-center mt-3">
+                                <small class="me-2 ">
+                                    <i class="fas fa-star {% if course.course_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if course.course_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if course.course_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if course.course_rating > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if course.course_rating > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+
+                                </small>
+                                
+                                <span class="color-grey">{{course.no_of_ratings}}</span>
+                            </div>
+                        </div>
+                        <!-- top heading social btn-->
+                        <div class="col-lg-5 col-md-12 col-12 d-flex social-btn mb-3">
+                            <div class="d-flex align-items-center">
+                                <small>Share</small>
+                            </div>
+                            <div class="d-flex social-links-icon mx-3">
+                                <ul class="social-links-footer list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- middle heading -->
+                    <div class="row middle-heading ">
+                        <div class="col-xl-12 col-md-12 col-12">
+                            <small>
+                                {{course.course_overview}}
+                            </small>
+                            <div class="middle-heading-border">
+                                <div class="d-flex align-items-center mt-3 mb-3">
+                                    <div class="mh-img">
+                                        
+                                        <img {% if course.instructor_id.user.profile_image %} src="{{course.instructor_id.user.profile_image.url}}" {% endif %} alt="">
+                                        
+                                    </div>
+                                    <div class="mx-4">
+                                        <small>Author</small>
+                                        <p class="m-0">{{course.instructor_id.user.username}}</p>
+                                    </div>
+                                    <div class="mx-4">
+                                        <small>Year</small>
+                                        <p class="m-0">{{course.course_year}}</p>
+                                    </div>
+                                    <div class="mx-4">
+                                        <small>Language</small>
+                                        <p class="m-0">{{course.course_language}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-md-12 col-12 mt-3 mb-3">
+                            <div class="singleCourseBtnSec d-flex justify-content-between">
+                                <div class="singleCourseBtnSec1 d-flex align-items-center ">
+                                    <h3 class="color-yellow">{{ course.discounted_price }} Tk</h3>
+                                    <strike class="color-grey mx-3">{{course.course_price}} Tk</strike>
+                                    <small class="color-green mx-1 fw-bolder">{{course.course_offer}}%</small>
+                                </div>
+                                <div class="singleCourseBtnSec2 d-flex align-items-center">
+                                    
+                                    {% if user.is_authenticated %}
+                                    <button type="button" class="btn btn-outline-dark btn1 cl-pm buynow" data-product="{{course.id}}"
+                                        >Buy Now</button>
+                                    <button type="button" class="btn  btn3 bg-cl-pm mx-3 add-ccart" data-product="{{course.id}}">Add to Cart</button>
+                                    {% else %}
+                                    <button type="button" class="btn btn-outline-dark btn1 cl-pm " onclick="swal({text:'Please login for buy',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"
+                                        >Buy Now</button>
+                                    <a type="button" class="btn  btn3 bg-cl-pm mx-3 " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});">Add to Cart</a>
+                                    {% endif %}
+                                    <li class="bookmark">
+                                        {% if user.is_authenticated %}
+                                            {% if course in cwishlist %}
+                                            <p> <i class="fas fa-heart toggle-box toggle-pressed add-cwishlist" data-product="{{course.id}}" ></i>
+
+                                            {% else %}
+                                            <p> <i class="fas fa-heart toggle-box add-cwishlist"  data-product="{{course.id}}"></i>
+                                            {% endif %}
+                                        {% else %}
+                                        <p> <i class="fas fa-heart " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                                        {% endif %}
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Course Mid-1-->
+            <div class="row single-course-mid mb-5">
+                <div class="col-lg-4 col-md-12 col-12 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold ms-3">This course includes:</h5>
+                            <ul class="mt-4">
+                                {% for i in course.course_include%}
+                                <li>{{i}}</li>
+                                {% endfor %}
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12 col-12 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold ms-3">What you'll learn</h5>
+                            <div class="singleCourseCard2 d-flex mt-4">
+                                <div>
+                                    <ul>
+                                        
+                                        {% for i in course.course_outcome %}
+                                        {% if forloop.counter <= range1%}
+                                            <li>{{i}}</li>
+                                        {% endif %}
+                                        {% endfor %}
+                                        
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul>
+                                        {% for i in course.course_outcome %}
+                                        {% if forloop.counter > range1%}
+                                            <li>{{i}}</li>
+                                        {% endif %}
+                                        {% endfor %}
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Course Mid-2-->
+            <div class="row mb-5 single-Course-mid-2">
+                <div class="col-lg-8 mb-3">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-link active me-3" id="nav-home-tab" data-bs-toggle="tab" href="#content"
+                                role="tab" aria-controls="nav-home" aria-selected="true">Course Content</a>
+                            <a class="nav-link me-3" id="nav-profile-tab" data-bs-toggle="tab" href="#review" role="tab"
+                                aria-controls="nav-profile" aria-selected="false">Review</a>
+                            {% comment %} <a class="nav-link me-3" id="nav-contact-tab" data-bs-toggle="tab" href="#question"
+                                role="tab" aria-controls="nav-contact" aria-selected="false">Question</a> {% endcomment %}
+                        </div>
+                    </nav>
+                    <div class="tab-content mt-5" id="nav-tabContent">
+                        <div class="tab-pane active show fade" id="content" role="tabpanel"
+                            aria-labelledby="nav-profile-tab">
+                            <div class="content">
+                                
+                                    {{course.course_description|safe}}
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="courseReview">
+                                {% for r in ratings %}
+                                <div class="courseReviewSec bg-light-pink rounded-3 py-4 px-3 mb-2">
+                                    <div class="courseReviewTop d-flex justify-content-between">
+                                        <div class="courseReviewTopleft d-flex align-items-center">
+                                            <div class="courseReviewImg me-3">
+                                                <img src="{{r.user.profile_image.url}}" alt="">
+                                            </div>
+                                            <div class="courseReviewName">
+                                                <h6 class="fw-bold">{{r.user.first_name}} {{r.user.last_name}}</h6>
+                                                <small class="color-grey">{{r.date}}</small>
+                                            </div>
+                                        </div>
+                                        <div class="courseReviewTopRight">
+                                            <div class="courseReviewRate d-flex justify-content-en me-3 mb-2">
+                                                <i class="fas fa-star {% if r.stars > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                <i class="fas fa-star {% if r.stars > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                <i class="fas fa-star {% if r.stars > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                <i class="fas fa-star {% if r.stars > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                <i class="fas fa-star {% if r.stars > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                {% comment %} <small class="color-grey ms-2">5.00</small> {% endcomment %}
+                                            </div>
+                                            {% comment %} <div class="courseReviewChatIcon d-flex justify-content-end px-3">
+                                                <i class="flaticon-chat-1 cl-pm"></i>
+                                                <small class="color-grey ms-2">8</small>
+                                            </div> {% endcomment %}
+                                        </div>
+                                    </div>
+                                    <div class="courseReviewbottom mt-3">
+                                        <p>
+                                            {{r.comment}}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% comment %} <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="content">
+                                <p class="fw-bold">Description3</p>
+                                <p>
+                                    Welcome to the Complete Network Fundamentals Course! In this course, you will learn
+                                    the technologies that keep the world as you know today connected and running. We
+                                    cover both the fundamentals of networking as well as the topics in the new Cisco
+                                    CCNA 200-301 exam.
+                                </p>
+                                <p class="fw-bold">
+                                    Start your journey today learning about networking.
+                                </p>
+                                <p>
+                                    I want to welcome you to this Complete Networking Fundamentals course! I'm David
+                                    Bombal, and I have been teaching networking courses for over 15 years. I qualified
+                                    as a Cisco Certified Network Engineer (CCIE) in 2003 and hold with numerous other
+                                    networking certifications. I'm also a Cisco and HPE certified instructor where I
+                                    have trained thousands of networking engineers in many of the largest companies in
+                                    the world including Fortune 100 companies.
+                                </p>
+                                <p>
+                                    At the end of this course, you will be able to confidently discuss networking
+                                    topics; and be able to start configuring real networking devices such as routers and
+                                    switches. In this an introductory course, but contains a lot of information that can
+                                    be directly applied to the CCNA certification.
+                                </p>
+                                <p>
+                                <ul>
+                                    <li>Network basics</li>
+                                    <li>Network architectures (OSI Model)</li>
+                                    <li>What are hubs, switches, routers?</li>
+                                    <li>How is data forwarded through a network?</li>
+                                    <li>IP addresses</li>
+                                    <li>IP subnetting</li>
+                                    <li>Cabling and network topologies</li>
+                                    <li>Ethernet basics</li>
+                                </ul>
+                                </p>
+                                <p>
+                                    At the end of this course, you will be able to confidently discuss networking
+                                    topics; and be able to start configuring real networking devices such as routers and
+                                    switches. In this an introductory course, but contains a lot of information that can
+                                    be directly applied to the CCNA certification.
+                                </p>
+                            </div>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="accordion" id="accordionExample">
+                        {% for chapter in chapters %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{forloop.counter}}">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq{{forloop.counter}}" {% if forloop.counter > 0 %} aria-expanded="false" {% else %} aria-expanded="true" {% endif %} aria-controls="faq{{forloop.counter}}">
+                                    {{forloop.counter}}.{{chapter.chapter_name}}
+                                </button>
+                            </h2>
+                            <div id="faq{{forloop.counter}}"  {% if forloop.counter == 1 %}class="accordion-collapse collapse show " {% else %} class="accordion-collapse collapse " {% endif %} aria-labelledby="heading{{forloop.counter}}"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {% for lesson in lessons %}
+                                    {% if chapter.id == lesson.chapter_id.id %}
+                                    <div class="d-flex justify-content-between cursor color-span mb-3">
+
+                                        <div>
+                                            <small>{{lesson.lesson_position}}. &nbsp;{{lesson.lesson_title}}</small>
+                                        </div>
+                                        <div>
+                                            {% if lesson.lesson_type == 'V' %}
+                                            <small><i class="far fa-play-circle me-2"></i> </small>
+                                            {% elif lesson.lesson_type == 'A' %}
+                                            <small><i class="far fa-file-alt me-2"></i></small>
+                                            {% elif lesson.lesson_type == 'I' %}
+                                            <small><i class="far fa-file me-2"></i></small>
+                                            {% elif lesson.lesson_type == 'Q' %}
+                                            <small><i class="far fa-file me-2"></i></small>
+                                            {% endif %}
+                                            
+                                        </div>
+
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!-- Single Course Bottom -->
+            <div class="row singleCourseBottom">
+                <div class="col-xl-8 col-md-8 col-12">
+                    <div class="heading">
+                        <h5 class="fw-bold">Instructor</h5>
+                    </div>
+                    <div class="card mt-3 mb-3 border-0">
+                        <div class="row">
+                            <div class="col-xl-1 col-md-2 col-3 singleCourseBottom-img">
+                                
+                                <img {% if course.instructor_id.user.profile_image %} src="{{course.instructor_id.user.profile_image.url}}" {% endif %} alt="...">
+                                
+                            </div>
+                            <div class="col-xl-10 col-md-9 col-8 ">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <h5 class="m-0 fw-bold">{{course.instructor_id.user.username}}</h5>
+                                        {% for s in course.instructor_id.speciality %}
+                                            <small>{{s}}</small>
+                                            {% endfor %}
+                                    </div>
+                                    <small class="card-text text-dark">
+                                        {{course.instructor_id.instructor_intro}}.
+                                    </small>
+                                    <br>
+                                    <br>
+                                    <a href="{% url 'instructor_profile' course.instructor_id.id %}" class="btn  btn3 bg-cl-pm">View Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Who this course is for:</h5>
+                            <ul class="mt-4">
+
+                                {% for i in course.course_target%}
+                                <li>{{i}}</li>
+                                {% endfor %}
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--single course end -->
+    <!-----------------------Related Course---------------------->
+    <Section class="homeWhatsNew mt-5 mb-5">
+        <div class="container">
+            <div class="homeWhatsNewHeading mb-5">
+                <h4 class="color-grey">Related Course</h4>
+            </div>
+            <div class="homeWhatsNewcarousel owl-carousel">
+                {% for rcourse in rcourses %}
+                <div class="homeWhatsNewImg">
+                    <div class="card card-height">
+                        <div class="card-img d-flex  justify-content-end">
+                            <img class="card-img-top " src="{{rcourse.course_image.url}}"
+                                alt="Card image cap">
+                            <li class="bookmark click-icon">
+                                {% if user.is_authenticated %}
+                                {% if rcourse in cwishlist %}
+                                <p> <i class="fas fa-heart toggle-box toggle-pressed add-cwishlist" data-product="{{rcourse.id}}" ></i>
+
+                                {% else %}
+                                <p> <i class="fas fa-heart toggle-box add-cwishlist"  data-product="{{rcourse.id}}"></i>
+                                {% endif %}
+                            {% else %}
+                            <p> <i class="fas fa-heart " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                            {% endif %}
+                            </li>
+                        </div>
+                        <a href="{% url 'course_details' rcourse.id %}">
+                            <div class="card-body card-body-height">
+                                <h6>{{rcourse.course_title}}</h6>
+                                <div class="card-body-text">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="">
+                                            <h5 class="color-yellow me-1">{{rcourse.discounted_price}} Tk</h5>
+                                            <div class="d-flex align-items-center ">
+                                                <strike class="color-grey">{{rcourse.course_price}}Tk</strike>
+                                                <small class="color-green mx-1">{{rcourse.course_offer}}%</small>
+                                            </div>
+                                            <div class="d-flex mt-3 align-items-center">
+                                                <i class="far fa-eye mx-1 color-yellow"></i>
+                                                <small class="color-grey ">{{rcourse.course_view}}</small>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="d-flex align-items-center ">
+                                                <i class="fas fa-book me-1 color-yellow"></i>
+                                                <small class="color-grey">{{rcourse.total_lesson}} lessons</small>
+                                            </div>
+                                            <div class="d-flex align-items-center mt-3">
+                                                <small class="me-1 color-yellow">
+                                                    <i class="fas fa-star {% if rcourse.course_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                    <i class="fas fa-star {% if rcourse.course_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                    <i class="fas fa-star {% if rcourse.course_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                    <i class="fas fa-star {% if rcourse.course_rating > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                    <i class="fas fa-star {% if rcourse.course_rating > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                </small>
+                                                <small class="color-grey">{{rcourse.no_of_ratings}}</small>
+                                            </div>
+                                            <div class="d-flex mt-3 align-items-center">
+                                                <i class="far fa-clock me-1 color-yellow"></i>
+                                                <small class="color-grey">{{rcourse.course_duration}}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </Section>
+
+{% endblock content%}
+
+    

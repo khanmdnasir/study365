@@ -1,0 +1,106 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|Course Details{% endblock title %}
+{% block content %}
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--bread crump end -->
+    <!-- quiz content start -->
+
+    <div class="container quiz mt-5 mb-5 quiz-content-heading">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h4 class="cl-pm">MCQ Mock Test</h4>
+                <h6 class="color-span">Session 1</h6>
+            </div>
+            <div class="d-flex align-items-center">
+                <h4 class="cl-pm" id="quizTimer">
+                    <span id='timer1' style="font-size:20px;"></span>
+                    <span class="cl-ash" style="font-size:12px;">Time Left</span>
+                </h4>
+            </div>
+        </div>
+        <form  method="POST" class="quiz-form">
+            {% csrf_token %}
+            <!-- quiz-1 -->
+            {% for q in questions %}
+            <div class="quiz-contentBg  mb-2 bg-light-pink">
+                <div class="quiz-content p-4">
+                    <h5 class="cl-pm">Question {{forloop.counter}}</h5>
+                    <input type="hidden" name="q{{q.id}}" value={{q.id}}
+                    <h6 class="cl-ash">{{q.question}}</h6>
+                    <div class="quiz-qs">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="group{{q.id}}" id="inlineRadio1"
+                                value="{{q.option1}}">
+                            <label class="form-check-label" for="inlineRadio1">{{q.option1}}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="group{{q.id}}" id="inlineRadio1"
+                                value="{{q.option2}}">
+                            <label class="form-check-label" for="inlineRadio2">{{q.option2}}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="group{{q.id}}" id="inlineRadio3"
+                                value="{{q.option3}}">
+                            <label class="form-check-label" for="inlineRadio3">{{q.option3}}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="group{{q.id}}" id="inlineRadio4"
+                                value="{{q.option4}}">
+                            <label class="form-check-label" for="inlineRadio4">{{q.option4}}</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn  btn3 bg-cl-pm mt-4 quiz-contentBtn" id="quizFormSubmit"
+                onclick="quizSubmit()">Submit
+            </button>
+
+            <button type="button" class="d-none" data-bs-toggle="modal" data-bs-target="#exampleQuizModal"
+                id="quizModalBtn"></button>
+        </form>
+    </div>
+    
+
+    <div class="modal fade" id="exampleQuizModal" tabindex="-1" aria-labelledby="exampleQuizModalLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered mockTestModal">
+            <div class="modal-content border-0">
+                <div class="modal-body d-flex">
+                    <div class="mockTestModalLeft w-100">
+                        <img src="Assets/Images/timeOut.png" alt="">
+                    </div>
+                    <div class="mockTestModalRight bg-cl-grey4 d-flex flex-column justify-content-center p-3 w-100">
+                        <div class="mb-3">
+                            <h4 class="cl-pm fw-bolder">Test has been finished</h4>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <small class="color-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Molestias, libero iusto minus in nobis impedit lor</small>
+                        </div> -->
+                        <div class="cursor">
+                            <button type="button" class="bg-cl-pm border-0 rounded-3 py-2 px-4 color-white"
+                                onclick="quizTimeOut()">View Result
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock content %}
+

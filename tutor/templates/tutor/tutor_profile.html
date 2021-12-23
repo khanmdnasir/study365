@@ -1,0 +1,124 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block main %}
+{% include 'tutor/navbar.html' %}
+
+ <section class="std-profile d-flex flex-wrap">
+    {% include 'tutor/tutor_tab.html' %}
+   
+    
+    <div class="tchRight">
+        <!-- Teacher-Profile Profile -->
+        <div class="tchProf-profile">
+            <!-- breadcrumb -->
+            <div class="profileBrd mt-3 mb-3">
+                <div class="sc-breadcrump d-flex align-items-center bg-white">
+                    <div class="mt-2">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                        href="{% url 'home' %}">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active fw-bold" aria-current="page">Profile
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- Profile Content 1 start-->
+            <div class="profileContent none-profileContent">
+
+                <h6 class="mb-5">Basic Information</h6>
+
+                <div class="row mb-4">
+                    
+                    <!-- ms-2 -->
+                    <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-10 col-12 ">
+                        <div class="tchEditBtn d-flex justify-content-between ">
+                            
+                            <div class="profileContent-btn">
+                                <a href="#">
+                                    <button class="color-white bg-cl-pm px-4 border-0"
+                                        onclick="toggleChange('change','profileContent')"><i
+                                            class="far fa-edit"></i> Edit</button>
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- Expertise -->
+                <div class="expertise mb-4">
+                    <h5 class="">Expertise</h5>
+                    <div class="expertise-btn mt-4">
+                        {% for s in tutor.speciality%}
+                        <button> {{s}}</button>
+                        {% endfor %}
+                        
+                        
+                    </div>
+                </div>
+                <!-- Overview -->
+                <div class="col-lg-6 col-md-7 col-12  mb-4 overview">
+                    <h5 class="">Overview</h5>
+                    <p class="color-span mt-4">
+                        {{tutor.instructor_intro}}
+                    </p>
+                </div>
+
+                <!-- Change Password -->
+
+                
+            </div>
+            <!-- Profile Content 1 end-->
+            <!-- Profile Content 2 start-->
+            <div class="profileContent mx-1 dnone block-profileContent mb-5">
+
+                <h6 class="mb-5">Basic Information</h6>
+
+                <form class="frm" method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <!-- 6/6 -->
+                        
+                        <div class="col-md-6 col-12 ">
+                            <div class="mb-4">
+                                <label for="exampleFormControlTextarea1"
+                                    class="form-label color-grey fw-bold">Overview</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
+                                    style="height: 148px;" name="overview">{{tutor.instructor_intro}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div >
+                        <div class="col-md-3 col-6 mt-4 mb-4">
+                            <label for="exampleFormControlInput1" class="form-label color-grey fw-bold">Instructor Expertise</label>
+                            <select class="selectpicker w-100" multiple aria-label="Default select example"
+                                data-live-search="true" data-live-search-placeholder="Type Here..."
+                                title="Specialization" name="speciality">
+                                <option value="Math" {% if 'Math' in tutor.speciality %}selected{% endif %}>Math</option>
+                                <option value="Physics" {% if 'Physics' in tutor.speciality %}selected{% endif %}>Physics</option>
+                                <option value="Chemistry" {% if 'Chemistry' in tutor.speciality %}selected{% endif %}>Chemistry</option>
+                                <option value="Biology" {% if 'Biology' in tutor.speciality %}selected{% endif %}>Biology</option>
+                                <option value="English" {% if 'English' in tutor.speciality %}selected{% endif %}>English</option>
+                                
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn3 bg-cl-pm"
+                        >
+                        
+                        Save Changes
+                    </button>
+
+                </form>
+                <!-- Profile Content 2 end-->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main %}

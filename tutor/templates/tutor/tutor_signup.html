@@ -1,0 +1,207 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block title %}Poralekha|Tutor|SignUp{% endblock title %}
+{% block main %}
+<section class="signUpCongratulation d-flex">
+    <div class="signUpcongratulationsLeft d-flex align-items-center">
+        <div
+            class="signUpcongratulationLeftContent d-flex flex-column justify-content-center align-items-center color-white">
+            <img src="{% static 'app/Assets/Images/signUp/logo.svg' %}" alt="">
+            <h4 class="fw-bold text-center px-2">One platform for Learning</h4>
+            <small class="text-center px-5 mx-5">Gether Knowledge and your educational Guidline from just in one
+                place.</small>
+        </div>
+    </div>
+    <div class="signUpCongratulationRight d-flex justify-content-center align-items-center w-100 mb-5">
+        <div class="container">
+            <div class="signUpBack d-flex justify-content-between w-75">
+                
+                <div>
+                    <a href="{% url 'home' %}" class="cl-pm">
+                        Home
+                        <i class="fas fa-home ms-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div
+                class="signUpcongratulationRightContent signInContent d-flex flex-column justify-content-center px-4">
+                <h3 class="cl-pm fw-bold mb-2">Welcome Bck</h3>
+                <small class="mb-5 color-span">Hello There, Sign Up to Continue</small>
+                <h4 class="cl-pm fw-bold mb-4">Sign Up</h4>
+                <form  method="POST" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger my-3">{{error}}</p>
+                    {% endfor %}
+                    {% endif %}
+                    {% if iform.non_field_errors %}
+                    {% for error in iform.non_field_errors %}
+                    <p class="alert alert-danger my-3">{{error}}</p>
+                    {% endfor %}
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <div class="singUpInput">
+                        
+                        <small class="text-danger">{{form.phone_number.errors}}</small>
+                        {{form.phone_number}}
+                    </div>
+                    <div class="image-upload d-flex flex-wrap align-items-center">
+                        {% if not user.profile_image %}
+                        {{form.profile_image.errors}}
+                        <div class="file-upload mb-3">
+                            <div class="image-upload-wrap">
+                                {{form.profile_image}}
+                                <div class="drag-text">
+                                    <p class="color-grey">
+                                        <i class="fas fa-photo-video"></i>
+                                        <br>
+                                        Drop your image here , or <span class="fw-bold cl-pm">Browse</span> <br>
+                                        Support JPG, JPEG & PNG
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="file-upload-content">
+                                <img class="file-upload-image" src="#" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove
+                                        <span class="image-title">Uploaded Image</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {{form.nid_image.errors}}
+                        <div class="file-upload mb-3">
+                            <div class="image-upload-wrap2">
+                                {{form.nid_image}}
+                                <div class="drag-text">
+                                    <p class="color-grey">
+                                        <i class="fas fa-id-card"></i>
+                                        <br>
+                                        Drop your ID here, or <span class="fw-bold cl-pm">Browse</span> <br>
+                                        Support JPG, JPEG & PNG
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="file-upload-content2">
+                                <img class="file-upload-image2" src="#" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload2()" class="remove-image">Remove
+                                        <span class="image-title">Uploaded Image</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="singUpInput">
+                        <small class="text-danger ">{{form.first_name.errors}}</small>
+                        {{form.first_name}}
+                        <small class="text-danger">{{form.last_name.errors}}</small>
+                        {{form.last_name}}
+                    </div>
+                    <div class="singUpInput">
+                        <small class="text-danger">{{form.username.errors}}</small>
+                        {{form.username}}
+                        <small class="text-danger">{{form.email.errors}}</small>
+                        {{form.email}}
+                    </div>
+                    <div class="singUpInput">
+                        <small class="text-danger ">{{form.phone_number.errors}}</small>
+                        {{form.phone_number}}
+                        
+                        
+                    </div>
+                    <div class="singUpInput">
+                        <small class="text-danger">{{form.password1.errors}}</small>
+                        {{form.password1}}
+                        <small class="text-danger">{{form.password2.errors}}</small>
+                        {{form.password2}}
+                    </div>
+                    <div class="image-upload d-flex flex-wrap align-items-center">
+                        
+                        {{form.profile_image.errors}}
+                        <div class="file-upload mb-3">
+                            <div class="image-upload-wrap">
+                                {{form.profile_image}}
+                                <div class="drag-text">
+                                    <p class="color-grey">
+                                        <i class="fas fa-photo-video"></i>
+                                        <br>
+                                        Drop your image here , or <span class="fw-bold cl-pm">Browse</span> <br>
+                                        Support JPG, JPEG & PNG
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="file-upload-content">
+                                <img class="file-upload-image" src="#" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove
+                                        <span class="image-title">Uploaded Image</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {{form.nid_image.errors}}
+                        <div class="file-upload mb-3">
+                            <div class="image-upload-wrap2">
+                                {{form.nid_image}}
+                                <div class="drag-text">
+                                    <p class="color-grey">
+                                        <i class="fas fa-id-card"></i>
+                                        <br>
+                                        Drop your ID here, or <span class="fw-bold cl-pm">Browse</span> <br>
+                                        Support JPG, JPEG & PNG
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="file-upload-content2">
+                                <img class="file-upload-image2" src="#" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload2()" class="remove-image">Remove
+                                        <span class="image-title">Uploaded Image</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="selectorFiltering d-flex flex-wrap mt-4 mb-4">
+
+                        <div class="selector me-3 mb-3">
+                            <select class="selectpicker w-100" multiple aria-label="Default select example"
+                                data-live-search="true" data-live-search-placeholder="Type Here..."
+                                title="Specialization" name="speciality">
+                                <option value="Math">Math</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                                
+                            </select>
+                        </div>
+                        <div class="selector">
+                            
+                        </div>
+                    </div>
+                               
+                    
+                    <div class="d-flex align-items-center mt-4 mb-5">
+                        <button type="submit" class="bg-cl-pm color-white px-2 btn1">Sign Up</button>
+                        <div class="form-check ms-5 cl-pm">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                
+
+                <small class="signInOutLast">Already have an account? <a href="{% url 'tutor:tutor_signin' %}" class="cl-pm fw-bold">Sign In</a></small>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+{% endblock main %}

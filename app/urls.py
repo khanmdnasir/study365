@@ -1,0 +1,43 @@
+from django.urls import path
+from . import views
+urlpatterns = [
+    path('',views.home,name='home'),
+    path('home/',views.home,name='home'),
+    path('home/all_courses/',views.find_course,name='find_course'),
+    path('home/course_details/<int:pk>',views.course_details,name='course_details'),
+    path('home/course_by_category/<int:pk>',views.find_course,name='find_category'),
+    path('home/books/',views.all_books,name='all_books'),
+    path('home/book_details/<int:pk>',views.book_details,name='book_details'),
+    path('home/book_by_category/<int:pk>',views.book_details,name='book_details'),
+    path('profile/courses/',views.ccourses,name='ccourses'),
+    path('profile/books/',views.mybooks,name='mybooks'),
+    path('wishlist/',views.wishlist,name='wishlist'),
+    path('profile/payment_method/',views.payment_method,name='payment_method'),
+    path('help_desk/',views.helpdesk,name='helpdesk'),
+    path('add_to_course_wishlist/',views.addToCourseWishList,name='add-cwishlist'),
+    path('add_to_course_cart/',views.add_ccart,name='add-ccart'),
+    path('delete_course_wishlist/',views.DeleteCourseWishList,name='delete_cwishlist'),
+    path('delete_course_cart/<int:pk>',views.delete_ccart,name='delete_ccart'),
+    path('add_to_book_wishlist/',views.addToBookWishList,name='add_bwishlist'),
+    path('add_to_test_wishlist/',views.addToTestWishList,name='add_twishlist'),
+    path('add_to_book_cart/',views.add_bcart,name='add_bcart'),
+    path('add_to_test_cart/',views.add_tcart,name='add_tcart'),
+    path('delete_book_wishlist/',views.DeleteBookWishList,name='delete_bwishlist'),
+    path('delete_test_wishlist/',views.DeleteTestWishList,name='delete_mwishlist'),
+    path('delete_book_cart/<int:pk>',views.delete_bcart,name='delete_bcart'),
+    path('delete_test_cart/<int:pk>',views.delete_tcart,name='delete_tcart'),
+    path('delete_all_cart/',views.delete_cart,name="delete_cart"),
+    path('total_cart/',views.total_cart,name="total_cart"),
+    path('shopping_cart/',views.show_cart,name='show_cart'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('author_profile/<int:pk>', views.author_profile, name='author_profile'),
+    path('instructor_profile/<int:pk>', views.instructor_profile, name='instructor_profile'),
+    path('Course_PlayList/<int:pk>/', views.course_playlist, name='course_playlist'),
+    # path('Course_PlayList_With_Lesson/<int:pk>/<int:id>', views.course_playlist, name='course_playlist1'),
+    path('Course_PlayList_Json/', views.course_playlist_json, name='course_playlist_json'),
+    path('mcq_json/', views.mcq_json),
+    path('submit_quiz/', views.submit_quiz),
+    
+    
+   
+]

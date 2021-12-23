@@ -1,0 +1,94 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Poralekha|Student Profile{% endblock title %}
+{% block content %}
+    
+     <!-- Middle Section -->
+    <!--bread crump start -->
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--bread crump end -->
+
+
+{% include 'app/std-profile-nav.html' %}
+
+            <!-- mt5 media query desktop version -->
+            <div class="col-xl-9 col-lg-9 mtResponsive mb-5 ">
+                    <!-- part-1 -->
+                    <div class="pcontent1 none-profile">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 studentProfileImg mb-2">
+                                {% if user.profile_image %}
+                                <img src="{{user.profile_image.url}}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-9 col-md-9 studentProfileDetails ms-2 mt-2">
+                                <div
+                                    class="studentProfileDetailsTop d-flex flex-wrap align-items-center justify-content-between ">
+                                    <div class="studentProfileDetailsTopLeft">
+                                        <h5 class="cl-pm fw-bold">{{user.first_name}} {{user.last_name}}</h5>
+                                        <small class="color-span">{{user.address}}</small>
+                                    </div>
+                                    <div class="studentProfileDetailsTopRight">
+                                        <a href="#">
+                                            <button class="color-white bg-cl-pm px-4 border-0"
+                                                onclick="location.href='{% url 'edit_profile' %}'"><i class="far fa-edit"></i>
+                                                Edit</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="studentProfileDetailsBottom">
+                                    <div class="row mt-3">
+                                        <div class="col-lg-3 col-md-3 col-6 color-span ">
+                                            <small>
+                                                <span class="fw-bold">Email</span> <br>
+                                                {{user.email}}
+                                            </small>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-6 color-span">
+                                            <small>
+                                                <span class="fw-bold">Contact</span> <br>
+                                                {{user.phone_number}}
+                                            </small>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-6 color-span">
+                                            <small>
+                                                <span class="fw-bold">Education Level</span> <br>
+                                                Class {{user.student.get_education_level_display}}
+                                            </small>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-6 color-span">
+                                            <small>
+                                                <span class="fw-bold">Department</span> <br>
+                                                {{user.student.get_department_display}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 px-3 py-4 mt-4 studentProfileDesc">
+                            <h5 class="fw-bold">About</h5>
+                            <p class="color-span">
+                                {{user.student.about}}
+                            </p>
+                        </div>
+                    </div>
+                    <!-- part-2 -->
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    
+{% endblock content %}

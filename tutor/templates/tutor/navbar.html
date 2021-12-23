@@ -1,0 +1,121 @@
+ {% load static %}
+ <!-- Desktop version start -->
+ <section class="desktopVersion">
+    <div class="topHeader bg-cl-pm">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <div class="mx-2 ">
+                        <img class="iconSize test" src="{% static 'app/Assets/Images/Header/headphone.png' %}" alt=""> Support
+                    </div>
+                    <div class="mx-2">
+                        <img class="iconSize" src="{% static 'app/Assets/Images/Header/mail.png' %}" alt=""> support@gmail.com
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="mx-2 br">
+                        Social:
+                        <i class="fab fa-facebook-f iconSize mx-2"></i>
+                        <i class="fab fa-twitter iconSize mx-2"></i>
+                        <i class="fab fa-youtube iconSize me-5 "></i>
+                    </div>
+                    <div class="mx-2 languageChange">
+                        <div class="change">
+                            <input id="engtoggle" class="engtoggle engtoggle-round-flat" type="checkbox">
+                            <label for="engtoggle"></label>
+                            <span class="off">En</span>
+                            <span class="on">Bn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Middle Header -->
+    <div class="middleHeader tchMiddleHead">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="middleHeader-img">
+                    <a href="{% url 'home' %}"><img src="{% static 'app/Assets/Images/Header/logo.svg' %}" alt=""></a>
+                </div>
+                <div class="middleHeader-content d-flex align-items-center">
+                    
+                    <div class="middleHeader-contentIcon d-flex">
+
+                        <div
+                            class="Icon hdDot bg-cl-grey3 p-2 d-flex justify-content-center align-items-center rounded-3 me-3">
+                            <i class="fas fa-sms"></i>
+                        </div>
+                        <div
+                            class="Icon hdDot1 bg-cl-grey3 p-2  d-flex justify-content-center align-items-center rounded-3">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                    <div class="middleHeader-contentDropdown d-flex ms-4">
+                        <div class="middleHeader-contentDropImg">
+                            <img src="{{user.profile_image.url}}" alt="">
+                        </div>
+                        <div class="dropdown middleHeaderDropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{user.username}}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end middleHeaderDropdownMenu mt-2 border-0"
+                                aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'stdprofile' %}">My
+                                        Account</a></li>
+                                <hr class="dropdown-divider color-span">
+                                <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'logout' %}">Log
+                                        Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Middle Section -->
+</section>
+<!-- Desktop version end -->
+
+<section class="mobileVersion mx-2">
+    <!-- main Header -->
+    <div class="mainHeader">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: white !important;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <div class="middleHeader-img">
+                        <img src="{% static 'app/Assets/Images/Header/logo.svg' %}" alt="">
+                    </div>
+                </a>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="">
+                        <div class="dropdown">
+                                <button class="btn dropdown-btn" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="header-image d-flex align-items-center">
+                                        <img class="me-1" src="{{user.profile_image.url}}" alt="">
+                                        <i class="fas fa-chevron-down color-grey"></i>
+                                    </div>
+                                </button>
+                            <ul class="dropdown-menu dropdown-menu-end middleHeaderDropdownMenu mt-2 border-0"
+                                aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item d-flex justify-content-end color-span" href="#">Message                                             <div class="notification-num bg-cl-red d-flex justify-content-center align-items-center color-white pt-1">9</div></a></li>
+                                <hr class="dropdown-divider color-span">
+                                <li><a class="dropdown-item d-flex justify-content-end color-span"
+                                        href="#">Notifications                                            <div class="notification-num bg-cl-red d-flex justify-content-center align-items-center color-white pt-1">99</div></a></li>
+                                <hr class="dropdown-divider color-span">
+                                <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'stdprofile' %}">My
+                                        Account</a></li>
+                                <hr class="dropdown-divider color-span">
+                                <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'logout' %}">Log
+                                        Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</section>
+<!-- mobile version end -->

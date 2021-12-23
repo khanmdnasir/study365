@@ -1,0 +1,316 @@
+{% extends 'app/base.html' %}
+  {% load static %}
+  {% block title %}Poralekha|Book Details{% endblock title %}
+  {% block content %}
+
+
+   <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'all_books' %}">Library</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{book.book_title|truncatechars:15}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="singleCourse mt-5 mb-5">
+        <div class="container">
+            <!-- Single Book top  -->
+            <div class="row single-course-top mb-5 d-flex justify-content-center">
+                <!-- img -->
+                <div class="col-lg-3 col-md-6 col-12 sCtop-img mb-3">
+                    <img src="{{book.book_image.url}}" alt="">
+                </div>
+                <!-- description -->
+                <div class="col-lg-9 col-md-10 col-12">
+                    <!-- top heading -->
+                    <div class="row top-heading">
+                        <!-- top heading text-->
+                        <div class="col-lg-7 col-md-12 col-12 mb-3 singleCourseTopHead">
+                            <h4>{{book.book_title}}</h4>
+                            <div class="singleCourseTopHeadRating d-flex align-items-center mt-3">
+                                <small class="me-2 ">
+                                    <i class="fas fa-star {% if book.book_review > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if book.book_review > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if book.book_review > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if book.book_review > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <i class="fas fa-star {% if book.book_review > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                </small>
+                                <span class="color-grey">{{book.no_of_ratings}}</span>
+                            </div>
+                        </div>
+                        <!-- top heading social btn-->
+                        <div class="col-lg-5 col-md-12 col-12 d-flex social-btn mb-3">
+                            <div class="d-flex align-items-center">
+                                <small>Share</small>
+                            </div>
+                            <div class="social-links-icon mx-3">
+                                <ul class="social-links-footer list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- middle heading -->
+                    <div class="row middle-heading ">
+                        <div class="col-xl-12 col-md-12 col-12">
+                            <small>
+                                {{book.book_description}}
+                            </small>
+                            <div class="middle-heading-border d-flex flex-wrap justify-content-between align-items-center">
+                                <div class="d-flex align-items-center mt-3 mb-3">
+                                    <div class="mh-img">
+                                        <a href="{% url 'author_profile' book.author_id.id %}" ><img src="{{book.book_image.url}}" alt=""></a>
+                                    </div>
+                                    <div class="mx-4">
+                                        <small>Author</small>
+                                        <a href="{% url 'author_profile' book.author_id.id %}" ><p class="m-0">{{book.author_id.author_name}}</p></a>
+                                    </div>
+                                    <div class="mx-4">
+                                        <small>Year</small>
+                                        <p class="m-0">{{book.publishing_year}}</p>
+                                    </div>
+                                    <div class="mx-4">
+                                        <small>Language</small>
+                                        <p class="m-0">{{book.book_language}}</p>
+                                    </div>
+                                </div>
+                                <div class="bookInStock mb-2">
+                                    {% if book.book_stock <= 0 %}
+                                    <span class="badge bg-cl-pink d-flex justify-content-center align-items-center py-2 rounded-3">
+                                        <span class="cl-lpink">Out Of Stock</span>
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-cl-green3 d-flex justify-content-end align-items-center py-2 rounded-3">
+                                        <i class="flaticon-check me-1 cl-green2 fw-bold"></i>
+                                        <span class="me-2 cl-green2">In Stock <span class="px-2 cl-green2" style="border-left: 2px solid #c0e2d4;">{{book.book_stock}}</span></span>
+
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-md-12 col-12 mt-3 mb-3">
+                            <div class="singleCourseBtnSec d-flex justify-content-between">
+                                <div class="singleCourseBtnSec1 d-flex align-items-center ">
+                                    <h3 class="color-yellow">{{book.discounted_price}} Tk</h3>
+                                    <strike class="color-grey mx-3">{{book.book_price}} Tk </strike>
+                                    <small class="color-green mx-1 fw-bolder">{{book.book_offer}}%</small>
+                                </div>
+                                <div class="bookWish d-flex align-items-center">
+                                    <div class="button-inDecrement">
+                                        <div>
+                                            <button class="sub"
+                                                onclick="cartValueChange('bookCount1', false)">-</button>
+                                            <input type="text" id="bookCount1" value="1" name="qty" readonly>
+                                            <button class="add"
+                                                onclick="cartValueChange('bookCount1', true)">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        {% if user.is_authenticated %}
+                                        <button type="submit" class="btn  btn3 bg-cl-pm mx-3 add-bcart1" data-product="{{book.id}}">Add to Cart</button>
+                                        {% else %}
+                                        <a  class="btn  btn3 bg-cl-pm mx-3 " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});">Add to Cart</a>
+                                        
+                                        {% endif %}
+                                        <li class="bookmark">
+                                            {% if user.is_authenticated %}
+                                            <p> <i class="fas fa-heart toggle-box add-bwishlist" data-product="{{book.id}}"></i>
+                                            {% else %}
+                                            <p> <i class="fas fa-heart " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                                            {% endif %}
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Book Mid-1-->
+
+            <!-- Single Book Mid-2-->
+            <div class="row mb-5 single-book">
+                <div class="col-lg-7 m-auto">
+                    <nav class="d-flex justify-content-center">
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-link active me-3" id="nav-home-tab" data-bs-toggle="tab" href="#content"
+                                role="tab" aria-controls="nav-home" aria-selected="true">Book Details</a>
+                            <a class="nav-link me-3" id="nav-profile-tab" data-bs-toggle="tab" href="#review" role="tab"
+                                aria-controls="nav-profile" aria-selected="false">Reviews</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content mt-4" id="nav-tabContent">
+                        <div class="tab-pane active show fade" id="content" role="tabpanel"
+                            aria-labelledby="nav-profile-tab">
+                            <div class="content">
+                                <table class="table border border-1">
+                                    <tbody>
+                                        <tr class="table-setup">
+                                            <td class="fs14 fw-bold"><span class="">Book Title</span></td>
+                                            <td class="fs12" colspan="">{{book.book_title}}</td>
+                                        </tr>
+                                        <tr class="table-setup">
+                                            <td class="fs14 fw-bold">Author</td>
+                                            <td class="fs12" colspan="2">{{book.author_id.author_name}}</td>
+                                        </tr>
+                                        <tr class="table-setup">
+                                            <td class="fs14 fw-bold">Publisher</td>
+                                            <td class="fs12" colspan="2">{{book.publishing_year}}</td>
+                                        </tr>
+                                        <tr class="table-setup">
+                                            <td class="fs14 fw-bold">ISBN</td>
+                                            <td class="fs12" colspan="2">{{book.book_isbn}}</td>
+                                        </tr>
+                                        <tr class="table-setup">
+                                            <td class="fs14 fw-bold">Language</td>
+                                            <td class="fs12" colspan="2">{{book.book_language}}</td>
+                                        </tr>
+                                        <tr class="table-setup">
+                                            <td class="fs14 fw-bold">Tags</td>
+                                            <td class="fs12" colspan="2">
+                                                {% for i in book.book_tag %}
+                                                <span class="badge rounded-pill cl-pm table-badge-bg mb-2">{{i}}</span>
+                                                {% endfor %}
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="courseReview">
+                                {% for r in ratings %}
+                                <div class="courseReviewSec bg-light-pink rounded-3 py-4 px-3 mb-2">
+                                    <div class="courseReviewTop d-flex justify-content-between">
+                                        <div class="courseReviewTopleft d-flex align-items-center">
+                                            <div class="courseReviewImg me-3">
+                                                <img src="{{r.user.profile_image.url}}" alt="">
+                                            </div>
+                                            <div class="courseReviewName">
+                                                <h6 class="fw-bold">{{r.user.first_name}} {{r.user.last_name}}</h6>
+                                                <small class="color-grey">{{r.date}}</small>
+                                            </div>
+                                        </div>
+                                        <div class="courseReviewTopRight">
+                                            <div class="courseReviewRate d-flex justify-content-en me-3 mb-2">
+                                                <i class="fas fa-star {% if r.stars > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                <i class="fas fa-star {% if r.stars > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                <i class="fas fa-star {% if r.stars > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                <i class="fas fa-star {% if r.stars > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                <i class="fas fa-star {% if r.stars > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="courseReviewbottom mt-3">
+                                        <p>
+                                            {{r.comment}}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Single Book end -->
+        <!-----------------------Related Books---------------------->
+        <Section class="homeWhatsNew mt-5 mb-5 ">
+            <div class="container">
+                <div class="homeWhatsNewHeading mb-4">
+                    <h4 class="color-grey">Related Books</h4>
+                </div>
+                <div class="homeWhatsNewcarousel owl-carousel">
+                    {% for rbook in rbooks %}
+                    <div class="homeWhatsNewImg booksCard">
+                        <div class="card card-height">
+                            <div class="card-img d-flex  justify-content-end">
+                                <img class="card-img-top " src="{{rbook.book_image.url}}" alt="Card image cap">
+                                <li class="bookmark click-icon">
+                                    {% if user.is_authenticated %}
+                                   {% if rbook in bwishlist %}
+                                    <p> <i class="fas fa-heart toggle-box toggle-pressed add-bwishlist"  data-product="{{rbook.id}}"></i>
+                                    {% else %}
+                                        <p> <i class="fas fa-heart toggle-box add-bwishlist"  data-product="{{rbook.id}}"></i>
+                                    {% endif %}
+                                    {% else %}
+                                    <p> <i class="fas fa-heart "  onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});"></i>
+                                    {% endif %}
+                                </li>
+                            </div>
+                            <div class="cardOverlay px-3 d-flex justify-content-center align-items-center">
+                                <i class="fas fa-cart-plus me-2"></i>
+                                {% if user.is_authenticated %}
+                                <p class="mt-3 add-bcart" data-product="{{rbook.id}}" data-qty="1">Add to cart</p>
+                                {% else %}
+                                <p class="mt-3 " onclick="swal({text:'Please login for add to cart',buttons:true}).then((willDelete)=>{if(willDelete){location.href='{% url 'login' %}'}else{}});">Add to cart</p>
+                                
+                                {% endif %}
+                            </div>
+                            <a href="{% url 'book_details' rbook.id %}">
+                                <div class="card-body card-body-height">
+                                    <h5 class="fw-bold">{{rbook.book_title}}</h5>
+                                    <div class="homeFeaturedCardTag mb-2">
+                                        {% for i in rbook.book_tag %}
+                                        <small class="cl-pm">{{i}}</small>
+                                        {% endfor %}
+                                        
+                                    </div>
+                                    <div class="card-body-text">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="">
+                                                <div>
+                                                    <small>{{rbook.author_id.author_name}}</small>
+                                                </div>
+                                                <div class="d-flex align-items-center mt-2">
+                                                    <h5 class="cl-pm m-0 fw-bold">{{rbook.discounted_price}} Tk</h5>
+                                                    <strike class="color-grey  mx-2"><small>{{rbook.book_price}} Tk</small>
+                                                    </strike>
+                                                    <small class="color-green">{{rbook.book_offer}}%</small>
+                                                </div>
+                                            </div>
+                                            <div class="fs10">
+                                                <div class="d-flex align-items-center mt-1">
+                                                    <small class="me-1 ">
+                                                        <i class="fas fa-star {% if rbook.book_review > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        <i class="fas fa-star {% if rbook.book_review > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        <i class="fas fa-star {% if rbook.book_review > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        <i class="fas fa-star {% if rbook.book_review > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        <i class="fas fa-star {% if rbook.book_review > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                    </small>
+                                                    <small class="color-grey">{{rbook.no_of_ratings}}</small>
+                                                </div>
+                                                <div class="text-end mt-2">
+                                                    <small class="color-grey">{{rbook.total_sales}} Sales</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </Section>
+    </div>
+
+{% endblock content %}

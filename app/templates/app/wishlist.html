@@ -1,0 +1,250 @@
+ {% extends 'app/base.html' %}
+  {% load static %}
+  {% load mathfilters %}
+  {% block title %}Poralekha|WishList{% endblock title %}
+  {% block content %}
+
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">WishList</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--bread crump end -->
+
+{% include 'app/std-profile-nav.html' %}
+            <!-- mt5 media query desktop version -->
+            <div class="col-xl-9 col-lg-9 mtResponsive mb-5 ">
+                    <nav class="">
+                        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                            <a class="nav-link active me-3" id="nav-test1-tab" data-bs-toggle="tab" href="#nav-test1"
+                                role="tab" aria-controls="nav-test1" aria-selected="true">
+                                Courses</a>
+
+                            <a class="nav-link me-3" id="nav-test2-tab" data-bs-toggle="tab" href="#nav-test2"
+                                role="tab" aria-controls="nav-test2" aria-selected="false">
+                                Books</a>
+
+                            <a class="nav-link me-3" id="nav-test3-tab" data-bs-toggle="tab" href="#nav-test3"
+                                role="tab" aria-controls="nav-test3" aria-selected="false">
+                                Mock Test</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content " id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-test1" role="tabpanel"
+                            aria-labelledby="nav-test1-tab">
+                            <div class="row">
+                                {% for c in cwishlist %}
+                                <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
+                                    <div class="homeWhatsNewImg">
+                                        <div class="card card-height">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top " src="{{c.course.course_image.url}}"
+                                                    alt="Card image cap">
+                                                <li class="bookmark click-icon">
+                                                    <form action="{% url 'delete_cwishlist' %}" method="POST" id="cwform{{c.course.id}}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" value="{{c.course.id}}" name="course_id"/>
+                                                    <p> <i class="fas fa-trash toggle-pressed"  onclick="document.getElementById('cwform{{c.course.id}}').submit();"></i>
+                                                    </form>
+                                                </li>
+                                            </div>
+                                            <a href="{% url 'course_details' c.course.id %}">
+                                                <div class="card-body card-body-height">
+                                                    <h6>{{c.course.course_title}}</h6>
+                                                    <div class="card-body-text">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="">
+                                                                <h5 class="color-yellow me-1">{{c.course.discounted_price}} Tk</h5>
+                                                                <div class="d-flex align-items-center ">
+                                                                    <strike class="color-grey">{{c.course.course_price}} Tk </strike>
+                                                                    <small class="color-green mx-1">{{c.course.course_offer}}%</small>
+                                                                </div>
+                                                                <div class="d-flex mt-3 align-items-center">
+                                                                    <i class="far fa-eye mx-1 color-yellow"></i>
+                                                                    <small class="color-grey ">{{c.course.course_view}}</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <div class="d-flex align-items-center ">
+                                                                    <i class="fas fa-book me-1 color-yellow"></i>
+                                                                    <small class="color-grey">{{c.course.total_lesson}} lessons</small>
+                                                                </div>
+                                                                <div class="d-flex align-items-center mt-3">
+                                                                    <small class="me-1 ">
+                                                                        <i class="fas fa-star {% if c.course.course_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                        <i class="fas fa-star {% if c.course.course_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                        <i class="fas fa-star {% if c.course.course_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                        <i class="fas fa-star {% if c.course.course_rating > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                        <i class="fas fa-star {% if c.course.course_rating > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    </small>
+                                                                    <small class="color-grey">{{c.course.course_rating}}</small>
+                                                                </div>
+                                                                <div class="d-flex mt-3 align-items-center">
+                                                                    <i class="far fa-clock me-1 color-yellow"></i>
+                                                                    <small class="color-grey">{{c.course.course_duration}}</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-test2" role="tabpanel" aria-labelledby="nav-test2-tab">
+                            <div class="row">
+                                {% for b in bwishlist %}
+                                <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
+                                    <div class="homeWhatsNewImg booksCard">
+                                        <div class="card card-height">
+                                            <div class="card-img d-flex  justify-content-end">
+                                                <img class="card-img-top " src="{{b.book.book_image.url}}"
+                                                    alt="Card image cap">
+                                                <li class="bookmark click-icon">
+                                                    <form action="{% url 'delete_bwishlist' %}" method="POST" id="bwform{{b.book.id}}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" value="{{b.book.id}}" name="book_id"/>
+                                                    <p> <i class="fas fa-trash toggle-pressed"  onclick="document.getElementById('bwform{{b.book.id}}').submit();"></i>
+                                                    </form>
+                                                </li>
+                                            </div>
+                                            <div
+                                                class="cardOverlay px-3 d-flex justify-content-center align-items-center">
+                                                <i class="fas fa-cart-plus me-2"></i>
+                                                <p class="mt-3 add-bcart" data-product="{{b.book.id}}" data-qty="1">Add to cart</p>
+                                            </div>
+                                            <a href="{% url 'book_details' b.book.id %}">
+                                                <div class="card-body card-body-height">
+                                                    <h5 class="fw-bold">{{b.book.book_title}}</h5>
+                                                    <div class="card-body-text">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="">
+                                                                <div>
+                                                                    <small>{{b.book.author.author_name}}</small>
+                                                                </div>
+                                                                <div class="d-flex align-items-center mt-2">
+                                                                    <h5 class="cl-pm m-0 fw-bold">{{b.book.discounted_price}} Tk</h5>
+                                                                    <strike
+                                                                        class="color-grey  mx-2"><small>{{b.book.book_price}} Tk</small>
+                                                                    </strike>
+                                                                    <small class="color-green">{{b.book.book_offer}}%</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fs10">
+                                                                <div class="d-flex align-items-center mt-1">
+                                                                    <small class="me-1 ">
+                                                                        <i class="fas fa-star {% if b.book.book_review > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                        <i class="fas fa-star {% if b.book.book_review > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                        <i class="fas fa-star {% if b.book.book_review > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                        <i class="fas fa-star {% if b.book.book_review > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                        <i class="fas fa-star {% if b.book.book_review > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    </small>
+                                                                    <small class="color-grey">{{b.book.book_review}}</small>
+                                                                </div>
+                                                                <div class="text-end mt-2">
+                                                                    <small class="color-grey">20 Sales</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-test3" role="tabpanel" aria-labelledby="nav-test3-tab">
+                            <div class="row">
+                                {% for m in mwishlist %}
+                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-7 col-12  mb-4">
+                                    <div class="right-content-bg rounded-3">
+                                        <div class="p-3">
+                                            <div class="right-content">
+                                                <!-- upper section-->
+                                                <div class="d-flex justify-content-between mb-3">
+                                                    <div class="d-flex">
+                                                        <div class="me-2 file-icon">
+                                                            <p> <i class="far fa-file-alt "></i></p>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="m-0 fw-bold">{{m.test.title}}</h6>
+                                                            <div class="content-star">
+                                                                <label class="form-check-label  me-2"
+                                                                    for="flexRadioDefault2">
+                                                                    <i class="fas fa-star {% if m.test.mocktest_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    <i class="fas fa-star {% if m.test.mocktest_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    <i class="fas fa-star {% if m.test.mocktest_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    <i class="fas fa-star {% if m.test.mocktest_rating > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                    <i class="fas fa-star {% if m.test.mocktest_rating > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                                </label>
+                                                                <small class="cl-ash ">{{m.test.no_of_ratings}}</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="fw-bold">{{m.est.price}} BDT</h6>
+                                                    </div>
+                                                </div>
+                                                <!-- mid section -->
+                                                <div class="mb-3 mid-section">
+                                                    <!-- mid section 1-->
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="cl-pm">{{m.test.total_set}} Sets</h6>
+                                                        <h6 class="color-span">{{m.test.total_qstn}} Questions</h6>
+                                                    </div>
+                                                    <!-- mid section 2-->
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="cl-pm">Difficulty</h6>
+                                                        <h6 class="cl-pm">{{m.test.difficulty}}</h6>
+                                                    </div>
+                                                    <div class="progress my-2">
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-cl-green"
+                                                            role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                                            aria-valuemax="100" style="width: 75%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- bottom section -->
+                                                <div class="bottom-section">
+                                                    <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                                        <li class="bookmark">
+                                                            <form action="{% url 'delete_mwishlist' %}" method="POST" id="mwform{{m.id}}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" value="{{m.id}}" name="m_id"/>
+                                                            <p> <i class="fas fa-trash  toggle-pressed " onclick="document.getElementById('mwform{{m.id}}').submit();" ></i>
+                                                            </form>
+        
+                                                            
+                                                        </li>
+                                                        <button type="button" class="btn cl-pm bg-white" onclick="location.href='{% url 'mocktest:mockTestDetails' m.test.id %}'">Details</button>
+                                                        
+                                                        <button type="button" class="btn  btn3 bg-cl-pm add-tcart" data-product="{{m.test.id}}">Add to Cart</button>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Profile End -->
+    {% endblock content %}

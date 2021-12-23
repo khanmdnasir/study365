@@ -1,0 +1,453 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block main %}
+{% include 'tutor/navbar.html' %}
+<section class="std-profile d-flex flex-wrap">
+        
+    {% include 'tutor/tutor_tab.html' %} 
+
+    <div class="tchRight">
+        <!-- Teacher Payment Start-->
+        
+        <div class="tch-payment ms-1">
+            <!-- Payment-replace-div-1 start -->
+            <div class="mt-3 mb-5  ms-2 none-paymentToggle payment1">
+                <div class="sc-breadcrump d-flex align-items-center bg-white">
+                    <div class="mt-2">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                        href="index.html">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active fw-bold" aria-current="page">
+                                    Withdraw
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Balance Start -->
+                <div class="mb-5 balance">
+
+                    <div class="row col">
+
+                        <!-- Current Balance -->
+                        <!-- <div class="mb-3 w-30 me5"> -->
+                        <div class="mb-3 me3 col-xxl-3 col-xl-4 col-md-5 col-sm-6 col-12">
+                            <!-- <div class=""> -->
+                            <div class="d-flex align-items-center  tch-paymentHeight border">
+                                <div class="d-flex align-items-center justify-content-center" style="width: 40%;">
+                                    <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/wallet.png' %}" alt="">
+                                </div>
+                                <div class="m-auto" style="width: 60%;">
+                                    <h5 class="cl-green">Current Balance</h5>
+                                    <h1>15,560</h1>
+                                    <button type="button" class="btn btn3 bg-cl-pm px-4 mt-3"
+                                        onclick="toggleChange('tchProfile','paymentToggle')">Withdraw</button>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+
+                        <!-- Total Earned -->
+                        <div class="col-xxl-3 col-xl-4 col-md-5 col-sm-6 col-12">
+                            <!-- <div class=""> -->
+                            <div class="d-flex align-items-center tch-paymentHeight border">
+                                <div class="d-flex align-items-center justify-content-center" style="width: 40%;">
+                                    <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/Payment.png' %}" alt="">
+                                </div>
+                                <div class=" m-auto" style="width: 60%;">
+                                    <h5 class="color-grey">Total Earned </h5>
+                                    <h1>15,560</h1>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Balance End -->
+
+                <!-- saved payment start-->
+                <div class="saved-payment">
+
+                    <!-- Card Start -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center ">
+                            <div class="me-2">
+                                <h5 class="m-0">Saved Cards</h5>
+                            </div>
+                            <div class="">
+                                <ul class="list-inline " onclick="toggleChange('change','paymentToggle')">
+                                    <li class="list-inline-item ">
+                                        <a href="#"><i class="fas fa-plus"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <small class="color-grey">Select the card you want to use</small>
+                        <!-- Card box -->
+                        <div class="row mt-3 card-box align-items-center">
+                            <div class="col-xxl-2 col-xl-3 col-md-4 col-sm-6 col-12 mb-2">
+                                <div class="saved-card1">
+                                    <div class="d-flex justify-content-between px-3 pt-3 mb-2">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/visa .png' %}" alt="">
+                                        <small class="text-white">Exp Date: 10/22</small>
+                                    </div>
+                                    <div class="p-3 text-white text-center">
+                                        <small class="card-no">4321 **** **** 1920</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-md-4 col-sm-6 col-12 mb-2">
+                                <div class="saved-card2">
+                                    <div class="d-flex justify-content-between px-3 pt-3 mb-2">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/visa .png' %}" alt="">
+                                        <small class="text-white">Exp Date : 10/22</small>
+                                    </div>
+                                    <div class="p-3 text-white text-center">
+                                        <small class="card-no">2568 **** **** 2563</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-md-4 col-sm-6 col-12 mb-2">
+                                <div class="saved-card3">
+                                    <div class="d-flex justify-content-between px-3 pt-3 mb-2">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/visa .png' %}" alt="">
+                                        <small class="text-white">Exp Date : 10/22</small>
+                                    </div>
+                                    <div class="p-3 text-white  text-center">
+                                        <small class="card-no">4321 **** **** 1920</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card End -->
+
+                    <!-- Net Banking Start -->
+                    <div class="mb-5 net-banking ">
+                        <div class="d-flex align-items-center">
+                            <div class="me-2">
+                                <h5 class="m-0">Saved Net Banking</h5>
+                            </div>
+                            <div>
+                                <ul class="list-inline " onclick="toggleChange('change','paymentToggle')">
+                                    <li class="list-inline-item ">
+                                        <a href="#"><i class="fas fa-plus"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <small class="color-grey">Select the card you want to use</small>
+                        <!-- Card box -->
+                        <div class="d-flex flex-wrap mt-3  align-items-center card-box">
+                            <div class="w-170px me-3 mb-2">
+                                <a href="">
+                                    <div class="box2 d-flex align-items-center justify-content-center">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/bkash.png' %}" alt="">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="w-170px me-3 mb-2">
+                                <a href="">
+                                    <div class="box2 d-flex align-items-center justify-content-center"
+                                        style="background-color: #8C3494;">
+                                        <img class="img-fluid" src="{% static 'app/Assets/Images/TeacherProfile/Payment/rocket.png' %}"
+                                            alt="">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="w-170px me-3 mb-2">
+                                <a href="">
+                                    <div class="box2 d-flex align-items-center justify-content-center">
+                                        <img class="img-fluid" src="{% static 'app/Assets/Images/TeacherProfile/Payment/upay.png' %}"
+                                            alt="">
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Net Banking End -->
+
+                </div>
+                <!-- saved payment end-->
+
+                <!-- Previous Payment Start -->
+                <div class="mb-5">
+                    <div class="myStds mt-5">
+                        <div class="d-flex flex-wrap myStds-table">
+                            <!-- <h3 class="cl-pm w-65">Previous Payment History</h3> -->
+                            <h3 class="cl-pm w-60">Previous Payment History</h3>
+                            <div class="d-flex w-40">
+                                <select class="form-select me-3 w-35" aria-label="Default select example">
+                                    <option selected>Sort by</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+
+                                <input type="text" class="form-control" id="formGroupExampleInput"
+                                    placeholder="Search here ....">
+                            </div>
+                        </div>
+                        <div class="table-responsive myStds-tbl mt-3">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr class="cl-pm">
+                                        <th scope="col" class="bdr1">Trsn ID</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Method</th>
+                                        <th scope="col" class="bdr2">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold">bhj45287</td>
+                                        <td>12 Jun 2021</td>
+                                        <td>Shamitra Dutta</td>
+                                        <td>5,000 Tk</td>
+                                        <td>DBBL</td>
+                                        <td>Payment of Course</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">bhj45287</td>
+                                        <td>12 Jun 2021</td>
+                                        <td>Shamitra Dutta</td>
+                                        <td>5,000 Tk</td>
+                                        <td>DBBL</td>
+                                        <td>Payment of Course</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">bhj45287</td>
+                                        <td>12 Jun 2021</td>
+                                        <td>Shamitra Dutta</td>
+                                        <td>5,000 Tk</td>
+                                        <td>DBBL</td>
+                                        <td>Payment of Course</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">bhj45287</td>
+                                        <td>12 Jun 2021</td>
+                                        <td>Shamitra Dutta</td>
+                                        <td>5,000 Tk</td>
+                                        <td>DBBL</td>
+                                        <td>Payment of Course</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">bhj45287</td>
+                                        <td>12 Jun 2021</td>
+                                        <td>Shamitra Dutta</td>
+                                        <td>5,000 Tk</td>
+                                        <td>DBBL</td>
+                                        <td>Payment of Course</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Previous Payment End -->
+            </div>
+            <!-- Payment-replace-div-1 end -->
+
+            <!-- Payment-replace-div-2 start-->
+            <div class="mt-3 mb-5  ms-2 payment2 block-paymentToggle dnone">
+                <div class="sc-breadcrump d-flex align-items-center bg-white">
+                    <div class="mt-2">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                        href="index.html">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active fw-bold" aria-current="page">
+                                    Add a Method
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Balance Start -->
+                <div class="mt-3 mb-5 ">
+                    <form>
+                        <div class="paymentHistoryInput mt-3">
+
+                            <div class="accountTitle mb-4">
+                                <h5 class="color-span">Account Title</h5>
+                                <input class="w-100" type="text" placeholder="Enter Title Here...">
+                            </div>
+                            <div class="accountNumber mb-4">
+                                <h5 class="color-span">Account Number</h5>
+                                <input class="w-100" type="text" placeholder="Account Number ...">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-12 mb-4">
+                                    <h5 class="color-span">Expiration Date</h5>
+                                    <input class="input2 w-100" placeholder="Enter Date" class="form-control"
+                                        type="text" onfocus="(this.type='date')" onblur="(this.type='text')"
+                                        id="date">
+                                </div>
+                                <div class="col-md-6 col-12 mb-4">
+                                    <h5 class="color-span">CCV</h5>
+                                    <input class="w-100" type="text" placeholder="Enter ccv">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn3 bg-cl-pm">
+                                Add Method
+                            </button>
+                    </form>
+                </div>
+            </div>
+            <!-- Payment-replace-div-2 end -->
+
+        </div>
+
+        <!-- Payment-replace-div-3 start -->
+
+        <div class="mt-3  ms-2 payment3 block2-paymentToggle dnone">
+            <div class="sc-breadcrump d-flex align-items-center bg-white">
+                <div class="mt-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                    href="index.html">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active fw-bold" aria-current="page">
+                                Withdraw
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <form>
+
+                <!-- Balance Start -->
+                <div class="mt-5 mb-5 ">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                            value="option1" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                            Full Payment
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                            value="option2">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Partial Payment
+                        </label>
+                    </div>
+                    <div class="w-50 ms-4 mt-3">
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+
+                </div>
+                <!-- Balance End -->
+
+                <!-- saved payment start-->
+                <div class="saved-payment">
+
+                    <!-- Card Start -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center ">
+                            <div class="me-2">
+                                <h5 class="m-0">Saved Cards</h5>
+                            </div>
+                        </div>
+                        <small class="color-grey">Select the card you want to use</small>
+                        <!-- Card box -->
+                        <div class="row mt-3 card-box align-items-center">
+                            <div class="col-xxl-2 col-xl-3 col-md-4 col-sm-6 col-12 mb-2">
+                                <div class="saved-card1">
+                                    <div class="d-flex justify-content-between px-3 pt-3 mb-2">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/visa .png' %}" alt="">
+                                        <small class="text-white">Exp Date: 10/22</small>
+                                    </div>
+                                    <div class="p-3 text-white text-center">
+                                        <small class="card-no">4321 **** **** 1920</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-md-4 col-sm-6 col-12 mb-2">
+                                <div class="saved-card2">
+                                    <div class="d-flex justify-content-between px-3 pt-3 mb-2">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/visa .png' %}" alt="">
+                                        <small class="text-white">Exp Date : 10/22</small>
+                                    </div>
+                                    <div class="p-3 text-white text-center">
+                                        <small class="card-no">2568 **** **** 2563</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-md-4 col-sm-6 col-12 mb-2">
+                                <div class="saved-card3">
+                                    <div class="d-flex justify-content-between px-3 pt-3 mb-2">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/visa .png' %}" alt="">
+                                        <small class="text-white">Exp Date : 10/22</small>
+                                    </div>
+                                    <div class="p-3 text-white  text-center">
+                                        <small class="card-no">4321 **** **** 1920</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card End -->
+
+                    <!-- Net Banking Start -->
+                    <div class="mb-5 net-banking ">
+                        <div class="d-flex align-items-center">
+                            <div class="me-2">
+                                <h5 class="m-0">Saved Net Banking</h5>
+                            </div>
+                        </div>
+                        <small class="color-grey">Select the card you want to use</small>
+                        <!-- Card box -->
+                        <div class="d-flex flex-wrap mt-3  align-items-center card-box">
+                            <div class="w-170px me-3 mb-2">
+                                <a href="">
+                                    <div class="box2 d-flex align-items-center justify-content-center">
+                                        <img src="{% static 'app/Assets/Images/TeacherProfile/Payment/bkash.png' %}" alt="">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="w-170px me-3 mb-2">
+                                <a href="">
+                                    <div class="box2 d-flex align-items-center justify-content-center"
+                                        style="background-color: #8C3494;">
+                                        <img class="img-fluid" src="{% static 'app/Assets/Images/TeacherProfile/Payment/rocket.png' %}"
+                                            alt="">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="w-170px me-3 mb-2">
+                                <a href="">
+                                    <div class="box2 d-flex align-items-center justify-content-center">
+                                        <img class="img-fluid" src="{% static 'app/Assets/Images/TeacherProfile/Payment/upay.png' %}"
+                                            alt="">
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Net Banking End -->
+                    
+                </div>
+                <!-- saved payment end-->
+
+                <button type="submit" class="btn btn3 bg-cl-pm px-4 mb-3">Withdraw</button>
+            </form>
+        </div>
+
+        <!-- Payment-replace-div-3 start -->
+
+        <!-- Teacher Payment End-->
+    </div>
+   
+</section>
+{% endblock main %}

@@ -1,0 +1,119 @@
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block main %}
+{% include 'tutor/navbar.html' %}
+<section class="std-profile d-flex flex-wrap">
+    {% include 'tutor/tutor_tab.html' %}    
+    <div class="tchRight">
+        <div class="mt-3 mb-5">
+            <div class="sc-breadcrump d-flex align-items-center bg-white">
+                <div class="mt-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                    href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active fw-bold" aria-current="page">
+                                My Students
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- My students Body Start -->
+            <div class="myStds">
+                <div class="d-flex flex-wrap myStds-table">
+                    <!-- <h3 class="cl-pm w-65">Previous Payment History</h3> -->
+                    <h3 class="cl-pm w-60">My Enrolled Students</h3>
+                    
+                        <form action="{% url 'tutor:myStudents' %}" class="d-flex w-40">
+                        
+                        <select class="form-select me-3 w-35" aria-label="Default select example" name="perpage" onchange='this.form.submit()'>
+                            <option selected>15</option>
+                            <option value="1">30</option>
+                            <option value="2">45</option>
+                            <option value="3">60</option>
+                        </select>
+
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Search here ...." name="search">
+                        </form>
+                    
+                </div>
+                <div class="table-responsive myStds-tbl mt-3">
+                    <table class="table table-borderless color-grey">
+                        <thead>
+                            <tr class="cl-pm">
+                                <th scope="col" class="bdr1">Avatar</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Course</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Email</th>
+                                <th scope="col" class="bdr2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if page_obj %}
+                            {% for s in page_obj %}
+                            <tr>
+                                <th scope="row">
+                                    <div class="myStds-image ">
+                                        {% if s.user.profile_image %}
+                                        <img src="{{s.user.profile_image.url}}" alt="">
+                                        {% endif %}
+                                    </div>
+                                </th>
+                                <td>{{s.user.first_name}} {{s.user.last_name}}</td>
+                                <td>{{s.course.course_title}}</td>                                
+                                <td>{{s.user.phone_number}}</td>
+                                <td>{{s.user.email}}</td>
+                                <td class="icon">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item mb-1">
+                                            <a href="#"><i class="far fa-envelope"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#"><i class="far fa-eye"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="pagination d-flex justify-content-center">
+                <ul class="d-flex flex-wrap align-items-center">
+                    {% if page_obj.has_previous %}
+                    <a  href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-double-left px-2 cl-pm"></i></a>
+                    {% endif %}
+            
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if num == page_obj.number %}
+                            <li class="px-3 py-1 mx-1 bg-cl-pm color-white rounded-3">{{num}}</li>
+                        {% else %}
+                            {% if num == 1 %}
+                            <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                            {% else %}
+                                {% if num|add:"-3" <= page_obj.number and page_obj.number <= num|add:"3" %}
+                                <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% elif num|divisibleby:"10" or num == page_obj.paginator.num_pages %}
+                                <li class="px-3 py-1 mx-1 cl-pm rounded-3"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+            
+                    {% if page_obj.has_next %}
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-double-right px-2 cl-pm"></i></a>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- My students Body End -->
+        </div>
+    </div>
+</section>
+
+{% endblock main %}

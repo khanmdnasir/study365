@@ -1,0 +1,94 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Poralekha|Course Details{% endblock title %}
+{% block content %}
+    <div class="sc-breadcrump d-flex align-items-center">
+        <div class="container mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Test</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--bread crump end -->
+
+    {% include 'app/std-profile-nav.html' %}
+                <div class="col-lg-9 mt-5">
+                    <!-- right heading -->
+                    <div class="right-heading d-flex flex-wrap justify-content-between">
+                        <h5 class="fw-bold color-span mb-4">My Tests</h5>
+                        <!-- <div class="mockTestAll-rheading">
+                            <input class="" type="search" placeholder="Search Test" aria-label="Search">
+                        </div> -->
+                    </div>
+                    <!-- right content -->
+                    <div class="row">
+                        {% for test in mytests %}
+                        <div class="col-xl-4 col-lg-5 col-sm-6 col-12  mb-4">
+                            <div class="right-content-bg rounded-3">
+                                <div class="p-3">
+                                    <div class="right-content">
+                                        <!-- upper section-->
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <div class="d-flex">
+                                                <div class="me-2 file-icon">
+                                                    <p> <i class="far fa-file-alt "></i></p>
+                                                </div>
+                                                <div>
+                                                    <h6 class="m-0 fw-bold">{{test.mocktest.title}}</h6>
+                                                    <div class="content-star">
+                                                        <label class="form-check-label  me-2"
+                                                            for="flexRadioDefault2">
+                                                            <i class="fas fa-star {% if test.mocktest.mocktest_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            <i class="fas fa-star {% if test.mocktest.mocktest_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            <i class="fas fa-star {% if test.mocktest.mocktest_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            <i class="fas fa-star {% if test.mocktest.mocktest_rating > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                            <i class="fas fa-star {% if test.mocktest.mocktest_rating > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                                        </label>
+                                                        <small class="cl-ash ">{{test.mocktest.no_of_ratings}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- mid section -->
+                                        <div class="mb-3 mid-section">
+                                            <!-- mid section 1-->
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="cl-pm">{{test.mocktest.total_set}} Sets</h6>
+                                                <h6 class="color-span">{{test.mocktest.total_qstn}} Questions</h6>
+                                            </div>
+                                            <!-- mid section 2-->
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="cl-pm">Difficulty</h6>
+                                                <h6 class="cl-pm">{{test.mocktest.difficulty}}</h6>
+                                            </div>
+                                            <div class="progress my-2">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-cl-green"
+                                                    role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                                    aria-valuemax="100" style="width: 75%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- bottom section -->
+                                        <div class="bottom-section">
+                                            <div class="d-flex flex-wrap align-items-center justify-content-center" onclick="location.href='{% url 'mocktest:myTestDes' test.mocktest.id %}'">
+                                                <button type="button" class="btn  btn3 bg-cl-pm ">Start Test</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
