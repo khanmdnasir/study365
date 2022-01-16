@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock title %}</title>
-    <link rel="icon" href="{% static 'app/Assets/Images/Header/logo1.svg' %} " type="image/icon">
+    <link rel="icon" href="{% static 'app/Assets/Images/Header/logo1.svg' %} " type="image/icon" />
 
 <!-- bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,11 +17,11 @@
     integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- CSS -->
-<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
 
-<link rel="stylesheet" type="text/css" href=" {% static 'app/css/icon/flaticon.css' %} ">
+<link rel="stylesheet" type="text/css" href=" {% static 'app/css/icon/flaticon.css' %} " />
 <!-- Animated CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
 <!-- Google Font -->
 <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,600;1,700;1,900&display=swap"
@@ -30,42 +30,40 @@
 {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> {% endcomment %}
 
 <!-- Owl Carousel -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
     integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
     crossorigin="anonymous" />
 <!-- Slick Slider -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
 
 <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css"
         integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 
 {% block link%}{% endblock link %}
 </head>
 
-<body>
-    {% block main %} {% endblock main %}
-    
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+<body >
 
-<!-- Animation js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-<script src="{% static 'app/js/animation.js' %}"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+    {% block main %} {% endblock main %}   
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Animation js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="{% static 'app/js/animation.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"
         integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -73,309 +71,17 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     
+    <script src="{% static 'app/js/wishlist.js' %}"></script>
+    <script src="{% static 'app/js/fileUpload.js' %}"></script>
     <script src="{% static 'app/js/multihandle.js' %}"></script>
+    <script src="{% static 'app/js/mixitup.js' %}"></script>
     
-    <script src="{% static 'app/js/mockTest.js' %}"></script>
+    
     <script src="{% static 'app/js/script.js' %}"></script>
-    <script type="text/javascipt">
-        
-        $(document).ready(function(){
-            totalCart()
-            
-            function totalCart(){
-                $.ajax({
-                url:"/total_cart",
-                
-                success:function(res){
-                    document.getElementById('total-cart').innerText=res
-                }
-                });
-            }
-            $(document).on('click',".add-cwishlist",function(){
-                var _pid=$(this).attr('data-product');
-                
-                // Ajax
-                $.ajax({
-                url:"/add_to_course_wishlist",
-                data:{
-                    product:_pid
-                },
-                dataType:'json',
-                success:function(res){
-                    swal(res.string)
-                }
-                });
-                // EndAjax
-            });
+    <script src="{% static 'app/js/addCart.js' %}"></script>
     
-            $(document).on('click',".add-bwishlist",function(){
-            var _pid=$(this).attr('data-product');
-            
-            // Ajax
-            $.ajax({
-            url:"/add_to_book_wishlist",
-            data:{
-                product:_pid
-            },
-            dataType:'json',
-            success:function(res){
-                swal(res.string)
-            }
-            });
-            // EndAjax
-            
-            });
+     
 
-            $(document).on('click',".add-twishlist",function(){
-            var _pid=$(this).attr('data-product');
-            
-            // Ajax
-            $.ajax({
-            url:"/add_to_test_wishlist",
-            data:{
-                product:_pid
-            },
-            dataType:'json',
-            success:function(res){
-                swal(res.string)
-            }
-            });
-            // EndAjax
-            
-            });
-    
-            $(document).on('click',".add-ccart",function(){
-            var _pid=$(this).attr('data-product');
-            
-            // Ajax
-            $.ajax({
-            url:"/add_to_course_cart",
-            data:{
-                product:_pid
-            },
-            dataType:'json',
-            success:function(res){
-                totalCart()
-                swal(res.string)
-    
-            }
-            });
-            });
-
-            $(document).on('click',".add-tcart",function(){
-            var _pid=$(this).attr('data-product');
-            
-            // Ajax
-            $.ajax({
-            url:"/add_to_test_cart",
-            data:{
-                product:_pid
-            },
-            dataType:'json',
-            success:function(res){
-                totalCart()
-                swal(res.string)
-    
-            }
-            });
-            // EndAjax
-            
-            });
-            $(document).on('click',".buynow",function(){
-            var _pid=$(this).attr('data-product');
-            
-            // Ajax
-            $.ajax({
-            url:"/add_to_course_cart",
-            data:{
-                product:_pid
-            },
-            dataType:'json',
-            success:function(res){
-                totalCart()
-                window.location.href='/shopping_cart'
-    
-            }
-            });
-            // EndAjax
-            
-            });
-    
-            $(document).on('click',".add-bcart",function(){
-            var _pid=$(this).attr('data-product');
-            var _qty=$(this).attr('data-qty');
-            
-            // Ajax
-            $.ajax({
-            url:"/add_to_book_cart",
-            data:{
-                product:_pid,
-                qty:_qty,
-            },
-            dataType:'json',
-            success:function(res){
-                totalCart()
-                swal(res.string)
-            }
-            
-            });
-            // EndAjax
-            
-            });
-    
-            $(document).on('click',".add-bcart1",function(){
-            var _pid=$(this).attr('data-product');
-            var _qty=document.getElementById('bookCount1').value;
-            
-            // Ajax
-            $.ajax({
-            url:"/add_to_book_cart",
-            data:{
-                product:_pid,
-                qty:_qty,
-            },
-            dataType:'json',
-            success:function(res){
-                totalCart()
-                swal(res.string)
-            }
-            });
-            // EndAjax
-            
-            });
-    
-            $(document).on('click',".edit-mark",function(){
-                var sid=$(this).data('id');
-                var mark=$(this).data('mark');
-                
-                
-                $('.MarkModal #sid').val(sid);
-                $('.MarkModal #obtain_mark').val(mark);
-                
-                
-                
-              });
-
-            $(document).on('click',".start-test",function(){
-                var sid=$(this).data('id');               
-                                
-                $('#tid').val(sid);
-                              
-              });
-
-              
-              
-    
-        
-        });
-        // Bookmarks Color toggle
-        const toggleBtns = document.querySelectorAll('.toggle-box');
-        toggleBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            btn.classList.toggle('toggle-pressed');
-        });
-        })
-
-        calculateCart()
-        function calculateCart() {
-
-
-            var cprice=document.getElementsByClassName('course-price')
-            var ctotal=0
-            for (var i=0;i<cprice.length;i++){
-                var thisprice=parseFloat(cprice[i].innerText);
-                ctotal=ctotal+thisprice;
-            }
-            
-            var bprice=document.getElementsByClassName('book-price')
-            var btotal=0
-            for (var i=0;i<bprice.length;i++){
-                var thisprice=parseFloat(bprice[i].innerText);
-                btotal=btotal+thisprice;
-            }
-
-            var qprice=document.getElementsByClassName('quiz-price')
-            var qtotal=0
-            for (var i=0;i<qprice.length;i++){
-                var thisprice=parseFloat(qprice[i].innerText);
-                qtotal=qtotal+thisprice;
-            }
-            
-            
-            const totalPrice = ctotal +  btotal + qtotal;
-     
-            
-     
-            document.getElementById('totalPrice').innerText = totalPrice ;
-            
-            document.getElementById('amount').value = totalPrice ;
-            document.getElementById('totalPrice1').innerText=totalPrice;
-            
-     
-        }
-
-        function applyCoupon(){
-            totalPrice=document.getElementById('totalPrice').innerText;
-            coupon=document.getElementById('coupon').value;
-            if (coupon == 'PORALEKHA'){
-                if (totalPrice >= 1000){
-                    totalPrice=totalPrice-50;
-                }
-                    
-            }
-
-            document.getElementById('totalPrice1').innerText=totalPrice;
-                
-            
-        }
-     
-        function cartValueChange(number, isIncrease, cart1, cart2) {
-     
-     
-     
-     
-        const cartValueCount = document.getElementById(number);
-        const cartCount = parseInt(cartValueCount.value);
-     
-        let cartNewCount = cartCount;
-        if (isIncrease == true) {
-            cartNewCount = cartCount + 1;
-        }
-     
-        else if (isIncrease == false && cartCount > 1) {
-            cartNewCount = cartCount - 1;
-        }
-        cartValueCount.value = cartNewCount;
-     
-        //total
-     
-        const cartOldPrice = document.getElementById(cart1 + '-total');
-        const cartPrice = cartOldPrice.innerText;
-        const cartNewPrice = parseInt(cartPrice);
-        let cartTotal = cartNewCount * cartNewPrice;
-     
-        // console.log(cartTotal)
-        // console.log(cartNewCount)
-     
-        document.getElementById(cart2 + '-total').innerText = cartTotal;
-     
-        calculateCart()
-        }
-     
-     
-         //Mock test View Result
-        function mockFilter() {
-            var element = document.getElementById("collapseExample1");
-            element.classList.toggle("d-block");
-        }
-      
-    </script>
-
-    
-    
-    
-    
-    
 </body>
 
 </html>

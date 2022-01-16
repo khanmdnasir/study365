@@ -26,7 +26,7 @@
                         <i class="far fa-heart me-1"></i>
                         Wishlist</a>
 
-                    <a class="nav-link me-3 {{as_active}}"  href="{% url 'account_settings' %}">
+                    <a class="nav-link me-3 {% if p_active or cc_active or mb_active or t_active or w_active or pm_active or hd_active %}{% else %}active{% endif %}"  href="{% url 'account_settings' %}">
                         <i class="fas fa-user-check me-1"></i>
                         Account Settings</a>
 
@@ -48,7 +48,8 @@
             <!-- leftbar mobile version start-->
             <div class="col-xl-3 mt-3 std-leftTab h-100 mobileVersion">
                 <div class="nav flex-column nav-tabs">
-                    <a class="nav-link w-100  {{p_active}}  navbar-toggler d-flex justify-content-between align-items-center"
+                    {% if p_active %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
                         href="{% url 'stdprofile' %}" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -58,36 +59,137 @@
                         </div>
                         <i class="fas fa-chevron-down"></i>
                     </a>
-
+                    {% elif cc_active %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'ccourses' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            Continue Courses
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    {% elif mb_active %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'mybooks' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            My Books
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    {% elif t_active %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'mocktest:mytests' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            My Test
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    {% elif w_active %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'wishlist' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            Wishlist
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    {% elif w_active %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'wishlist' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            Wishlist
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    {% elif pm_active %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'payment_method' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            Payment Method
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    {% elif hd_active %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'helpdesk' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            Help Desk
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    {% else %}
+                    <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+                        href="{% url 'account_settings' %}" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div>
+                            <i class="far fa-user me-1"></i>
+                            Account Settings
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    {% endif %}
                     <div class="collapse navbar-collapse" id="navContentMobile1">
-                        <a class="nav-link me-3 {{cc_active}}" href="{% url 'ccourses' %}" >
+                        {% if not p_active %}
+                        <a class="nav-link me-3 " href="{% url 'stdprofile' %}" >
+                            <i class="fas fa-tv me-1"></i>
+                            Profile</a>
+                        {% endif %}
+                        {% if not cc_active %}
+                        <a class="nav-link me-3 " href="{% url 'ccourses' %}" >
                             <i class="fas fa-tv me-1"></i>
                             Continue Courses</a>
-
-                        <a class="nav-link me-3 {{mb_active}}" href="{% url 'mybooks' %}">
+                        {% endif %}
+                        {% if not mb_active %}
+                        <a class="nav-link me-3 " href="{% url 'mybooks' %}">
                             <i class="fas fa-book me-1"></i>
-                            My books</a>
-
-                        <a class="nav-link me-3 {{t_active}}" href="{% url 'mocktest:mytests' %}">
+                            My books</a>  
+                        {% endif %}                      
+                        {% if not t_active %}
+                        <a class="nav-link me-3 " href="{% url 'mocktest:mytests' %}">
                             <i class="fas fa-book me-1"></i>
                             My Test</a>
-
-                        <a class="nav-link me-3 {{w_active}}" href="{% url 'wishlist' %}">
+                        {% endif %}
+                        {% if not w_active %}
+                        <a class="nav-link me-3 " href="{% url 'wishlist' %}">
                             <i class="far fa-heart me-1"></i>
                             Wishlist</a>
-
-                        <a class="nav-link me-3 {{as_active}}" href="{% url 'account_settings' %}">
+                        {% endif %}
+                        {% if p_active or cc_active or mb_active or t_active or w_active or pm_active or hd_active %}
+                        <a class="nav-link me-3 " href="{% url 'account_settings' %}">
                             <i class="fas fa-user-check me-1"></i>
                             Account Settings</a>
-
+                        {% endif %}
+                        {% if not pm_active %}
                         <a class="nav-link me-3 {{pm_active}}" href="{% url 'payment_method' %}">
                             <i class="far fa-credit-card me-1"></i>
                             Payment Method</a>
-
+                        {% endif %}
+                        {% if not mb_active %}
                         <a class="nav-link me-3 {{hd_active}}" href="{% url 'helpdesk' %}">
                             <i class="fas fa-hands-helping me-1"></i>
                             Help Desk</a>
-
+                        {% endif %}
+                        
                         <a class="nav-link me-3" href="{% url 'logout' %}">
                             <i class="fas fa-sign-out-alt me-1"></i>
                             Logout</a>

@@ -6,7 +6,9 @@
     <div class="signUpcongratulationsLeft d-flex align-items-center">
         <div
             class="signUpcongratulationLeftContent d-flex flex-column justify-content-center align-items-center color-white">
-            <img src="{% static 'app/Assets/Images/signUp/logo.svg' %}" alt="">
+            <div class="signInUpLeftImg my-2">
+                <img src="{% static 'app/Assets/Images/signUp/logo.png' %}" alt="">
+            </div>
             <h4 class="fw-bold text-center px-2">One platform for Learning</h4>
             <small class="text-center px-5 mx-5">Gether Knowledge and your educational Guidline from just in one
                 place.</small>
@@ -15,7 +17,12 @@
     <div class="signUpCongratulationRight d-flex justify-content-center align-items-center w-100 mb-5">
         <div class="container">
             <div class="signUpBack d-flex justify-content-between w-75">
-                
+                <div>
+                    <a href="{{request.META.HTTP_REFERER}}" class="cl-pm">
+                        <i class="fa fa-arrow-left me-2"></i>
+                        Back
+                    </a>
+                </div>
                 <div>
                     <a href="{% url 'home' %}" class="cl-pm">
                         Home
@@ -26,7 +33,7 @@
 
             <div
                 class="signUpcongratulationRightContent signInContent d-flex flex-column justify-content-center px-4">
-                <h3 class="cl-pm fw-bold mb-2">Welcome Bck</h3>
+                <h3 class="cl-pm fw-bold mb-2">Welcome Back</h3>
                 <small class="mb-5 color-span">Hello There, Sign Up to Continue</small>
                 <h4 class="cl-pm fw-bold mb-4">Sign Up</h4>
                 <form  method="POST" novalidate enctype="multipart/form-data">
@@ -94,30 +101,44 @@
                         </div>
                     </div>
                     {% else %}
+                    
                     <div class="singUpInput">
-                        <small class="text-danger ">{{form.first_name.errors}}</small>
+                        
                         {{form.first_name}}
-                        <small class="text-danger">{{form.last_name.errors}}</small>
+                        
                         {{form.last_name}}
                     </div>
+                    <small class="text-danger ">{{form.first_name.errors}}</small>
+                    <small class="text-danger">{{form.last_name.errors}}</small>
+                    
                     <div class="singUpInput">
-                        <small class="text-danger">{{form.username.errors}}</small>
+                        
                         {{form.username}}
-                        <small class="text-danger">{{form.email.errors}}</small>
+                        
                         {{form.email}}
                     </div>
+                    <small class="text-danger">{{form.username.errors}}</small>
+                    <small class="text-danger">{{form.email.errors}}</small>
+
+                    
                     <div class="singUpInput">
-                        <small class="text-danger ">{{form.phone_number.errors}}</small>
+                        
                         {{form.phone_number}}
                         
                         
                     </div>
+                    <small class="text-danger ">{{form.phone_number.errors}}</small>
+
+                    
                     <div class="singUpInput">
-                        <small class="text-danger">{{form.password1.errors}}</small>
+                        
                         {{form.password1}}
-                        <small class="text-danger">{{form.password2.errors}}</small>
+                        
                         {{form.password2}}
                     </div>
+                    <small class="text-danger">{{form.password1.errors}}</small>
+                    <small class="text-danger">{{form.password2.errors}}</small>
+                    
                     <div class="image-upload d-flex flex-wrap align-items-center">
                         
                         {{form.profile_image.errors}}

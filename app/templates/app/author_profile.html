@@ -26,7 +26,9 @@
                     <div class="homeWhatsNewImg authorCard">
                         <div class="card">
                             <div class="authorCardImg d-flex align-items-center justify-content-center">
+                                {% if author.author_image %}
                                 <img class="card-img-top" src="{{author.author_image.url}}" alt="Card image cap">
+                                {% endif %}
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="cl-pm">{{author.author_name}}</h5>
@@ -119,7 +121,7 @@
                                     </div>
                                     <a href="{% url 'book_details' book.id %}">
                                         <div class="card-body card-body-height">
-                                            <h5 class="fw-bold">{{book.book_title}}</h5>
+                                            <h5 class="fw-bold card-body-btag">{{book.book_title|truncatechars:60}}</h5>
                                             <div class="card-body-text">
                                                 <div class="">
                                                     <div class="d-flex justify-content-between">

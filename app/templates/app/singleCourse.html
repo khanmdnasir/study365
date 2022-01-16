@@ -72,7 +72,7 @@
                                 <div class="d-flex align-items-center mt-3 mb-3">
                                     <div class="mh-img">
                                         
-                                        <img {% if course.instructor_id.user.profile_image %} src="{{course.instructor_id.user.profile_image.url}}" {% endif %} alt="">
+                                        <img  src="{% if course.instructor_id.user.profile_image %}{{course.instructor_id.user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
                                         
                                     </div>
                                     <div class="mx-4">
@@ -201,7 +201,7 @@
                                     <div class="courseReviewTop d-flex justify-content-between">
                                         <div class="courseReviewTopleft d-flex align-items-center">
                                             <div class="courseReviewImg me-3">
-                                                <img src="{{r.user.profile_image.url}}" alt="">
+                                                <img src="{% if r.user.profile_image %}{{r.user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
                                             </div>
                                             <div class="courseReviewName">
                                                 <h6 class="fw-bold">{{r.user.first_name}} {{r.user.last_name}}</h6>
@@ -333,7 +333,7 @@
                         <div class="row">
                             <div class="col-xl-1 col-md-2 col-3 singleCourseBottom-img">
                                 
-                                <img {% if course.instructor_id.user.profile_image %} src="{{course.instructor_id.user.profile_image.url}}" {% endif %} alt="...">
+                                <img  src="{% if course.instructor_id.user.profile_image %}{{course.instructor_id.user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}"  alt="...">
                                 
                             </div>
                             <div class="col-xl-10 col-md-9 col-8 ">
@@ -349,7 +349,8 @@
                                     </small>
                                     <br>
                                     <br>
-                                    <a href="{% url 'instructor_profile' course.instructor_id.id %}" class="btn  btn3 bg-cl-pm">View Profile</a>
+                                    {% comment %} <a href="{% url 'instructor_profile' course.instructor_id.id %}" class="btn  btn3 bg-cl-pm">View Profile</a> {% endcomment %}
+                                    <a href="#" class="btn  btn3 bg-cl-pm">View Profile</a>
                                 </div>
                             </div>
                         </div>
@@ -401,7 +402,7 @@
                         </div>
                         <a href="{% url 'course_details' rcourse.id %}">
                             <div class="card-body card-body-height">
-                                <h6>{{rcourse.course_title}}</h6>
+                                <h6 class="card-body-tag">{{rcourse.course_title|truncatechars:60}}</h6>
                                 <div class="card-body-text">
                                     <div class="d-flex justify-content-between">
                                         <div class="">

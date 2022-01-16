@@ -28,6 +28,7 @@
                     <div class="text-end">
                         <a href="#" class="text-danger fw-bold" data-bs-toggle="modal" data-bs-target="#popUp">Delete All</a>
                     </div>
+                    {% if ccart %}
                     <div class="cartLeftTop">
                         <div class="col-lg-12">
                             <div class="cartLeftTopHeading d-flex justify-content-between mb-4">
@@ -78,7 +79,9 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% endif %}
 
+                    {% if tcart %}
                     <div class="cartLeftMiddle mt-5">
                         <div class="col-lg-12">
                             <div class="cartLeftTopHeading d-flex justify-content-between mb-4">
@@ -127,7 +130,9 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% endif %}
 
+                    {% if bcart %}
                     <div class="cartLeftBottom mt-5">
                         <div class="col-lg-12">
                             <div class="cartLeftBottomHeading d-flex justify-content-between mb-4">
@@ -191,6 +196,7 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
                 <div class="cartRight col-xl-3 col-lg-4 mt-5">
                     <div class="bg-cl-grey4 p-4 rounded-3">
@@ -260,3 +266,7 @@
     </section>
     
     {% endblock content %}
+    {% block script %}
+        <script src="{% static 'app/js/calculateCart.js' %}"></script>
+    {% endblock script %}
+   

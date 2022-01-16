@@ -27,8 +27,8 @@ SECRET_KEY = 'django-insecure-i7$9#a^xf1vh)4q^p%$4aa3)1460b8q1$*-*cs9xmvv+iz3j%t
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False
-ALLOWED_HOSTS = ["*"]
+DEBUG = True
+ALLOWED_HOSTS = ['*']
     
 
 
@@ -37,6 +37,8 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'chat',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'storages',
     'phonenumber_field',
     'rest_framework',
     'users',
@@ -60,6 +61,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'django_summernote',
     'mathfilters',
+    'storages',
+    
    
     
      
@@ -99,41 +102,51 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'poralekha.wsgi.application'
+ASGI_APPLICATION = 'poralekha.asgi.application'
 
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-# 'default': {
-    
-#     'ENGINE':'django.db.backends.postgresql',
-#     'NAME': 'dde6ia36gv1tno',
-#     'USER':'huvgvgxncxqonk',
-#     'PASSWORD':'b5ee2408cb15c3c53e245fc18fd51e4116bd93aa15d1fa0bb624624a2391fe7e',
-#     'HOST':'ec2-18-210-118-224.compute-1.amazonaws.com',
-#     'PORT':'5432',
-
-    
-
-
-# }
-# }
-    
-
 DATABASES = {
-    'default': {
-        'ENGINE':'django.db.backends.postgresql',
-        'NAME': 'poralekha',
-        'USER':'postgres',
-        'PASSWORD':'6274',
-        'HOST':'localhost',
+'default': {
+    
+    'ENGINE':'django.db.backends.postgresql',
+    'NAME': 'dde6ia36gv1tno',
+    'USER':'huvgvgxncxqonk',
+    'PASSWORD':'b5ee2408cb15c3c53e245fc18fd51e4116bd93aa15d1fa0bb624624a2391fe7e',
+    'HOST':'ec2-18-210-118-224.compute-1.amazonaws.com',
+    'PORT':'5432',
+
+    
 
 
-    }
 }
+}
+    
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE':'django.db.backends.postgresql',
+#         'NAME': 'poralekha',
+#         'USER':'postgres',
+#         'PASSWORD':'6274',
+#         'HOST':'localhost',
+
+
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -167,6 +180,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+TEMPLATE_CONTEXT_PROCESSORS= 'django.core.context_processors.request'
+
 ACCOUNT_LOGOUT_ON_GET=True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -182,16 +197,16 @@ MEDIA_ROOT=BASE_DIR/'media'
 # }
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# AWS_ACCESS_KEY_ID = 'AKIA2MI7FNENLUFGEAGD'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_S3_BUCKET_NAME  = 'poralekha-bucket'
-# AWS_S3_FILE_OVERWRITE = False
-# AWS_DEFAULT_ACL = None
-# AWS_S3_REGION_NAME = 'ap-southeast-1'
-# DEFAULT_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
+AWS_ACCESS_KEY_ID = 'AKIA2MI7FNENLUFGEAGD'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME  = 'poralekha-bucket'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_REGION_NAME = 'ap-southeast-1'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATICFILES_STORAGE = 'django_s3_storage.storage.StaticS3Storage'
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL='users.User'
 LOGIN_URL='/login'
@@ -199,7 +214,7 @@ LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='/'
 ACCOUNT_LOGOUT_REDIRECT_URL='/'
 
-EMAIL_FROM_USER = 'nasirkhan97.bd@gmail.com'
+EMAIL_FROM_USER = 'info@poralekhaonline.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -209,6 +224,12 @@ EMAIL_PORT = 587
 # EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+JAZZMIN_SETTINGS={
+     "site_title": "Poralekha Admin",
+     "site_header": "Poralekha",
+} 
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',

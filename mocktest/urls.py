@@ -8,5 +8,6 @@ urlpatterns = [
       path('my_test_des/<int:id>',views.myTestDes,name="myTestDes"),
       path('start_test/',views.startTest,name="startTest"),
       path('view_result/<int:id>',views.viewresult,name="viewresult"),
+      path('timeCount/',views.timeCount),
       
 ]

@@ -8,7 +8,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
-                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'mocktest:mocktests' %}">Mock
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'stdprofile' %}">Profile</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'mocktest:mytests' %}">My
                             Test</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{mytest.testset.mocktest.title}}</li>
                 </ol>
@@ -31,7 +32,7 @@
                     <h5 class="cl-green2">Excellent</h5>
                 </div>
                 <div class="mb-2">
-                    <button class="bg-cl-pm color-white border-0 rounded-3 py-2 px-4" onclick="location.href='{% url 'mocktest:viewresult' mytest.testset.id %}'">See Answer</button>
+                    <button class="bg-cl-pm color-white border-0 rounded-3 py-2 px-4" onclick="location.href='{% url 'mocktest:viewresult' mytest.id %}'">See Answer</button>
                 </div>
                 <div>
                     <a href="{% url 'mocktest:mytests' %}"><small class="color-grey cursor">Not Now</small></a>

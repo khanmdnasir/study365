@@ -8,7 +8,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'stdprofile' %}">Profile</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{testset.mocktest.title}}</li>
                 </ol>
             </nav>
         </div>
@@ -29,14 +30,14 @@
                 </h4>
             </div>
         </div>
-        <form  method="POST" class="quiz-form">
+        <form  method="POST" id="quiz-form">
             {% csrf_token %}
             <!-- quiz-1 -->
             {% for q in questions %}
             <div class="quiz-contentBg  mb-2 bg-light-pink">
                 <div class="quiz-content p-4">
                     <h5 class="cl-pm">Question {{forloop.counter}}</h5>
-                    <input type="hidden" name="q{{q.id}}" value={{q.id}}
+                    <input type="hidden" name="q{{q.id}}" value="{{q.id}}"/>
                     <h6 class="cl-ash">{{q.question}}</h6>
                     <div class="quiz-qs">
                         <div class="form-check form-check-inline">
@@ -64,8 +65,8 @@
                 </div>
             </div>
             {% endfor %}
-            <button type="submit" class="btn  btn3 bg-cl-pm mt-4 quiz-contentBtn" id="quizFormSubmit"
-                onclick="quizSubmit()">Submit
+            <button type="button" class="btn  btn3 bg-cl-pm mt-4 quiz-contentBtn" id="quizFormSubmit" onclick="quizTimeOut()"
+                >Submit
             </button>
 
             <button type="button" class="d-none" data-bs-toggle="modal" data-bs-target="#exampleQuizModal"
@@ -80,7 +81,7 @@
             <div class="modal-content border-0">
                 <div class="modal-body d-flex">
                     <div class="mockTestModalLeft w-100">
-                        <img src="Assets/Images/timeOut.png" alt="">
+                        <img src="{% static 'app/Assets/Images/timeOut.png' %}" alt="">
                     </div>
                     <div class="mockTestModalRight bg-cl-grey4 d-flex flex-column justify-content-center p-3 w-100">
                         <div class="mb-3">
@@ -92,7 +93,7 @@
                         </div> -->
                         <div class="cursor">
                             <button type="button" class="bg-cl-pm border-0 rounded-3 py-2 px-4 color-white"
-                                onclick="quizTimeOut()">View Result
+                                onclick="quizSubmit()">Submit Answer
                             </button>
                         </div>
                     </div>
@@ -100,7 +101,11 @@
             </div>
         </div>
     </div>
-
     
+  {{mytest.time|json_script:"test-time"}}  
+  {{mytest.id|json_script:"test-id"}}  
 {% endblock content %}
+{% block script %}
+    <script src="{% static 'app/js/mockTest.js' %}"></script>
+{% endblock script %}
 

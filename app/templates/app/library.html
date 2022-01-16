@@ -205,7 +205,7 @@
                                         </div>
                                         <a href="{% url 'book_details' book.id %}">
                                             <div class="card-body card-body-height">
-                                                <h5 class="fw-bold">{{book.book_title}}</h5>
+                                                <h5 class="fw-bold card-body-btag">{{book.book_title|truncatechars:60}}</h5>
                                                 <div class="homeFeaturedCardTag mb-2">
                                                 {% for i in book.book_tag %}
                                                     <small class="cl-pm">{{i}}</small>

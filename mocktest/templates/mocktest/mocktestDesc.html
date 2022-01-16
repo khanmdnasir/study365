@@ -104,7 +104,9 @@
                                             <div class="courseReviewTop d-flex justify-content-between">
                                                 <div class="courseReviewTopleft d-flex align-items-center">
                                                     <div class="courseReviewImg me-3">
-                                                        <img src="{{r.user.profile_image.url}}" alt="">
+                                                        
+                                                        <img src="{% if r.user.profile_image %}{{r.user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
+                                                        
                                                     </div>
                                                     <div class="courseReviewName">
                                                         <h6 class="fw-bold">{{r.user.first_name}} {{r.user.last_name}}</h6>

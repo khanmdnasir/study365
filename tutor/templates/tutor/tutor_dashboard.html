@@ -1,5 +1,6 @@
 {% extends 'app/header&footer.html' %}
 {% load static %}
+
 {% block main %}
 {% include 'tutor/navbar.html' %}
 
@@ -56,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="tchCardContentRight mt-2" id="tchTotalCurs">
-                                <h1 class="color-white fw-bold">150</h1>
+                                <h1 class="color-white fw-bold">{{total_course}}</h1>
                             </div>
                         </div>
                     </div>
@@ -70,7 +71,7 @@
                                     <i class="fas fa-money-check-alt text-white"></i>
                                 </div>
                                 <div class="tchCardContentLeft2">
-                                    <h6 class="text-white">Earning of tdis montd</h6>
+                                    <h6 class="text-white">Earning of this montd</h6>
                                 </div>
                             </div>
                             <div class="tchCardContentRight mt-2" id="tchTotalEarn">
@@ -106,30 +107,33 @@
                                 <div class="homeWhatsNewHeading mb-4">
                                     <h6 class="fw-bold">Course of this month</h6>
                                 </div>
+                                
                                 <div class="homeWhatsNewcarousel owl-carousel">
-                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
+                                    {% for c in course %}
+                                    <div class="homeWhatsNewImg cursor" onclick="location.href='{% url 'tutor:singleCourse' c.id %}'">
                                         <div class="card">
                                             <div class="card-img d-flex  justify-content-end">
+                                                {% if c.course_image %}
                                                 <img class="card-img-top "
-                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
+                                                    src="{{c.course_image.url}}"
                                                     alt="Card image cap">
+                                                {% endif %}
                                             </div>
-                                            <a href="">
+                                            <a href="{% url 'tutor:singleCourse' c.id %}">
                                                 <div class="card-body card-body-height">
-                                                    <h5 class="fw-bold">Video Editing 2022</h5>
+                                                    <h5 class="fw-bold card-body-tag">{{c.course_title|truncatechars:60}}</h5>
                                                     <div class="card-body-text">
                                                         <div
                                                             class="d-flex justify-content-between align-items-center">
                                                             <div class="fs10">
                                                                 <div>
-                                                                    <small class="color-grey">20
-                                                                        Classes</small>
+                                                                    <small class="color-grey">{{c.total_class}}</small>
                                                                 </div>
                                                             </div>
                                                             <div class="fs10">
                                                                 <div class="text-end">
-                                                                    <small class="color-grey">10 may
-                                                                        2021</small>
+                                                                    <small class="color-grey">{{c.course_year}}
+                                                                        </small>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -138,193 +142,9 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
-                                        <div class="card">
-                                            <div class="card-img d-flex  justify-content-end">
-                                                <img class="card-img-top "
-                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
-                                                    alt="Card image cap">
-                                            </div>
-                                            <a href="">
-                                                <div class="card-body card-body-height">
-                                                    <h5 class="fw-bold">Video Editing 2022</h5>
-                                                    <div class="card-body-text">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center">
-                                                            <div class="fs10">
-                                                                <div>
-                                                                    <small class="color-grey">20
-                                                                        Classes</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="fs10">
-                                                                <div class="text-end">
-                                                                    <small class="color-grey">10 may
-                                                                        2021</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
-                                        <div class="card">
-                                            <div class="card-img d-flex  justify-content-end">
-                                                <img class="card-img-top "
-                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
-                                                    alt="Card image cap">
-                                            </div>
-                                            <a href="">
-                                                <div class="card-body card-body-height">
-                                                    <h5 class="fw-bold">Video Editing 2022</h5>
-                                                    <div class="card-body-text">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center">
-                                                            <div class="fs10">
-                                                                <div>
-                                                                    <small class="color-grey">20
-                                                                        Classes</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="fs10">
-                                                                <div class="text-end">
-                                                                    <small class="color-grey">10 may
-                                                                        2021</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
-                                        <div class="card">
-                                            <div class="card-img d-flex  justify-content-end">
-                                                <img class="card-img-top "
-                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
-                                                    alt="Card image cap">
-                                            </div>
-                                            <a href="">
-                                                <div class="card-body card-body-height">
-                                                    <h5 class="fw-bold">Video Editing 2022</h5>
-                                                    <div class="card-body-text">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center">
-                                                            <div class="fs10">
-                                                                <div>
-                                                                    <small class="color-grey">20
-                                                                        Classes</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="fs10">
-                                                                <div class="text-end">
-                                                                    <small class="color-grey">10 may
-                                                                        2021</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
-                                        <div class="card">
-                                            <div class="card-img d-flex  justify-content-end">
-                                                <img class="card-img-top "
-                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
-                                                    alt="Card image cap">
-                                            </div>
-                                            <a href="">
-                                                <div class="card-body card-body-height">
-                                                    <h5 class="fw-bold">Video Editing 2022</h5>
-                                                    <div class="card-body-text">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center">
-                                                            <div class="fs10">
-                                                                <div>
-                                                                    <small class="color-grey">20
-                                                                        Classes</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="fs10">
-                                                                <div class="text-end">
-                                                                    <small class="color-grey">10 may
-                                                                        2021</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
-                                        <div class="card">
-                                            <div class="card-img d-flex  justify-content-end">
-                                                <img class="card-img-top "
-                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
-                                                    alt="Card image cap">
-                                            </div>
-                                            <a href="">
-                                                <div class="card-body card-body-height">
-                                                    <h5 class="fw-bold">Video Editing 2022</h5>
-                                                    <div class="card-body-text">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center">
-                                                            <div class="fs10">
-                                                                <div>
-                                                                    <small class="color-grey">20
-                                                                        Classes</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="fs10">
-                                                                <div class="text-end">
-                                                                    <small class="color-grey">10 may
-                                                                        2021</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="homeWhatsNewImg cursor" onclick="location.href='tchPmyCourseSingle.html'">
-                                        <div class="card">
-                                            <div class="card-img d-flex  justify-content-end">
-                                                <img class="card-img-top "
-                                                    src="{% static 'app/Assets/Images/TeacherProfile/1course.png' %}"
-                                                    alt="Card image cap">
-                                            </div>
-                                            <a href="">
-                                                <div class="card-body card-body-height">
-                                                    <h5 class="fw-bold">Video Editing 2022</h5>
-                                                    <div class="card-body-text">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center">
-                                                            <div class="fs10">
-                                                                <div>
-                                                                    <small class="color-grey">20
-                                                                        Classes</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="fs10">
-                                                                <div class="text-end">
-                                                                    <small class="color-grey">10 may
-                                                                        2021</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
+                                
                             </Section>
                         </div>
                         <div class="col-lg-12 mb-2">
@@ -485,25 +305,25 @@
                             </div>
                         </div>
                         <div class="col-lg-12 tchgraph">
-                            <div style="overflow-x: scroll;">
-                                <canvas id="income" width="1100" height="400"></canvas>
+                                <div style="overflow-x: scroll;">
+                                    <canvas id="income" width="1100" height="400" style="width: 1100px; height: 400px;"></canvas>
+                                </div>
+                                <script>
+                                    var barData = {
+                                        labels: ["January", "February", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                                        datasets: [
+                                            {
+                                                fillColor: "#48A497",
+                                                data: [4056, 4079, 3024, 5069, 7002, 6000, 10000, 10500, 7500, 8000, 10000, 4500]
+                                            }
+                                        ]
+                                    }
+                                    // get bar chart canvas
+                                    var income = document.getElementById("income").getContext("2d");
+                                    // draw bar chart
+                                    new Chart(income).Bar(barData);
+                                </script>
                             </div>
-                            <script>
-                                var barData = {
-                                    labels: ["January", "February", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                    datasets: [
-                                        {
-                                            fillColor: "#48A497",
-                                            data: [4056, 4079, 3024, 5069, 7002, 6000, 10000, 10500, 7500, 8000, 10000, 4500]
-                                        }
-                                    ]
-                                }
-                                // get bar chart canvas
-                                var income = document.getElementById("income").getContext("2d");
-                                // draw bar chart
-                                new Chart(income).Bar(barData);
-                            </script>
-                        </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-12 col-lg-4">
@@ -628,4 +448,5 @@
         </div>
     </div>
 </footer>
+
 {% endblock main %}

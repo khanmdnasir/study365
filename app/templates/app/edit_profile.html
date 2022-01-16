@@ -26,16 +26,16 @@
                    
                     <!-- part-2 -->
                     <div class=" block-profile">
-                    {% if messages %}
+                    {% comment %} {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
-                        {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                         <div class="alert alert-success" role="alert">
                         {{ message }}
                         </div>
                         {% endfor %}
                     </ul>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                         <form method='POST' enctype="multipart/form-data" novalidate>
                         {% csrf_token %}
                         {% if uForm.non_field_errors  %}
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="file-upload-content">
                                             
-                                            <img class="file-upload-image" {% if user.profile_image %} src="{{user.profile_image.url}}" {% else %} src="" {% endif %} alt="your image" />
+                                            <img class="file-upload-image"  src="{% if user.profile_image %}{{user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}"  alt="your image" />
                                             
                                             <div class="image-title-wrap">
                                                 <button type="button" onclick="removeUpload()"

@@ -3,7 +3,7 @@
   {% load mathfilters %}
   {% block title %}Poralekha|All Courses{% endblock title %}
   {% block content %}
-  
+    {% if page_obj %}
        <section class="mobileVersion">
     
                 <!-- main filter -->
@@ -304,7 +304,7 @@
                                         </div>
                                         <a href="{% url 'course_details' course.id %}">
                                             <div class="card-body card-body-height">
-                                                <h6>{{course.course_title}}</h6>
+                                                <h6 class="card-body-tag">{{course.course_title|truncatechars:60}}</h6>
                                                 <div class="card-body-text">
                                                     <div class="d-flex justify-content-between">
                                                         <div class="">
@@ -385,7 +385,9 @@
             </div>
         </div>
     </section>
-
+    {% else %}
+    <h1>No Courses Found</h1>
+    {% endif %}
 
 
 {% endblock content %}

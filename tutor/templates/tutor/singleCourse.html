@@ -17,6 +17,14 @@
                 </nav>
             </div>
             <!-- Submit/Cancel Button Start -->
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
             <div class=" d-md-block">
                 
                 <button onclick="location.href='{% url 'tutor:editCourse' course.id %}';"
@@ -101,7 +109,7 @@
                                     <div class="d-flex align-items-center mt-3 mb-3">
                                         <div class="mh-img">
                                             
-                                            <img {% if course.instructor_id.user.profile_image %} src="{{course.instructor_id.user.profile_image.url}}" {% endif %} alt="">
+                                            <img  src="{% if course.instructor_id.user.profile_image %}{{course.instructor_id.user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
                                             
                                         </div>
                                         <div class="mx-4">

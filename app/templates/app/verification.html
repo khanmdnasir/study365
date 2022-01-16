@@ -6,8 +6,8 @@
         <div class="signUpcongratulationsLeft otpVnLeft d-flex align-items-center">
             <div
                 class="signUpcongratulationLeftContent d-flex flex-column justify-content-center align-items-center color-white">
-                <div class="signInUpLeftImg">
-                    <img src="{% static 'app/Assets/Images/signUp/logo.svg' %}" alt="">
+                <div class="signInUpLeftImg my-2">
+                    <img src="{% static 'app/Assets/Images/signUp/logo.png' %}" alt="">
                 </div>
                 <h4 class="fw-bold text-center px-2">One platform for Learning</h4>
                 <small class="text-center px-5 mx-5">Gether Knowledge and your educational Guidline from just in one
@@ -19,10 +19,10 @@
             <div class="container">
                 <div class="signUpBack d-flex justify-content-between w-75">
                     <div>
-                        {% comment %} <a href="stdSignUp.html" class="cl-pm">
+                        <a href="{{request.META.HTTP_REFERER}}" class="cl-pm">
                             <i class="fa fa-arrow-left me-2"></i>
                             Back
-                        </a> {% endcomment %}
+                        </a>
                     </div>
                     <div>
                         <a href="{% url 'home' %}" class="cl-pm">
@@ -46,9 +46,20 @@
                             {% endfor %}
                             {% endif %}
                             
-                            {% for fm in form %}
-                            <small class="text-danger">{{fm.errors|striptags}}</small>{{fm}}
-                            {% endfor %}
+                             <div class="otpContentInput mb-5">
+                                <input type="text" id="irst" maxlength="1" onkeyup="clickEvent(this,'sec')"
+                                    onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    name="otp1" placeholder="C"/>
+                                <input type="text" id="sec" maxlength="1" onkeyup="clickEvent(this,'third')"
+                                    onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    name="otp2" placeholder="O"/>
+                                <input type="text" id="third" maxlength="1" onkeyup="clickEvent(this,'fourth')"
+                                    onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    name="otp3" placeholder="D"/>
+                                <input type="text" id="fourth" maxlength="1"
+                                    onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    name="otp4" placeholder="E"/>
+                            </div>
                                 
                             </br></br>
                             <button type="submit" class="btn btn3 bg-cl-pm btn1">Verify Number</button>

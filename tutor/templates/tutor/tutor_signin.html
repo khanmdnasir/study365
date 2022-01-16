@@ -6,8 +6,8 @@
     <div class="signUpcongratulationsLeft d-flex align-items-center">
         <div
             class="signUpcongratulationLeftContent d-flex flex-column justify-content-center align-items-center color-white">
-            <div class="signInUpLeftImg">
-                <img src="{% static 'app/Assets/Images/signUp/logo.svg' %}" alt="">
+            <div class="signInUpLeftImg my-2">
+                <img src="{% static 'app/Assets/Images/signUp/logo.png' %}" alt="">
             </div>
             <h4 class="fw-bold text-center px-2">One platform for Learning</h4>
             <small class="text-center px-5 mx-5">Gether Knowledge and your educational Guidline from just in one
@@ -17,7 +17,12 @@
     <div class="signUpCongratulationRight d-flex justify-content-center align-items-center w-100">
         <div class="container">
             <div class="signUpBack d-flex justify-content-between w-75">
-                
+                <div>
+                    <a href="{{request.META.HTTP_REFERER}}" class="cl-pm">
+                        <i class="fa fa-arrow-left me-2"></i>
+                        Back
+                    </a>
+                </div>
                 <div>
                     <a href="{% url 'home' %}" class="cl-pm">
                         Home
@@ -32,13 +37,7 @@
                 <h4 class="cl-pm fw-bold mb-4">Sign In</h4>
                 <form method="POST" novalidate>
                     {% csrf_token %}
-                    {% if messages %}
-                    <ul class="messages">
-                        {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }} cl-lpink"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+                   
                     {% if form.non_field_errors %}
                     {% for error in form.non_field_errors %}
                     <p class="alert alert-danger my-3">{{error}}</p>

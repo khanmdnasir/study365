@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="" class="mb-3">
+                            {% comment %} <a href="" class="mb-3">
                                 <div
                                     class="homeTopBannerContentBottom1 d-flex flex-column align-items-center justify-content-center me-3">
                                     <div class="homeTopBannerContentBottom1img">
@@ -47,7 +47,7 @@
                                         <small>Assignment</small>
                                     </div>
                                 </div>
-                            </a>
+                            </a> {% endcomment %}
                             <a href="{% url 'all_books' %}" class="mb-3">
                                 <div
                                     class="homeTopBannerContentBottom1 me-3 d-flex flex-column align-items-center justify-content-center">
@@ -183,7 +183,7 @@
                             </div>
                             <a href="{% url 'course_details' course.id %}">
                                 <div class="card-body card-body-height">
-                                    <h6 class="">{{course.course_title}}</h6>
+                                    <h6 class="card-body-tag">{{course.course_title|truncatechars:60}}</h6>
                                     <div class="card-body-text">
                                         <div class="d-flex justify-content-between">
                                             <div class="">
@@ -269,19 +269,19 @@
                         </div>
                         <div class="card-body">
                             <a href="{% url 'book_details' book.id %}">
-                                <h6 class="card-title fw-bold">{{book.book_title}}</h6>
+                                <h6 class="card-title fw-bold card-body-btag">{{book.book_title|truncatechars:60}}</h6>
                             </a>
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <div class="d-flex align-items-center">
                                     <small class="cl-pm fw-bold">{{book.author_id.author_name}}</small>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <small class="me-1 ">
-                                    <i class="fas fa-star {% if book.book_review > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
-                                    <i class="fas fa-star {% if book.book_review > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
-                                    <i class="fas fa-star {% if book.book_review > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
-                                    <i class="fas fa-star {% if book.book_review > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
-                                    <i class="fas fa-star {% if book.book_review > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                    <small class="me-1">
+                                        <i class="fas fa-star {% if book.book_review > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                        <i class="fas fa-star {% if book.book_review > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                        <i class="fas fa-star {% if book.book_review > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                        <i class="fas fa-star {% if book.book_review > 3 %}color-yellow {% else %} color-grey {% endif %}"></i>
+                                        <i class="fas fa-star {% if book.book_review > 4 %}color-yellow {% else %} color-grey {% endif %}"></i>
                                     </small>
                                     <small class="color-grey">{{book.no_of_ratings}}</small>
                                 </div>
@@ -290,7 +290,6 @@
                                 {% for i in book.book_tag %}
                                 <a href="#" class="cl-pm">{{i}}</a>
                                 {% endfor %}
-                                
                             </div>
                             <div class="homeFeaturedCardBottom d-flex justify-content-between align-items-center">
                                 <div class="homeFeaturedCardBottomLeft d-flex mt-2">
@@ -312,6 +311,7 @@
                                 {% endif %}
                             </div>
                         </div>
+
                     </div>
                 </div>
                 {% endfor %}
@@ -320,11 +320,11 @@
     </section>
 
     <!-----------------------Whats New---------------------->
-    <Section class="sec6 homeWhatsNew mt-5 mb-5 d-none">
+    <Section class="sec6 homeWhatsNew mt-5 mb-5 ">
         <div class="container homeWhatsNewHeading mb-5">
             <span class="color-span">Top Ads</span>
             <h3 class="cl-pm">Whats New</h3>
-        </div>
+        
         <div class="homeWhatsNewcarousel homeWhatsNewcarousel-lm owl-carousel">
             <div class="homeWhatsNewImg">
                 <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add1.png' %}" alt=""></a>
@@ -350,6 +350,7 @@
             <div class="homeWhatsNewImg">
                 <a href=""><img src="{% static 'app/Assets/Images/HomeBody/8add1.png' %}" alt=""></a>
             </div>
+        </div>
         </div>
     </Section>
 
@@ -383,7 +384,7 @@
                                     </div>
                                     <div class="card-body topics-body-height">
                                         <div class="row">
-                                            <h6 class="fw-bold">{{c.course_title}}</h6>
+                                            <h6 class="fw-bold card-body-tag">{{c.course_title|truncatechars:60}}</h6>
                                         </div>
                                         <div class="row ">
                                             <div class="col-lg-7 col-md-7 col-6">
@@ -391,7 +392,7 @@
                                                     <small class="color-grey">{{c.course_view}} Students</small>
                                                 </div>
                                                 <div class=" mt-1 d-flex align-items-center">
-                                                    <small class="me-1 ">
+                                                    <small class="me-1">
                                                         <i class="fas fa-star {% if c.coure_rating > 0 %}color-yellow {% else %} color-grey {% endif %}"></i>
                                                         <i class="fas fa-star {% if c.course_rating > 1 %}color-yellow {% else %} color-grey {% endif %}"></i>
                                                         <i class="fas fa-star {% if c.course_rating > 2 %}color-yellow {% else %} color-grey {% endif %}"></i>
@@ -407,6 +408,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         {% endif %}
@@ -1508,7 +1510,7 @@
     </section>
     
 
-    <section class="sec11  homeDownloadApp ">
+    <section class="sec11  homeDownloadApp d-none">
         <div class="container">
             <div class="row ">
                 <div class="col-lg-6 homeDownloadAppContent  col-12">

@@ -23,20 +23,22 @@
                 <div class="col-xl-9 col-lg-9 mtResponsive mb-5 ">
                                             
                     <div class="row mb-4">
-                        
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            {% if forloop.counter == 1 %}
+                            {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
+                            <div class="alert alert-success" role="alert">
+                            {{ message }}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                         <div class="col-xl-4 col-md-4 col-12 pass-hU  block-phNumber">
                             <form  method="POST">
                             {% csrf_token %}
-                            {% if messages %}
-                            <ul class="messages">
-                                {% for message in messages %}
-                                {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
-                                <div class="alert alert-success" role="alert">
-                                {{ message }}
-                                </div>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
+                            
                             {% if uForm.non_field_errors  %}
                             {% for error in uForm.non_field_errors %}
                             <p class="alert alert-danger my-3">{{error}}</p>
@@ -62,33 +64,7 @@
                     </div>
                     
 
-                    <a href="{% url 'changepassword' %}">Change Password</a>
-                    {% comment %} <form class="col mt-3">
-                        <div class="col-xl-4 mb-2">
-                            <label for="inputPassword4" class="form-label fw-bold">Current Password</label>
-                            <div class="pass-hU">
-                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
-                                <i class="toggle-password fas fa-eye"></i>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 mb-2">
-                            <label for="inputPassword4" class="form-label fw-bold">New Password</label>
-                            <div class="pass-hU">
-                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
-                                <i class="toggle-password fas fa-eye"></i>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 mb-2">
-                            <label for="inputPassword4" class="form-label fw-bold">Confirm Password</label>
-                            <div class="pass-hU">
-                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
-                                <i class="toggle-password fas fa-eye"></i>
-                            </div>
-                        </div>
-                        <div class="col-4 mt-4 mb-2">
-                            <button type="submit" class="btn btn3 bg-cl-pm">Save Changes</button>
-                        </div>
-                    </form> {% endcomment %}
+                    
                 </div>
             </div>
         </div>

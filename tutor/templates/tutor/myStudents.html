@@ -58,9 +58,9 @@
                             <tr>
                                 <th scope="row">
                                     <div class="myStds-image ">
-                                        {% if s.user.profile_image %}
-                                        <img src="{{s.user.profile_image.url}}" alt="">
-                                        {% endif %}
+                                        
+                                        <img src="{% if s.user.profile_image %}{{s.user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
+                                       
                                     </div>
                                 </th>
                                 <td>{{s.user.first_name}} {{s.user.last_name}}</td>

@@ -25,6 +25,16 @@
                 </div>
                 <section class="tchAddCourse signUpcongratulationRightContent">
                     <form method="POST" enctype="multipart/form-data">
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if forloop.counter == 1 %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
                         {% csrf_token %}
                         <div class="row align-items-center">
                             <h6 class="fw-bold mb-4">Create Course</h6>

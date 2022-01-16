@@ -1,6 +1,12 @@
+window.onload = function () {
+  startMcq1();
+}
+cancelled = false
+const testTime = JSON.parse(document.getElementById('test-time').textContent);
+const testId = JSON.parse(document.getElementById('test-id').textContent);
 function startMcq1() {
-  console.log('start mcq')
-  var c = 2;
+  
+  var c = testTime;
   var t;
   $(document).ready(function () {
 
@@ -8,6 +14,7 @@ function startMcq1() {
 
   });
   function timedCount1() {
+
     if (c == 185) {
       return false;
     }
@@ -20,11 +27,18 @@ function startMcq1() {
     $('#timer1').html(result);
     
     if (c < 0) {
-  
-      document.getElementById("quizModalBtn").click();
-      // $(".quiz-contentBtn").attr('disabled', 'disabled');
-      document.getElementById('quizTimer').style.display='none';
-      return false;
+      if (cancelled) {
+        return;
+      }
+      else {
+        //document.getElementById("quiz-form").submit();
+        document.getElementById("quizModalBtn").click();
+        // $(".quiz-contentBtn").attr('disabled', 'disabled');
+        document.getElementById('quizTimer').style.display = 'none';
+        return false;
+      }
+      
+      
 
     }
 
@@ -32,14 +46,29 @@ function startMcq1() {
     c = c - 1;
     t = setTimeout(function () {
       timedCount1()
+      $.ajax({
+        url: "/mocktest/timeCount",
+        data: {
+          id: testId,
+          time: c
+        },
+        dataType: 'json',
+        success: function (res) {
+          
+        }
+      });
     }, 1000);
   }
   
 }
-function quizTimeOut(){
-  document.getElementById("quizFormSubmit").click();
+function quizTimeOut() {
+  cancelled = true;
+  document.getElementById("quizModalBtn").click();
+  // $(".quiz-contentBtn").attr('disabled', 'disabled');
+  document.getElementById('quizTimer').style.display = 'none';
+  return false;
 }
 
 function quizSubmit(){
-  location.href='mockTestAcheivement.html';
+  document.getElementById("quiz-form").submit();
 }

@@ -1,3 +1,4 @@
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core import paginator
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
@@ -37,9 +38,10 @@ def home(request):
         cw=CourseWishList.objects.filter(user=request.user)
         for c in cw:
             cwishlist.append(c.course)
-        
+
+    users=User.objects.all()  
     
-    return render(request,'app/home.html',{'fcourses':fcourses,'bwishlist':bwishlist,'cwishlist':cwishlist,'pcategories':pcategories,'fcategories':fcategories,'pcourses':pcourses,'categories':categories,'fbooks':fbooks,'total_course':total_course,'total_book':total_book})
+    return render(request,'app/home.html',{'users':users,'fcourses':fcourses,'bwishlist':bwishlist,'cwishlist':cwishlist,'pcategories':pcategories,'fcategories':fcategories,'pcourses':pcourses,'categories':categories,'fbooks':fbooks,'total_course':total_course,'total_book':total_book})
 
 def find_course(request,pk=None):
     
@@ -53,45 +55,49 @@ def find_course(request,pk=None):
     maxPrice=request.GET.get('maxPrice')
     ppage=str(request.GET.get('perpage'))
     page_number=request.GET.get('page')
-    courses=Course.objects.filter(is_active=True,is_publish=True).order_by('id')
-    minp=courses.order_by('course_price').first()
-    maxp=courses.order_by('course_price').last()
-    if pk is not None:
-        courses=courses.filter(course_category=pk)
-
-    if search_query != '' and search_query is not None:
-        courses=courses.filter(course_title__icontains=search_query)
-    
-    if checkboxs:
-        courses=courses.filter(course_category__in=checkboxs)
-        
-    if rate != 'None' and rate != '':
-        filter_id = [x.id for x in Course.objects.all() if x.course_rating == rate]
-        courses=courses.filter(id__in=filter_id)
-    
-    if minPrice != '' and maxPrice != '' and minPrice is not None and maxPrice is not None:
-        courses=courses.filter(course_price__range=[minPrice,maxPrice])
-    else:
-        minPrice=minp.course_price
-        maxPrice=maxp.course_price
-        
-    if ppage != 'None' and ppage != '':
-        paginator=Paginator(courses,ppage)
-    else:
-        
-        paginator=Paginator(courses,15)
-    
-    page_obj=paginator.get_page(page_number)
     categories=Category.objects.all()
-    
+        
     cwishlist=[]
     if request.user.is_authenticated:
         
         cw=CourseWishList.objects.filter(user=request.user)
         for c in cw:
             cwishlist.append(c.course)
+    users=User.objects.all() 
+    courses=Course.objects.filter(is_active=True,is_publish=True).order_by('id')
+    if courses:
+        minp=courses.order_by('course_price').first()
+        maxp=courses.order_by('course_price').last()
+        if pk is not None:
+            courses=courses.filter(course_category=pk)
+
+        if search_query != '' and search_query is not None:
+            courses=courses.filter(course_title__icontains=search_query)
         
-    return render(request,'app/FindCourses.html',{'page_obj':page_obj,'categories':categories,'minPrice':minPrice,'maxPrice':maxPrice,'rate':rate,'cwishlist':cwishlist,'minp':minp,'maxp':maxp})
+        if checkboxs:
+            courses=courses.filter(course_category__in=checkboxs)
+            
+        if rate != 'None' and rate != '':
+            filter_id = [x.id for x in Course.objects.all() if x.course_rating == rate]
+            courses=courses.filter(id__in=filter_id)
+        
+        if minPrice != '' and maxPrice != '' and minPrice is not None and maxPrice is not None:
+            courses=courses.filter(course_price__range=[minPrice,maxPrice])
+        else:
+            minPrice=minp.course_price
+            maxPrice=maxp.course_price
+            
+        if ppage != 'None' and ppage != '':
+            paginator=Paginator(courses,ppage)
+        else:
+            
+            paginator=Paginator(courses,15)
+        
+        page_obj=paginator.get_page(page_number)
+      
+        return render(request,'app/FindCourses.html',{'users':users,'page_obj':page_obj,'categories':categories,'minPrice':minPrice,'maxPrice':maxPrice,'rate':rate,'cwishlist':cwishlist,'minp':minp,'maxp':maxp})
+    else:
+        return render(request,'app/FindCourses.html',{'users':users,'categories':categories,'cwishlist':cwishlist})
 
 def course_details(request,pk):
     
@@ -110,8 +116,8 @@ def course_details(request,pk):
         cw=CourseWishList.objects.filter(user=request.user)
         for c in cw:
             cwishlist.append(c.course)
-    
-    return render(request,'app/singleCourse.html',{'course':course,'range1':range1,'chapters':chapters,'lessons':lessons,'rcourses':rcourses,'categories':categories,'cwishlist':cwishlist,'ratings':ratings})
+    users=User.objects.all()
+    return render(request,'app/singleCourse.html',{'users':users,'course':course,'range1':range1,'chapters':chapters,'lessons':lessons,'rcourses':rcourses,'categories':categories,'cwishlist':cwishlist,'ratings':ratings})
 
 
 
@@ -159,8 +165,8 @@ def all_books(request,pk=None):
         bw=BookWishList.objects.filter(user=request.user)
         for b in bw:
             bwishlist.append(b.book)
-        
-    return render(request,'app/library.html',{'page_obj':page_obj,'categories':categories,'minPrice':minPrice,'maxPrice':maxPrice,'bwishlist':bwishlist,'minp':minp,'maxp':maxp})
+    users=User.objects.all()    
+    return render(request,'app/library.html',{'users':users,'page_obj':page_obj,'categories':categories,'minPrice':minPrice,'maxPrice':maxPrice,'bwishlist':bwishlist,'minp':minp,'maxp':maxp})
 
 def book_details(request,pk):
     book=Book.objects.get(pk=pk)
@@ -172,7 +178,8 @@ def book_details(request,pk):
         bw=BookWishList.objects.filter(user=request.user)
         for b in bw:
             bwishlist.append(b.book)
-    return render(request,'app/singleBook.html',{'categories':categories,'book':book,'rbooks':rbooks,'bwishlist':bwishlist,'ratings':ratings})
+    users=User.objects.all()
+    return render(request,'app/singleBook.html',{'users':users,'categories':categories,'book':book,'rbooks':rbooks,'bwishlist':bwishlist,'ratings':ratings})
 
 
 
@@ -181,14 +188,16 @@ def ccourses(request):
     mycourses=MyCourse.objects.filter(user=request.user)
     cc_active='active'
     categories=Category.objects.all()
-    return render(request,'app/continue_courses.html',{'cc_active':cc_active,'categories':categories,'mycourses':mycourses})
+    users=User.objects.all()
+    return render(request,'app/continue_courses.html',{'users':users,'cc_active':cc_active,'categories':categories,'mycourses':mycourses})
 
 @login_required(redirect_field_name='login')
 def mybooks(request):
     mybooks=MyBooks.objects.filter(user=request.user)
     mb_active='active'
     categories=Category.objects.all()
-    return render(request,'app/mybooks.html',{'mb_active':mb_active,'categories':categories,'mybooks':mybooks})
+    users=User.objects.all()
+    return render(request,'app/mybooks.html',{'users':users,'mb_active':mb_active,'categories':categories,'mybooks':mybooks})
 
 @login_required(redirect_field_name='login')
 def wishlist(request):
@@ -197,20 +206,23 @@ def wishlist(request):
     mwishlist=TestWishList.objects.filter(user=request.user)
     categories=Category.objects.all()
     w_active='active'
-    return render(request,'app/wishlist.html',{'w_active':w_active,'cwishlist':cwishlist,'bwishlist':bwishlist,'mwishlist':mwishlist,'categories':categories})
+    users=User.objects.all()
+    return render(request,'app/wishlist.html',{'users':users,'w_active':w_active,'cwishlist':cwishlist,'bwishlist':bwishlist,'mwishlist':mwishlist,'categories':categories})
 
 @login_required(redirect_field_name='login')
 def payment_method(request):
     categories=Category.objects.all()
     pm_active='active'
-    return render(request,'app/payment_method.html',{'pm_active':pm_active,'categories':categories})
+    users=User.objects.all()
+    return render(request,'app/payment_method.html',{'users':users,'pm_active':pm_active,'categories':categories})
 
 
 @login_required(redirect_field_name='login')
 def helpdesk(request):
     categories=Category.objects.all()
     hd_active='active'
-    return render(request,'app/helpdesk.html',{'hd_active':hd_active,'categories':categories})
+    users=User.objects.all()
+    return render(request,'app/helpdesk.html',{'users':users,'hd_active':hd_active,'categories':categories})
 
 @login_required(redirect_field_name='login')
 def addToCourseWishList(request):
@@ -353,7 +365,8 @@ def show_cart(request):
     tb=bcart.count()
     tt=tcart.count()
     total_items=tc+tb+tt
-    return render(request,'app/shopping_cart.html',{'ccart':ccart,'bcart':bcart,'tcart':tcart,'total_items':total_items,'categories':categories,'total_price':total_price})
+    users=User.objects.all()
+    return render(request,'app/shopping_cart.html',{'users':users,'ccart':ccart,'bcart':bcart,'tcart':tcart,'total_items':total_items,'categories':categories,'total_price':total_price})
 
 @login_required(redirect_field_name='login')
 def add_ccart(request):
@@ -499,6 +512,7 @@ def checkout(request):
     
         MyBooks.objects.create(user=request.user,book=b.book,qty=qty)
         b.delete()
+    
     return render(request,'app/success.html')
 
 
@@ -507,13 +521,15 @@ def author_profile(request,pk):
     author=Author.objects.get(pk=pk)
     author_books=Book.objects.filter(author_id=author)
     categories=Category.objects.all()
-    return render(request,'app/author_profile.html',{'author':author,'author_books':author_books,'categories':categories})
+    users=User.objects.all()
+    return render(request,'app/author_profile.html',{'users':users,'author':author,'author_books':author_books,'categories':categories})
 
 
 def instructor_profile(request,pk):
     instructor=Instructor.objects.get(pk=pk)
     categories=Category.objects.all()
-    return render(request,'app/author_profile.html',{'instructor':instructor,'categories':categories})
+    users=User.objects.all()
+    return render(request,'app/author_profile.html',{'users':users,'instructor':instructor,'categories':categories})
 
 @login_required(redirect_field_name='login')
 def course_playlist(request,pk):
@@ -523,8 +539,8 @@ def course_playlist(request,pk):
     # else:
     #     lesson=Lesson.objects.filter(course_id=course).first()
     
-    chapters=Chapter.objects.filter(course_id=course)
-    lessons=Lesson.objects.filter(course_id=course)
+    chapters=Chapter.objects.filter(course_id=course).order_by("chapter_position") 
+    lessons=Lesson.objects.filter(course_id=course).order_by("lesson_position")
     categories=Category.objects.all()
     svideo=[]
     sassignment=[]
@@ -547,8 +563,8 @@ def course_playlist(request,pk):
         sa=StudentAssignment.objects.filter(course=course,lesson=l,user=request.user)
         sa.update(assignment_file=afile)      
             
-    
-    return render(request,'app/course_playlist.html',{'categories':categories,'chapters':chapters,'lessons':lessons,'svideo':svideo,'sassignment':sassignment,'squiz':squiz,'studentAssignment':studentAssignment,'studentQuiz':studentQuiz})
+    users=User.objects.all()
+    return render(request,'app/course_playlist.html',{'users':users,'categories':categories,'chapters':chapters,'lessons':lessons,'svideo':svideo,'sassignment':sassignment,'squiz':squiz,'studentAssignment':studentAssignment,'studentQuiz':studentQuiz})
 
 @login_required(redirect_field_name='login')
 def course_playlist_json(request):
@@ -600,4 +616,9 @@ def submit_quiz(request):
     
     
     
-    
+@login_required(redirect_field_name='login')
+@csrf_exempt
+def uploadFile(request):
+    file=request.FILES.get('lesson_video')
+    TempFile.objects.create(user=request.user,file=file)
+    return JsonResponse('File Uploaded Successully',safe=False)

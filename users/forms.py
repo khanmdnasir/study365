@@ -80,10 +80,6 @@ class MySetPasswordForm(SetPasswordForm):
 
 
 
-class VerifyForm(forms.Form):
-    code = forms.CharField(max_length=4, required=True, help_text='Enter code')
-
-
 class ProfileForm(forms.ModelForm):
     education_level=forms.ChoiceField(choices=Level_Choices,widget=forms.Select(attrs={'class':'form-select'}),required=False)
     department=forms.ChoiceField(choices=Department_Choices,widget=forms.Select(attrs={'class':'form-select'}),required=False)
@@ -96,7 +92,7 @@ class UserForm(forms.ModelForm):
     username=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     first_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),required=False)
     last_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),required=False)  
-    address=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),required=False)
+    address=forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','rows':'6'}),required=False)
     profile_image=forms.ImageField(widget=forms.FileInput(attrs={'class':'file-upload-input','onchange':'readURL(this);','accept':'image/*'}))
     class Meta:
         model = User
@@ -112,7 +108,7 @@ class EForm(forms.ModelForm):
 
 class PForm(forms.ModelForm):
     
-    phone_number=PhoneNumberField(widget=PhoneNumberPrefixWidget(initial='BD',attrs={'class':'form-control'}))    
+    phone_number=PhoneNumberField(widget=PhoneNumberPrefixWidget(initial='BD',attrs={'class':'form-control mb-2'}))    
    
     class Meta:
         model = User

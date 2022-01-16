@@ -6,8 +6,8 @@
         <div class="signUpcongratulationsLeft d-flex align-items-center">
             <div
                 class="signUpcongratulationLeftContent d-flex flex-column justify-content-center align-items-center color-white">
-                <div class="signInUpLeftImg">
-                    <img src="{% static 'app/Assets/Images/signUp/logo.svg' %}" alt="">
+                <div class="signInUpLeftImg my-2">
+                    <img src="{% static 'app/Assets/Images/signUp/logo.png' %}" alt="">
                 </div>
                 <h4 class="fw-bold text-center px-2">One platform for Learning</h4>
                 <small class="text-center px-5 mx-5">Gether Knowledge and your educational Guidline from just in one
@@ -18,10 +18,10 @@
             <div class="container">
                 <div class="signUpBack d-flex justify-content-between w-75">
                     <div>
-                        {% comment %} <a href="stdCreatePass.html" class="cl-pm">
+                        <a href="{{request.META.HTTP_REFERER}}" class="cl-pm">
                             <i class="fa fa-arrow-left me-2"></i>
                             Back
-                        </a> {% endcomment %}
+                        </a>
                     </div>
                     <div>
                         <a href="{% url 'home' %}" class="cl-pm">

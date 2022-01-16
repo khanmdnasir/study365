@@ -8,19 +8,20 @@ from app.models import Category
 from .forms import CourseForm
 from app.models import *
 from .models import Instructor
-from users.models import User
-from users.forms import IRegistrationForm, IRegistrationForm1, IRegistrationForm2, RegistrationForm
+from users.models import Student, User
+from users.forms import EForm, IRegistrationForm, IRegistrationForm1, IRegistrationForm2, PForm, RegistrationForm, UserForm
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes,force_text
+from django.utils.encoding import force_bytes,force_str
 from users.utils import account_activation_token
 from twilio.rest import Client
 import math, random
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.core.paginator import Paginator
+
 
 account_sid = 'AC6ca36161db8b890f8763d35c7c8b3532'
 auth_token = 'a85a433f78ca4d06ee2ecd2d12c34717'
@@ -29,7 +30,12 @@ client = Client(account_sid, auth_token)
 @login_required(redirect_field_name='login')
 def tutor_dashboard(request):
     active="active"
-    return render(request,'tutor/tutor_dashboard.html',{'active1':active})
+    insId=Instructor.objects.get(user=request.user)
+    this_month = datetime.now().month
+    total_course=len(Course.objects.filter(instructor_id=insId))
+    course=Course.objects.filter(instructor_id=insId,course_year__month=this_month)
+    users=User.objects.all()
+    return render(request,'tutor/tutor_dashboard.html',{'users':users,'active1':active,'total_course':total_course,'course':course})
 
 def tutor_signin(request):
     if request.user.is_authenticated:
@@ -59,7 +65,7 @@ def tutor_signin(request):
                         login(request,user)
                         return redirect('tutor:tutor_dashboard')  
                     else:
-                        messages.error(request, 'You are not registered as a tutor, Please signup as tutor first.')
+                        # messages.error(request, 'You are not registered as a tutor, Please signup as a tutor first.')
                         return redirect('tutor:tutor_signin')             
         
         return render(request,'tutor/tutor_signin.html',{'form':form})
@@ -84,6 +90,7 @@ def tutor_signup(request):
                     speciality=request.POST.getlist('speciality')
                     
                     user = form.save() 
+                    Student.objects.create(user=user)
                     request.session['pk']=user.pk 
                     Instructor.objects.create(user=user,speciality=speciality)
                     
@@ -114,7 +121,7 @@ def tutor_signup(request):
             if form.is_valid() :
                 
                 user = form.save()
-                 
+                Student.objects.create(user=user)
                 request.session['pk']=user.pk 
                 speciality=request.POST.getlist('speciality')
                 Instructor.objects.create(user=user,speciality=speciality)
@@ -157,21 +164,26 @@ def generateOTP():
 
 @login_required(redirect_field_name='login')
 def tutor_profile(request):
-    active="active"
     tutor=Instructor.objects.get(user=request.user)
-    
+    uForm=UserForm(instance=request.user)
+   
     if request.method == 'POST':
-        overview=request.POST.get('overview')
-        speciality=request.POST.getlist('speciality')
-        Instructor.objects.filter(user=request.user).update(instructor_intro=overview,speciality=speciality)
-        tutor=Instructor.objects.get(user=request.user)
-    return render(request,'tutor/tutor_profile.html',{'active2':active,'tutor':tutor})
+        uForm=UserForm(request.POST or None,request.FILES or None,instance=request.user)
+        if uForm.is_valid():
+            uForm.save()
+            overview=request.POST.get('overview')
+            speciality=request.POST.getlist('speciality')
+            Instructor.objects.filter(user=request.user).update(instructor_intro=overview,speciality=speciality)
+            tutor=Instructor.objects.get(user=request.user)
+            return redirect('tutor:tutor_profile')
+    return render(request,'tutor/edit_tprofile.html',{'tutor':tutor,'uForm':uForm})
     
 
 @login_required(redirect_field_name='login')
 def addCourse(request):
     active="active"
     category=Category.objects.all()
+    users=User.objects.all()
     if request.method == 'POST':
         cimage=request.FILES.get('course_image')
         ctitle=request.POST.get('course_title')
@@ -189,13 +201,15 @@ def addCourse(request):
         target=request.POST.get('target')
         target_arr=target.split(',')
         course=Course.objects.create(instructor_id=Instructor.objects.get(user=request.user),course_image=cimage,course_title=ctitle,course_category=Category.objects.get(id=cid),course_overview=overview,course_language=language,course_price=price,course_offer=offer,course_include=include_arr,course_outcome=outcome_arr,course_description=description,course_target=target_arr,course_duration=duration)
+        
         return redirect('tutor:addChapter',id=course.id)
-    return render(request,'tutor/addCourse.html',{'active3':active,'category':category})
+    return render(request,'tutor/addCourse.html',{'users':users,'active3':active,'category':category})
 
 @login_required(redirect_field_name='login')
 def editCourse(request,id):
     active='active'
     course=Course.objects.get(id=id)
+    users=User.objects.all()
     category=Category.objects.all()
     if request.method == 'POST':
         cimage=request.FILES.get('course_image')
@@ -213,12 +227,13 @@ def editCourse(request,id):
         outcome_arr=outcome.split(',')
         target=request.POST.get('target')
         target_arr=target.split(',')
+        messages.success(request, 'Course updated Successfully.')
         if cimage:
             Course.objects.filter(id=id).update(course_image=cimage,course_title=ctitle,course_category=Category.objects.get(id=cid),course_overview=overview,course_language=language,course_price=price,course_offer=offer,course_include=include_arr,course_outcome=outcome_arr,course_description=description,course_target=target_arr,course_duration=duration)
         else:
             Course.objects.filter(id=id).update(course_title=ctitle,course_category=Category.objects.get(id=cid),course_overview=overview,course_language=language,course_price=price,course_offer=offer,course_include=include_arr,course_outcome=outcome_arr,course_description=description,course_target=target_arr,course_duration=duration)
         return redirect('tutor:singleCourse',id=id)   
-    return render(request,'tutor/addCourse.html',{'active3':active,'category':category,'course':course})
+    return render(request,'tutor/addCourse.html',{'users':users,'active3':active,'category':category,'course':course})
 
 @login_required(redirect_field_name='login')
 def deleteCourse(request,id):
@@ -238,12 +253,13 @@ def addChapter(request,id):
     course=Course.objects.get(pk=id)
     chapters=Chapter.objects.filter(course_id=course).order_by('chapter_position')
     lessons=Lesson.objects.filter(course_id=course).order_by('lesson_position')
+    users=User.objects.all()
     if request.method == 'POST':
         chapter_name=request.POST.get('chapter_title')
         chapter_position=request.POST.get('chapter_position')
         chapter=Chapter.objects.update_or_create(course_id=course,chapter_name=chapter_name,chapter_position=chapter_position)
-        
-    return render(request,'tutor/addChapter.html',{'active4':active,'course':course,'chapters':chapters,'lessons':lessons})
+        messages.success(request, 'Chapter added Successfully.')
+    return render(request,'tutor/addChapter.html',{'users':users,'active4':active,'course':course,'chapters':chapters,'lessons':lessons})
 
 @login_required(redirect_field_name='login')
 def editChapter(request,id):
@@ -252,17 +268,20 @@ def editChapter(request,id):
     cid=Course.objects.get(id=chapter.course_id.id)
     chapters=Chapter.objects.filter(course_id=cid).order_by('chapter_position')
     lessons=Lesson.objects.filter(course_id=cid).order_by('lesson_position')
+    users=User.objects.all()
     if request.method == 'POST':
         chapter_name=request.POST.get('chapter_title')
         chapter_position=request.POST.get('chapter_position')
         Chapter.objects.filter(pk=id).update(chapter_name=chapter_name,chapter_position=chapter_position)
         chapter=Chapter.objects.get(pk=id)
-    return render(request,'tutor/addChapter.html',{'active4':active,'course':cid,'chapters':chapters,'lessons':lessons,'chapter':chapter})
+        messages.success(request, 'Chapter updated Successfully.')
+    return render(request,'tutor/addChapter.html',{'users':users,'active4':active,'course':cid,'chapters':chapters,'lessons':lessons,'chapter':chapter})
 
 @login_required(redirect_field_name='login')
 def deleteChapter(request,id):
     chapter=Chapter.objects.get(id=id)    
     chapter.delete()
+    messages.success(request, 'Chapter deleted Successfully.')
     return redirect('tutor:addChapter',id=chapter.course_id.id)
 
 @login_required(redirect_field_name='login')
@@ -272,22 +291,25 @@ def addLesson(request,id1,id2):
     chapter=Chapter.objects.get(pk=id2)
     chapters=Chapter.objects.filter(course_id=course).order_by('chapter_position')
     lessons=Lesson.objects.filter(course_id=course).order_by('lesson_position')
+    users=User.objects.all()
     if request.method == 'POST':
         lesson_type=request.POST.get('lesson_type')
         lesson_position=request.POST.get('lesson_position') 
         lesson_title=request.POST.get('lesson_title')
         if (lesson_type == 'V'):            
-            lesson_video=request.FILES.get('lesson_video')                   
-            Lesson.objects.update_or_create(course_id=course,chapter_id=chapter,lesson_title=lesson_title,lesson_type=lesson_type,lesson_video=lesson_video,lesson_position=lesson_position)
+            tf=TempFile.objects.filter(user=request.user)[:1].get()
+            if tf:                 
+                Lesson.objects.create(course_id=course,chapter_id=chapter,lesson_title=lesson_title,lesson_type=lesson_type,lesson_video=tf.file,lesson_position=lesson_position)
+                tf.delete()
         if (lesson_type == 'I'):            
             instruction=request.POST.get('instruction')                   
-            Lesson.objects.update_or_create(course_id=course,chapter_id=chapter,lesson_title=lesson_title,lesson_type=lesson_type,lesson_position=lesson_position,text_instruction=instruction)
+            Lesson.objects.create(course_id=course,chapter_id=chapter,lesson_title=lesson_title,lesson_type=lesson_type,lesson_position=lesson_position,text_instruction=instruction)
         if (lesson_type == 'A'):            
             ainstruction=request.POST.get('ainstruction')                  
             total_mark=request.POST.get('total_mark')                  
             pass_mark=request.POST.get('pass_mark') 
             afile=request.FILES.get('asfile')                 
-            Lesson.objects.update_or_create(course_id=course,chapter_id=chapter,lesson_title=lesson_title,lesson_type=lesson_type,assignment_total_mark=total_mark,assignment_pass_mark=pass_mark,assignment_instruction=ainstruction,assignment_file=afile,lesson_position=lesson_position)
+            Lesson.objects.create(course_id=course,chapter_id=chapter,lesson_title=lesson_title,lesson_type=lesson_type,assignment_total_mark=total_mark,assignment_pass_mark=pass_mark,assignment_instruction=ainstruction,assignment_file=afile,lesson_position=lesson_position)
         if (lesson_type == 'Q'):            
             quiz_instruction=request.POST.get('quiz_instruction')                 
             quiz_time=request.POST.get('quiz_time')                 
@@ -295,7 +317,8 @@ def addLesson(request,id1,id2):
             quiz_pass_mark=request.POST.get('quiz_pass_mark')                 
             lesson=Lesson.objects.create(course_id=course,chapter_id=chapter,lesson_title=lesson_title,lesson_type=lesson_type,lesson_position=lesson_position,quiz_instruction=quiz_instruction,quiz_time=quiz_time,quiz_total_mark=quiz_total_mark,quiz_pass_mark=quiz_pass_mark)
             return redirect('tutor:addQuiz',id=lesson.id)
-    return render(request,'tutor/addLesson.html',{'active4':active,'course':course,'chapters':chapters,'lessons':lessons})
+        messages.success(request, 'Lesson added Successfully.')
+    return render(request,'tutor/addLesson.html',{'users':users,'active4':active,'course':course,'chapters':chapters,'lessons':lessons})
 
 @login_required(redirect_field_name='login')
 def editLesson(request,id):
@@ -305,16 +328,19 @@ def editLesson(request,id):
     chapter=Chapter.objects.get(pk=lesson.chapter_id.id)
     chapters=Chapter.objects.filter(course_id=course).order_by('chapter_position')
     lessons=Lesson.objects.filter(course_id=course).order_by('lesson_position')
+    users=User.objects.all()
     if request.method == 'POST':
         lesson_type=request.POST.get('lesson_type')
         lesson_position=request.POST.get('lesson_position') 
         lesson_title=request.POST.get('lesson_title')
         if (lesson_type == 'V'):            
-            lesson_video=request.FILES.get('lesson_video')     
-            if lesson_video:              
-                Lesson.objects.filter(pk=id).update(lesson_title=lesson_title,lesson_type=lesson_type,lesson_video=lesson_video,lesson_position=lesson_position)
-            else:
-                Lesson.objects.filter(pk=id).update(lesson_title=lesson_title,lesson_type=lesson_type,lesson_position=lesson_position)
+            
+            tf=TempFile.objects.filter(user=request.user)[:1].get()
+            
+            if tf:            
+                Lesson.objects.filter(pk=id).update(lesson_title=lesson_title,lesson_type=lesson_type,lesson_video=tf.file,lesson_position=lesson_position)
+                tf.delete()
+            
         if (lesson_type == 'I'):            
             instruction=request.POST.get('instruction')                   
             Lesson.objects.filter(pk=id).update(lesson_title=lesson_title,lesson_type=lesson_type,lesson_position=lesson_position,text_instruction=instruction)
@@ -335,14 +361,15 @@ def editLesson(request,id):
             quiz_total_mark=request.POST.get('quiz_total_mark')                 
             quiz_pass_mark=request.POST.get('quiz_pass_mark')                 
             Lesson.objects.filter(pk=id).update(lesson_title=lesson_title,lesson_type=lesson_type,lesson_position=lesson_position,quiz_instruction=quiz_instruction,quiz_time=quiz_time,quiz_total_mark=quiz_total_mark,quiz_pass_mark=quiz_pass_mark)
-            return redirect('addQuiz',id=id)
-    return render(request,'tutor/addLesson.html',{'active4':active,'course':course,'chapters':chapters,'lessons':lessons,'lesson':lesson})   
+        messages.success(request, 'Lesson updated Successfully.')
+    return render(request,'tutor/addLesson.html',{'users':users,'active4':active,'course':course,'chapters':chapters,'lessons':lessons,'lesson':lesson})   
     
 
 @login_required(redirect_field_name='login')
 def deleteLesson(request,id):
     lesson=Lesson.objects.get(id=id)    
     lesson.delete()
+    messages.success(request, 'Lesson deleted Successfully.')
     return redirect('tutor:addChapter',id=lesson.course_id.id)
 
 @login_required(redirect_field_name='login')
@@ -353,6 +380,7 @@ def addQuiz(request,id):
     course=Course.objects.get(pk=lesson.course_id.id)
     chapters=Chapter.objects.filter(course_id=course).order_by('chapter_position')
     lessons=Lesson.objects.filter(course_id=course).order_by('lesson_position')
+    users=User.objects.all()
     if request.method == 'POST':
         question=request.POST.get('question')
         qposition=request.POST.get('qposition')
@@ -367,7 +395,8 @@ def addQuiz(request,id):
         option.append(option4)
         correct=request.POST.get('correct')
         Quiz.objects.create(course=course,lesson=lesson,question=question,quiz_position=qposition,option=option,correct_answer=correct)
-    return render(request,'tutor/addQuiz.html',{'active4':active,'course':course,'chapters':chapters,'lessons':lessons,'quizes':quizes})
+        messages.success(request, 'Quiz added Successfully.')
+    return render(request,'tutor/addQuiz.html',{'users':users,'active4':active,'course':course,'chapters':chapters,'lessons':lessons,'quizes':quizes})
 
 @login_required(redirect_field_name='login')
 def editQuiz(request,id):
@@ -378,6 +407,7 @@ def editQuiz(request,id):
     course=Course.objects.get(pk=lesson.course_id.id)
     chapters=Chapter.objects.filter(course_id=course).order_by('chapter_position')
     lessons=Lesson.objects.filter(course_id=course).order_by('lesson_position')
+    users=User.objects.all()
     if request.method == 'POST':
         question=request.POST.get('question')
         qposition=request.POST.get('qposition')
@@ -393,13 +423,15 @@ def editQuiz(request,id):
         correct=request.POST.get('correct')
         
         Quiz.objects.filter(pk=id).update(question=question,quiz_position=qposition,option=option,correct_answer=correct)
+        messages.success(request, 'Quiz updated Successfully.')
         return render(request,'tutor/addQuiz.html',{'active4':active,'course':course,'chapters':chapters,'lessons':lessons,'quizes':quizes})
-    return render(request,'tutor/addQuiz.html',{'active4':active,'course':course,'chapters':chapters,'lessons':lessons,'quiz':quiz})
+    return render(request,'tutor/addQuiz.html',{'users':users,'active4':active,'course':course,'chapters':chapters,'lessons':lessons,'quiz':quiz})
 
 @login_required(redirect_field_name='login')
 def deleteQuiz(request,id):
     quiz=Quiz.objects.get(id=id)
     quiz.delete()
+    messages.success(request, 'Quiz deleted Successfully.')
     return redirect('tutor:addQuiz',id=quiz.lesson.id)
 
 @login_required(redirect_field_name='login')
@@ -410,8 +442,8 @@ def myCourse(request):
     course=Course.objects.filter(instructor_id=insId,course_year__month=this_month)
     mycourse=Course.objects.filter(instructor_id=insId)
     mycategory=mycourse.distinct('course_category')
-    
-    return render(request,'tutor/myCourse.html',{'active4':active,'course':course,'mycategory':mycategory,'mycourse':mycourse})
+    users=User.objects.all()
+    return render(request,'tutor/myCourse.html',{'users':users,'active4':active,'course':course,'mycategory':mycategory,'mycourse':mycourse})
 
 @login_required(redirect_field_name='login')
 def singleCourse(request,id):
@@ -420,7 +452,8 @@ def singleCourse(request,id):
     range1=math.ceil(len(course.course_outcome)/2)
     chapters=Chapter.objects.filter(course_id=id).order_by("chapter_position")    
     lessons=Lesson.objects.filter(course_id=id).order_by("lesson_position")
-    return render(request,'tutor/singleCourse.html',{'active4':active,'course':course,'range1':range1,'chapters':chapters,'lessons':lessons})
+    users=User.objects.all()
+    return render(request,'tutor/singleCourse.html',{'users':users,'active4':active,'course':course,'range1':range1,'chapters':chapters,'lessons':lessons})
 
 
 
@@ -440,7 +473,8 @@ def myStudents(request):
         paginator=Paginator(myStudents,15)
     
     page_obj=paginator.get_page(page_number)
-    return render(request,'tutor/myStudents.html',{'active5':active,'page_obj':page_obj})
+    users=User.objects.all()
+    return render(request,'tutor/myStudents.html',{'users':users,'active5':active,'page_obj':page_obj})
 
 @login_required(redirect_field_name='login')
 def allSubmission(request):
@@ -470,12 +504,15 @@ def allSubmission(request):
     if request.method == "POST":
         sid=request.POST.get('sid')
         mark=request.POST.get('obtain_mark')
-        sa=StudentAssignment.objects.filter(id=sid)
-        if int(mark) < StudentAssignment.objects.get(id=sid).lesson.assignment_total_mark:
-            sa.update(mark=mark)
-
-    
-    return render(request,'tutor/allSubmission.html',{'active6':active,'page_obj':page_obj,'courses':courses})
+        sa=StudentAssignment.objects.get(id=sid)
+        if int(mark) < sa.lesson.assignment_total_mark:
+            sa.mark=mark
+            sa.save()
+            messages.success(request,'Mark Updated Successfully')
+        else:
+            messages.error(request,'Invalid Mark, mark can not be getter than total mark')
+    users=User.objects.all()
+    return render(request,'tutor/allSubmission.html',{'users':users,'active6':active,'page_obj':page_obj,'courses':courses})
 
 @login_required(redirect_field_name='login')
 def guidelines(request):

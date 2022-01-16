@@ -1,11 +1,14 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.views import PasswordChangeView
+from users.forms import MyPasswordChangeForm
 app_name='tutor'
 urlpatterns = [
     path('dashboard/',views.tutor_dashboard,name='tutor_dashboard'),
     path('signin/',views.tutor_signin,name='tutor_signin'),
     path('signup/',views.tutor_signup,name='tutor_signup'),
-    path('profile/',views.tutor_profile,name='tutor_profile'),
+    path('profile/',PasswordChangeView.as_view(template_name='tutor/tutor_profile.html',form_class=MyPasswordChangeForm),name='tutor_profile'),
+    path('profile/edit/',views.tutor_profile,name='edit_tprofile'),
     path('addcourse/',views.addCourse,name='addCourse'),
     path('addChapter/<int:id>',views.addChapter,name='addChapter'),
     path('addLesson/<int:id1>/<int:id2>',views.addLesson,name='addLesson'),

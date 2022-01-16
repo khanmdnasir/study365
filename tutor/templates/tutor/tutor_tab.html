@@ -2,7 +2,7 @@
 <div class="tchLeft p-3 bg-cl-grey3 desktopVersion">
     <div class="tchNavHeading d-flex flex-column justify-content-center align-items-center">
         <div class="tchNavHeadingImg">
-            <img src="{{user.profile_image.url}}" alt="">
+            <img src="{% if user.profile_image %}{{user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
         </div>
         <div class="tchNavHeadingContent d-flex flex-column align-items-center mt-1 mb-3">
             <small class="fw-bold">{{user.first_name}} {{user.last_name}}</small>
@@ -15,7 +15,7 @@
             <i class="fas fa-home me-1"></i>
             Dashboard</a>
 
-        <a class="nav-link me-3 {{active2}}" href="{% url 'tutor:tutor_profile' %}">
+        <a class="nav-link me-3 {% if  active1 or active2 or active3 or active4 or active5 or active6 or active7 or active8 or ctive9 %}{% else %}active{% endif %}" href="{% url 'tutor:tutor_profile' %}">
             <i class="far fa-user me-1"></i>
             Profile</a>
 
@@ -47,9 +47,9 @@
         <a class="nav-link me-3 {{active9}}" href="{% url 'tutor:payment' %}">
             <i class="fas fa-money-bill-wave me-1"></i>
             Payment</a>
-        <a class="nav-link me-3 {{active10}}" href="{% url 'tutor:settings' %}">
+        {% comment %} <a class="nav-link me-3 {{active10}}" href="{% url 'tutor:settings' %}">
             <i class="fas fa-user-cog me-1"></i>
-            Settings</a>
+            Settings</a> {% endcomment %}
         <a class="nav-link me-3 " href="{% url 'logout' %}">
             <i class="fas fa-sign-out-alt me-1"></i>
             Logout</a>
@@ -60,8 +60,19 @@
 <div class="tchLeft mt-3 p-3 bg-light-pink mobileVersion">
 
     <div class="nav flex-column nav-tabs">
+        {% if active1 %}
         <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
-            href="tchPaddCourse.html" type="button" data-bs-toggle="collapse"
+            href="{% url 'tutor:tutor_dashboard' %}" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation" >
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                Dashboard
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+        {% elif active3 %}
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="{% url 'tutor:addCourse' %}" type="button" data-bs-toggle="collapse"
             data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
             aria-label="Toggle navigation">
             <div>
@@ -69,57 +80,136 @@
                 Add a Course
             </div><i class="fas fa-chevron-down"></i>
         </a>
-
+        {% elif active4 %}
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="{% url 'tutor:myCourse' %}" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                My Course
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+        {% elif active5 %}
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="{% url 'tutor:myStudents' %}" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                My Students
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+        {% elif active6 %}
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="{% url 'tutor:allSubmission' %}" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                Submission All
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+        {% elif active7 %}
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="{% url 'tutor:guidelines' %}" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                Guidelines
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+        {% elif active8 %}
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="{% url 'tutor:helpSupport' %}" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                Help & Support
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+        {% elif active9 %}
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="{% url 'tutor:payment' %}" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                Payment
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+        {% else %}
+        <a class="nav-link w-100  active  navbar-toggler d-flex justify-content-between align-items-center"
+            href="{% url 'tutor:tutor_profile' %}" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navContentMobile1" aria-controls="navContentMobile1" aria-expanded="false"
+            aria-label="Toggle navigation" >
+            <div>
+                <i class="far fa-file-word me-1"></i>
+                Profile
+            </div><i class="fas fa-chevron-down"></i>
+        </a>
+        {% endif %}
         <div class="collapse navbar-collapse" id="navContentMobile1">
-
+            {% if not active1 %}
             <a class="nav-link me-3" href="{% url 'tutor:tutor_dashboard' %}">
                 <i class="fas fa-home me-1"></i>
                 Dashboard
             </a>
-
+            {% endif %}
+            {% if  active1 or active2 or active3 or active4 or active5 or active6 or active7 or active8 or ctive9 %}
             <a class="nav-link me-3" href="{% url 'tutor:tutor_profile' %}">
                 <i class="far fa-user me-1"></i>
                 Profile
             </a>
-
+            {% endif %}
+            {% if not active3 %}
             <a class="nav-link me-3 " href="{% url 'tutor:addCourse' %}">
                 <i class="far fa-file-word me-1"></i>
                 Add Course
             </a>
+            {% endif %}
+            {% if not active4 %}
             <a class="nav-link me-3 " href="{% url 'tutor:myCourse' %}">
                 <i class="far fa-file-word me-1"></i>
                 My Course
             </a>
-
+            {% endif %}
+            {% if not active5 %}
             <a class="nav-link me-3 " href="{% url 'tutor:myStudents' %}">
                 <i class="fas fa-user-graduate me-1"></i>
                 My students
             </a>
-
+            {% endif %}
+            {% if not active6 %}
             <a class="nav-link me-3 " href="{% url 'tutor:allSubmission' %}">
                 <i class="fas fa-file-pdf me-1"></i>
                 Submission All
             </a>
-
+            {% endif %}
+            {% if not active7 %}
             <a class="nav-link me-3 " href="{% url 'tutor:guidelines' %}">
                 <i class="far fa-credit-card me-1"></i>
                 Guidelines
             </a>
-
+            {% endif %}
+            {% if not active8 %}
             <a class="nav-link me-3 " href="{% url 'tutor:helpSupport' %}">
                 <i class="fas fa-hands-helping me-1"></i>
                 Help & Support
             </a>
-
+            {% endif %}
+            {% if not active9 %}
             <a class="nav-link me-3 " href="{% url 'tutor:payment' %}">
                 <i class="fas fa-money-bill-wave me-1"></i>
                 Payment
             </a>
-
-            <a class="nav-link me-3 " href="{% url 'tutor:settings' %}">
+            {% endif %}
+            {% comment %} <a class="nav-link me-3 " href="{% url 'tutor:settings' %}">
                 <i class="fas fa-user-cog me-1"></i>
                 Settings
-            </a>
+            </a> {% endcomment %}
 
             <a class="nav-link me-3 " href="{% url 'logout' %}">
                 <i class="fas fa-sign-out-alt me-1"></i>

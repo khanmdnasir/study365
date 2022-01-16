@@ -8,8 +8,9 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
-                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'mocktest:mocktests' %}">Mock
-                            Test</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'stdprofile' %}">Profile</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'mocktest:mytests' %}">My Test
+                            </a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{test.title}}</li>
                 </ol>
             </nav>
@@ -67,8 +68,8 @@
                                                         <h5 class="fw-bold">Set {{forloop.counter}}</h5>
                                                         <small class="cl-pm">{{ts.total_ques}} Questions</small>
                                                         <button type="button" class="btn btn3 bg-cl-pm w-100 btn-sm mt-2 start-test"
-                                                            data-bs-toggle="modal" data-id="{{ts.id}}" data-bs-target="#exampleModal">Start
-                                                            Quiz
+                                                            data-bs-toggle="modal" data-id="{{ts.id}}" data-mid="{{test.id}}" data-bs-target="#exampleModal">{% if ts.id in is_retake %}Retake{% else %}Start
+                                                            Quiz{% endif %}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -85,7 +86,7 @@
                                             <div class="courseReviewTop d-flex justify-content-between">
                                                 <div class="courseReviewTopleft d-flex align-items-center">
                                                     <div class="courseReviewImg me-3">
-                                                        <img src="{{r.user.profile_image.url}}" alt="">
+                                                        <img src="{% if r.user.profile_image %}{{r.user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
                                                     </div>
                                                     <div class="courseReviewName">
                                                         <h6 class="fw-bold">{{r.user.first_name}} {{r.user.last_name}}</h6>
@@ -130,9 +131,9 @@
             <div class="modal-dialog modal-dialog-centered mockTestModal">
                 <div class="modal-content border-0">
                     <div class="modal-body d-flex">
-                        {% comment %} <div class="mockTestModalLeft w-100">
-                            <img src="Assets/Images/mockTestModal.jpg" alt="">
-                        </div> {% endcomment %}
+                        <div class="mockTestModalLeft w-100">
+                            <img src="{% static 'app/Assets/Images/mockTestModal.png' %}" alt="">
+                        </div>
                         <div class="mockTestModalRight bg-cl-grey4 d-flex flex-column justify-content-center p-3 w-100">
                             <div class="mb-3">
                                 <h4 class="cl-pm fw-bolder">Start with Exam Condition</h4>
@@ -145,8 +146,9 @@
 
                                 <form action="{% url 'mocktest:startTest' %}" >
                                     <input type="hidden" name="tid" id="tid" value="" />
+                                    <input type="hidden" name="mid" id="mid" value="" />
                                     <button type="submit"
-                                        class="bg-cl-pm border-0 rounded-3 py-2 px-4 color-white" onclick="startMcq1()" >Start Test
+                                        class="bg-cl-pm border-0 rounded-3 py-2 px-4 color-white" >Start Test
                                     </button>
                                 </form>
 

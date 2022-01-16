@@ -33,7 +33,18 @@
                     </div> {% endcomment %}
                 </div>
                 <section class="tchAddCourse mt-3">
+                    
                     <form method="POST">
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if forloop.counter == 1 %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
                         {% csrf_token %}
                         <div class="row">
 

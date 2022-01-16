@@ -60,7 +60,11 @@ class MyMockTest(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     mocktest=models.ForeignKey(MockTest,on_delete=models.CASCADE)
     
+    class Meta:
+        unique_together=(('user','mocktest'),)
+        index_together=(('user','mocktest'),)
 
+    
 
 
 
@@ -77,6 +81,8 @@ class TestSet(models.Model):
         
         return self.mocktest.title+str(self.id)
 
+
+
 class TestQuestion(models.Model):
     mocktest=models.ForeignKey(MockTest,on_delete=models.CASCADE)
     testset=models.ForeignKey(TestSet,on_delete=models.CASCADE)
@@ -88,17 +94,31 @@ class TestQuestion(models.Model):
     correct=models.CharField(max_length=255)
     solution=models.CharField(max_length=500,blank=True,null=True)
 
+    
+        
+
+        
+
 class MyTestSet(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
+    mocktest=models.ForeignKey(MockTest,on_delete=models.CASCADE)
     testset=models.ForeignKey(TestSet,on_delete=models.CASCADE)
-    is_completed=models.BooleanField(default=True)
-    total_mark=models.IntegerField()
+    time=models.IntegerField(default=30)
+    is_completed=models.BooleanField(default=False)
+    total_mark=models.IntegerField(default=0)
+
+    class Meta:
+        unique_together=(('user','testset'),)
+        index_together=(('user','testset'),)
 
 class UserTest(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
-    testset=models.ForeignKey(TestSet,on_delete=models.CASCADE)
+    mytest=models.ForeignKey(MyTestSet,on_delete=models.CASCADE)
     question=models.ForeignKey(TestQuestion,on_delete=models.CASCADE)
     answer=models.CharField(max_length=255,blank=True,null=True)
+
+    class Meta:
+        unique_together=(('mytest','question'),)
+        index_together=(('mytest','question'),)
 
 class TestWishList(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)

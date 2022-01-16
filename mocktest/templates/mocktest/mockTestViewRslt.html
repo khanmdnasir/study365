@@ -8,6 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'stdprofile' %}">Profile</a></li>
                     <li class="breadcrumb-item"><a class="cl-pm text-decoration-none" href="{% url 'mocktest:mytests' %}">My Test</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{u.testset.mocktest.title}}</li>
                 </ol>
@@ -35,16 +36,16 @@
                         </div>
                             <div class="d-flex flex-wrap">
                                 <div class="me-3">
-                                    <small class=" fw-bold {% if u.question.option1 == u.question.correct %}color-green1{% elif u.question.correct != u.answer %}color-red{% endif %}">A. {{u.question.option1}}</small>
+                                    <small class=" fw-bold {% if u.question.option1 == u.question.correct %}color-green1{% elif u.question.option1 == u.answer %}color-red{% endif %}">A. {{u.question.option1}}</small>
                                 </div>
                                 <div class="me-3">
-                                    <small class="fw-bold {% if u.question.option2 == u.question.correct %}color-green1{% elif u.question.correct != u.answer %}color-red{% endif %}">B. {{u.question.option2}}</small>
+                                    <small class="fw-bold {% if u.question.option2 == u.question.correct %}color-green1{% elif u.question.option2 == u.answer %}color-red{% endif %}">B. {{u.question.option2}}</small>
                                 </div>
                                 <div class="me-3">
-                                    <small class="fw-bold {% if u.question.option3 == u.question.correct %}color-green1{% elif u.question.correct != u.answer %}color-red{% endif %}">C. {{u.question.option3}}</small>
+                                    <small class="fw-bold {% if u.question.option3 == u.question.correct %}color-green1{% elif u.question.option3 == u.answer %}color-red{% endif %}">C. {{u.question.option3}}</small>
                                 </div>
                                 <div class="me-3">
-                                    <small class="fw-bold {% if u.question.option4 == u.question.correct %}color-green1{% elif u.question.correct != u.answer %}color-red{% endif %}">D. {{u.question.option4}}</small>
+                                    <small class="fw-bold {% if u.question.option4 == u.question.correct %}color-green1{% elif u.question.option4 == u.answer %}color-red{% endif %}">D. {{u.question.option4}}</small>
                                 </div>
                             </div>
                     </div>
@@ -79,4 +80,6 @@
    
 {% endblock content %}
     
-    
+{% block script %}
+<script src="{% static 'app/js/mocktestResult.js' %}"></script>
+{% endblock script %}

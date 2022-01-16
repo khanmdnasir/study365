@@ -199,7 +199,7 @@
                                     <div class="courseReviewTop d-flex justify-content-between">
                                         <div class="courseReviewTopleft d-flex align-items-center">
                                             <div class="courseReviewImg me-3">
-                                                <img src="{{r.user.profile_image.url}}" alt="">
+                                                <img src="{% if r.user.profile_image %}{{r.user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
                                             </div>
                                             <div class="courseReviewName">
                                                 <h6 class="fw-bold">{{r.user.first_name}} {{r.user.last_name}}</h6>
@@ -266,7 +266,7 @@
                             </div>
                             <a href="{% url 'book_details' rbook.id %}">
                                 <div class="card-body card-body-height">
-                                    <h5 class="fw-bold">{{rbook.book_title}}</h5>
+                                    <h5 class="fw-bold card-body-btag">{{rbook.book_title|truncatechars:60}}</h5>
                                     <div class="homeFeaturedCardTag mb-2">
                                         {% for i in rbook.book_tag %}
                                         <small class="cl-pm">{{i}}</small>

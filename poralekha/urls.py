@@ -4,11 +4,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls.conf import include
 from users import views
-
+from app.views import uploadFile
 # from users import ApiView
 from users.forms import AuthenticationForm,MyPasswordChangeForm,MyPasswordResetForm,MySetPasswordForm
 from django.contrib.auth.views import LoginView,LogoutView,PasswordChangeView,PasswordChangeDoneView,PasswordResetView,PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView
-
+from chat.views import chatPage,index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -18,7 +18,10 @@ urlpatterns = [
     path('tutor',include('tutor.urls',namespace='tutor')),
     path('accounts/', include('allauth.urls')),
     path('mocktest/', include('mocktest.urls',namespace='mocktest')),
-    path('accounts/password_change',PasswordChangeView.as_view(template_name='app/changepassword.html',form_class=MyPasswordChangeForm),name="changepassword"),
+    path('chat/<str:username>/', chatPage, name='chat'),
+    path('chat/', index, name='chat_home'),
+    path('uploadFile/', uploadFile, name='uploadFile'),
+    # path('accounts/password_change',PasswordChangeView.as_view(template_name='app/account_settings.html',form_class=MyPasswordChangeForm),name="changepassword"),
     path('accounts/password_change/done',PasswordChangeDoneView.as_view(template_name='app/passChangeDone.html'),name="password_change_done"),
     path('accounts/password_reset/',PasswordResetView.as_view(template_name="app/password_reset.html",form_class=MyPasswordResetForm),name="password_reset"),
     path('accounts/password_reset/done/',PasswordResetDoneView.as_view(template_name="app/password_reset_done.html"),name="password_reset_done"),
@@ -38,7 +41,7 @@ urlpatterns = [
     path('student/profile/',views.stdprofile_view,name='stdprofile'),
     path('student/profile/edit/',views.edit_profile,name='edit_profile'),
     
-    path('profile/account_settings/',views.account_settings,name='account_settings'),
+    path('profile/account_settings/',PasswordChangeView.as_view(template_name='app/account_settings.html',form_class=MyPasswordChangeForm),name='account_settings'),
     path('profile/account_settings/change_phone/',views.change_phone,name='change_phone'),
     path('profile/account_settings/change_email/',views.change_email,name='change_email'),
     

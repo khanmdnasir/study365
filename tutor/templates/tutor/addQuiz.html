@@ -34,6 +34,16 @@
                 <section class="tchAddCourse mt-3">
                     <form method="POST">
                         {% csrf_token %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if forloop.counter == 1 %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
                         <div class="row">
 
                             <!-- Course add option start -->
@@ -119,10 +129,10 @@
                                                             Answer</label>
                                                         <select class="form-select mb-3"
                                                             aria-label="Default select example" name="correct" readonly>
-                                                            <option value="0" {% if q.correct_answer == '0' %}selected{% endif %}>A</option>
-                                                            <option value="1" {% if q.correct_answer == '1' %}selected{% endif %}>B</option>
-                                                            <option value="2" {% if q.correct_answer == '2' %}selected{% endif %}>C</option>
-                                                            <option value="3" {% if q.correct_answer == '3' %}selected{% endif %}>D</option>
+                                                            <option value="0" {% if q.correct_answer == 0 %}selected{% endif %}>A</option>
+                                                            <option value="1" {% if q.correct_answer == 1 %}selected{% endif %}>B</option>
+                                                            <option value="2" {% if q.correct_answer == 2 %}selected{% endif %}>C</option>
+                                                            <option value="3" {% if q.correct_answer == 3 %}selected{% endif %}>D</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-xl-6 col-12 mt-4 ">
@@ -220,10 +230,10 @@
                                                             Answer</label>
                                                         <select class="form-select mb-3"
                                                             aria-label="Default select example" name="correct" >
-                                                            <option value="0" {% if quiz.correct_answer == '0' %}selected{% endif %}>A</option>
-                                                            <option value="1" {% if quiz.correct_answer == '1' %}selected{% endif %}>B</option>
-                                                            <option value="2" {% if quiz.correct_answer == '2' %}selected{% endif %}>C</option>
-                                                            <option value="3" {% if quiz.correct_answer == '3' %}selected{% endif %}>D</option>
+                                                            <option value="0" {% if quiz.correct_answer == 0 %}selected{% endif %} >A</option>
+                                                            <option value="1" {% if quiz.correct_answer == 1 %}selected{% endif %} >B</option>
+                                                            <option value="2" {% if quiz.correct_answer == 2 %}selected{% endif %}>C</option>
+                                                            <option value="3" {% if quiz.correct_answer == 3 %}selected{% endif %}>D</option>
                                                         </select>
                                                     </div>
                                                 </div>

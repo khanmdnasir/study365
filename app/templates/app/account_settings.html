@@ -46,33 +46,43 @@
                     </div>
                     
 
-                    <a href="{% url 'changepassword' %}">Change Password</a>
-                    {% comment %} <form class="col mt-3">
+                     <h5 class="color-grey">Change Password</h5>
+                    <form  method="POST" class="col mt-3">
+                        {% csrf_token %}
+                            
+                            {% if form.non_field_errors  %}
+                            {% for error in form.non_field_errors %}
+                            <p class="alert alert-danger my-3">{{error}}</p>
+                            {% endfor %}
+                            {% endif %}
                         <div class="col-xl-4 mb-2">
                             <label for="inputPassword4" class="form-label fw-bold">Current Password</label>
                             <div class="pass-hU">
-                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
+                                <small class="text-danger">{{form.old_password.errors}}</small>{{form.old_password}}
+                                {% comment %} <input type="password" class="form-control" id="inputPassword4" maxlength="11"> {% endcomment %}
                                 <i class="toggle-password fas fa-eye"></i>
                             </div>
                         </div>
                         <div class="col-xl-4 mb-2">
                             <label for="inputPassword4" class="form-label fw-bold">New Password</label>
                             <div class="pass-hU">
-                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
+                                <small class="text-danger">{{form.new_password_1.errors}}</small>{{form.new_password1}}
+                                {% comment %} <input type="password" class="form-control" id="inputPassword4" maxlength="11"> {% endcomment %}
                                 <i class="toggle-password fas fa-eye"></i>
                             </div>
                         </div>
                         <div class="col-xl-4 mb-2">
                             <label for="inputPassword4" class="form-label fw-bold">Confirm Password</label>
                             <div class="pass-hU">
-                                <input type="password" class="form-control" id="inputPassword4" maxlength="11">
+                                <small class="text-danger">{{form.new_password2.errors}}</small>{{form.new_password2}}
+                                {% comment %} <input type="password" class="form-control" id="inputPassword4" maxlength="11"> {% endcomment %}
                                 <i class="toggle-password fas fa-eye"></i>
                             </div>
                         </div>
                         <div class="col-4 mt-4 mb-2">
                             <button type="submit" class="btn btn3 bg-cl-pm">Save Changes</button>
                         </div>
-                    </form> {% endcomment %}
+                    </form>
                 </div>
             </div>
         </div>

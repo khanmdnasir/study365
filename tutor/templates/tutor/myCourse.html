@@ -28,12 +28,14 @@
                         <div  onclick="location.href='{% url 'tutor:singleCourse' c.id %}" class="homeWhatsNewImg">
                             <div class="card card-height">
                                 <div class="card-img d-flex  justify-content-end">
+                                    {% if c.course_image %}
                                     <img class="card-img-top " src="{{c.course_image.url}}"
                                         alt="Card image cap">
+                                    {% endif %}
                                 </div>
                                 <a href="{% url 'tutor:singleCourse' c.id %}">
                                     <div class="card-body card-body-height">
-                                        <h5 class="fw-bold">{{c.course_title}}</h5>
+                                        <h5 class="fw-bold card-body-tag">{{c.course_title|truncatechars:60}}</h5>
                                         <div class="card-body-text">
                                             <div class="d-flex justify-content-between">
                                                 <div class="">
@@ -82,13 +84,15 @@
                                     <div  onclick="location.href='{% url 'tutor:singleCourse' c.id %}';" class="homeWhatsNewImg">
                                         <div class="card card-height">
                                             <div class="card-img d-flex  justify-content-end">
+                                                {% if c.course_image %}
                                                 <img class="card-img-top "
                                                     src="{{c.course_image.url}}"
                                                     alt="Card image cap">
+                                                {% endif %}
                                             </div>
                                             <a href="{% url 'tutor:singleCourse' c.id %}">
                                                 <div class="card-body card-body-height">
-                                                    <h5 class="fw-bold">{{c.course_title}}</h5>
+                                                    <h5 class="fw-bold card-body-tag">{{c.course_title|truncatechars:60}}</h5>
                                                     <div class="card-body-text">
                                                         <div class="d-flex justify-content-between">
                                                             <div class="">

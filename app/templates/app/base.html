@@ -1,91 +1,193 @@
-    {% extends 'app/header&footer.html' %}
-    {% load static %}
-    {% block main %}
-    <!-- Top section -->
-    <!-- header start -->
-    <!-- Desktop version start -->
-    <section class="desktopVersion">
-        <div class="topHeader bg-cl-pm">
-            <div class="container">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex">
-                        <div class="mx-2 ">
-                            <img class="iconSize test" src="{% static 'app/Assets/Images/Header/headphone.png' %}" alt=""> Support
-                        </div>
-                        <div class="mx-2">
-                            <img class="iconSize" src="{% static 'app/Assets/Images/Header/mail.png' %}" alt=""> support@gmail.com
-                        </div>
+{% extends 'app/header&footer.html' %}
+{% load static %}
+{% block link %}{% endblock link %}
+{% block main %}
+<!-- Top section -->
+<!-- header start -->
+<!-- Desktop version start -->
+<section class="desktopVersion">
+    <div class="topHeader bg-cl-pm">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <div class="me-2 ">
+                        <img class="iconSize test" src="{% static 'app/Assets/Images/Header/headphone.png' %}" alt=""> Support
                     </div>
-                    <div class="d-flex">
-                        <div class="mx-2 br">
-                            Social:
-                            <a href=""><i class="fab fa-facebook-f iconSize mx-2 color-white"></i></a>
-                            <a href=""><i class="fab fa-twitter iconSize mx-2 color-white"></i></a>
-                            <a href=""><i class="fab fa-youtube iconSize me-5 color-white"></i></a>
-                        </div>
-                        <div class="mx-2 languageChange">
-                            <div class="change">
-                                <input id="engtoggle" class="engtoggle engtoggle-round-flat" type="checkbox">
-                                <label for="engtoggle"></label>
-                                <span class="off">En</span>
-                                <span class="on">Bn</span>
-                            </div>
-                        </div>
+                    <div class="mx-2">
+                        <img class="iconSize" src="{% static 'app/Assets/Images/Header/mail.png' %}" alt=""> support@gmail.com
                     </div>
+                </div>
+                <div class="d-flex">
+                    <div class="br">
+                        Social:
+                        <a href=""><i class="fab fa-facebook-f iconSize mx-2 color-white"></i></a>
+                        <a href=""><i class="fab fa-twitter iconSize mx-2 color-white"></i></a>
+                        <a href=""><i class="fab fa-youtube iconSize me-5 color-white"></i></a>
+                    </div>
+                    {% comment %} <div class="mx-2 languageChange">
+                        <div class="change">
+                            <input id="engtoggle" class="engtoggle engtoggle-round-flat" type="checkbox">
+                            <label for="engtoggle"></label>
+                            <span class="off">En</span>
+                            <span class="on">Bn</span>
+                        </div>
+                    </div> {% endcomment %}
                 </div>
             </div>
         </div>
-        <!-- Middle Header -->
+    </div>
+    <!-- Middle Header -->
+    
+     
         {% if user.is_authenticated %}
-         <section class="middleHeader">
+        <div class="middleHeader">
+            <div class="container">
+              <div class="d-flex justify-content-between">
+                <div class="middleHeader-img">
+                  <img src="{% static 'app/Assets/Images/Header/logo.svg' %}" onclick="window.location.href='{% url 'home' %}'" alt="">
+                </div>
+                <div class="d-flex align-items-center">
+                  <div class="">
+                    <a class="navbar-brand tex" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                      <span class="ms-3 cl-pm fw-400 dot me-2">Category</span><i class="fas fa-sort-down cl-pm"></i>
+                      </i>
+                    </a>
+                    <ul class="dropdown-menu shadow uldesk-font">
+                        {% for cat in categories %}
+                        <li><a class="dropdown-item color-grey" href="{% url 'find_category' cat.id %}">{{cat.category_name}}</a></li>
+                        
+                        {% endfor %}
+                    </ul>
+                  </div>
+                  <div class="headerSearch">
+                    <form class="d-flex " action="{% url 'find_course' %}">
+                    <input style="font-family:'Poppins'; " class="form-control border-0 me-1 rounded-3" type="search"
+                      placeholder="Search Subject" aria-label="Search" name="seacrh">
+                    </form>
+                  </div>
+                </div>
+                <div class="middleHeader-content d-flex align-items-center">
+                  <div class="middleHeader-contentIcon d-flex me-3">
+                    <div class="dropdown">
+                      <div
+                        class="headerIcon cursor bg-cl-grey3 p-2 d-flex justify-content-center align-items-center rounded-3 me-3"
+                        id="chatIcon" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-sms"></i> 
+                      </div>
+                      <div class="notification chat  bg-white px-3 py-4 dropdown-menu dropdown-menu-end"
+                        aria-labelledby="chatIcon">
+                        <div class="d-flex justify-content-between mb-4">
+                          <div><small class="cl-pm fw-bold">Message</small></div>
+                          <div><small class="cl-pm cursor">Mark as Unread</small></div>
+                        </div>
+                        {% for u in users %}
+                        <div class="d-flex justify-content-between align-items-center cursor mb-4" onclick="location.href='{% url 'chat' u.username %}'">
+                          <div class="chatImg w-10">
+                            
+                            <img src="{% if u.profile_image %}{{u.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
+                            
+                          </div>
+                          <div class="d-flex flex-column flex-wrap w-60">
+                            <small class="color-grey2 fw-bold">{{u.username}}</small>
+                            {% comment %} <small class="color-grey2"></small> {% endcomment %}
+                          </div>
+                          <div class="w-30">
+                            {% comment %} <small class="color-grey2 fw-bold">08.59 am</small> {% endcomment %}
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="dropdown">
+                      <div id="notiIcon" data-bs-toggle="dropdown" aria-expanded="false"
+                        class="headerIcon cursor bg-cl-grey3 p-2  d-flex justify-content-center align-items-center rounded-3 me-3">
+                        <i class="fas fa-bell"></i> 
+                      </div>
+                      <div class="notification bg-white px-3 py-4 dropdown-menu dropdown-menu-end" aria-labelledby="notiIcon">
+                        <div class="mb-3">
+                          <small class="cl-pm fw-bold">Notifications</small>
+                        </div>
+                        <div class="mb-3">
+                          <small class="color-grey2">
+                            <span class="cl-green fw-bold">Success!</span> You have registered successfully
+                          </small>
+                        </div>
+                        <div class="mb-3">
+                          <small class="color-grey2">
+                            <span class="color-yellow2 fw-bold">Warning!</span> You have entered an invalid access
+                          </small>
+                        </div>
+                        <div class="mb-3">
+                          <small class="color-grey2">
+                            <span class="color-red2 fw-bold">Danger!</span> Your registration is incomplete
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="headerIcon cursor bg-cl-grey3 d-flex justify-content-center align-items-center p-2 rounded-3" onclick="location.href='{% url 'show_cart' %}'">
+                      <img src="{% static 'app/Assets/Images/Header/cart.png' %}" alt=""> <span
+                        class="color-white d-flex justify-content-center align-items-center pt-1" id="total-cart">0</span>
+                    </div>
+                  </div>
+                  <div class="middleHeader-contentDropdown d-flex ms-4">
+                    <div class="middleHeader-contentDropImg">
+                        
+                        <img src="{% if user.profile_image %}{{user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
+                        
+                    </div>
+                    <div class="dropdown middleHeaderDropdown">
+                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{user.username}}
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end middleHeaderDropdownMenu mt-2 border-0"
+                        aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'stdprofile' %}">My
+                            Account</a></li>
+                        <hr class="dropdown-divider color-span">
+                        <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'tutor:tutor_signin' %}">Join as Tutor</a></li>
+                        <hr class="dropdown-divider color-span">
+                        <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'logout' %}">Log
+                            Out</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         {% else %}
+        <div class="middleHeader">
             <div class="container">
                 <div class="d-flex justify-content-between">
                     <div class="middleHeader-img">
                         <a href="{% url 'home' %}"><img src=" {% static 'app/Assets/Images/Header/logo.svg' %} " alt=""></a>
                     </div>
-                    <div class="middleHeader-content d-flex align-items-center">
-                        <div class="middleHeader-contentBtn me-4">
-                            <a type="button" class="btn  btn1 cl-pm" href="{% url 'tutor:tutor_signin' %}">Join as Tutor</a>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+
+                            <a class="navbar-brand tex" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                                <span class="ms-3 cl-pm fw-400 dot me-2">Category</span><i
+                                    class="fas fa-sort-down cl-pm"></i>
+                                </i>
+                            </a>
+                            <ul class="dropdown-menu shadow uldesk-font">
+                                {% for cat in categories %}
+                                <li><a class="dropdown-item color-grey" href="{% url 'find_category' cat.id %}">{{cat.category_name}}</a></li>
+                                
+                                {% endfor %}
+                            </ul>
                         </div>
-                        <div class="middleHeader-contentIcon d-flex" >
-                            
-                            <div class="Icon hdDot bg-cl-grey3 p-2 d-flex justify-content-center align-items-center rounded-3 me-3">
-                                <i class="fas fa-sms"></i>
-                            </div>
-                            <div class="Icon hdDot1 bg-cl-grey3 p-2  d-flex justify-content-center align-items-center rounded-3">
-                                <i class="fas fa-bell"></i>
-                            </div>
+                        <div class="headerSearch">
+                            <form class="d-flex " action="{% url 'find_course' %}">
+                            <input style="font-family:'Poppins'; " class="form-control border-0 me-1  rounded-3"
+                                type="search" placeholder="Search Subject" aria-label="Search" name="search">
+                            </form>
                         </div>
-                        <div class="middleHeader-contentDropdown d-flex ms-4">
-                            <div class="middleHeader-contentDropImg">
-                            {% if user.profile_image %}
-                                <img src=" {{user.profile_image.url}} " alt="">
-                            {% endif %}
-                            </div>
-                            <div class="dropdown middleHeaderDropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  {{user.username}}
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end middleHeaderDropdownMenu mt-2 border-0" aria-labelledby="dropdownMenuButton1">
-                                  <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'stdprofile' %}">My Account</a></li>
-                                  <hr class="dropdown-divider color-span">
-                                  <li><a class="dropdown-item d-flex justify-content-end color-span" href="{% url 'logout' %}">Log Out</a></li>
-                                </ul>
-                              </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        {% else %}
-        <div class="middleHeader">
-            <div class="container">
-                <div class="d-flex justify-content-between">
-                    <div class="middleHeader-img">
-                        <a href="{% url 'home' %}"><img src="{% static 'app/Assets/Images/Header/logo.svg' %}" alt=""></a>
                     </div>
                     <div class="middleHeader-content">
-                        <a type="button" class="btn  btn1 cl-pm" href="{% url 'tutor:tutor_signin' %}">Join as Tutor</a>
+                        <button type="button" class="btn  btn1 cl-pm"
+                            onclick="window.location.href='{% url 'tutor:tutor_signin' %}'">Join as Tutor</button>
                         <button type="button" class="btn  btn2 mx-2 cl-pm" onclick="location.href='{% url 'login' %}'">Sign
                             in</button>
                         <button type="button" class="btn  btn3 bg-cl-pm" onclick="location.href='{% url 'registration' %}'">Sign
@@ -94,358 +196,348 @@
                 </div>
             </div>
         </div>
-        {% endif %}
-       
-        <!-- Bottom Header -->
-        <div class="bottomHeader">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light  ">
-                    <div class="container-fluid p-0">
-                        <div class="">
-                            <a class="navbar-brand tex dot" href="#" data-bs-toggle="dropdown"
-                                data-bs-auto-close="outside">
-                                <i class="fas fa-align-center cl-pm "><span class="ms-3 cl-pm">Category</span>
-                                </i>
-                            </a>
-                            <ul class="dropdown-menu shadow uldesk-font">
-                                {% for cat in categories %}
-                                <li><a class="dropdown-item color-grey" href="{% url 'find_category' cat.id %}">{{cat.category_name}}</a></li>
-                                {% endfor %}
-                                
-                            </ul>
-                        </div>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="mr ">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item ">
-                                    <form class="d-flex " action="{% url 'find_course' %}">
+    {% endif %}
+   
+    
+</section>
+<!-- Desktop version end -->
 
-                                        <input style="font-family:'Poppins'; " class="form-control border-0 me-1"
-                                            type="search" placeholder="Search Subject" aria-label="Search" name="search">
-                                       
-                                        <button class="btn  btn3 bg-cl-pm" type="submit">Search</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                            <ul class="navbar-nav mb-2 mb-lg-0 ">
-                                <li class="nav-item mx-3">
-                                    <a class="nav-link " href="#">About</a>
-                                </li>
-                                <li class="nav-item mx-3 ">
-                                    <a class="nav-link" href="#">Contact</a>
-                                </li>
-                                <li class="nav-item mx-3">
-                                    <a class="nav-link" href="#">FAQ</a>
-                                </li>
-                                {% if user.is_authenticated %}
-                                <li class="nav-item nav-cart ">
-                                <span class="nav-cart-number bg-cl-red color-white d-flex justify-content-center align-items-center" id="total-cart"></span>
-                                    <a class="nav-link pb-1" href="{% url 'show_cart' %}"><img class="pb-1"
-                                            src="{% static 'app/Assets/Images/Header/cart.png' %}" alt=""></a>
-                                
-                                </li>
-                                
-                                {% else %}
-                                <li class="nav-item nav-cart ">
-                                <span class="nav-cart-number bg-cl-red color-white d-flex justify-content-center align-items-center" >0</span>
-                                    <a class="nav-link pb-1" href="{% url 'login' %}"><img class="pb-1"
-                                            src="{% static 'app/Assets/Images/Header/cart.png' %}" alt=""></a>
-                                
-                                </li>
-                                {% endif %}
 
-                            </ul>
-                        </div>
+<!-- ==========================             mobile version start ============================= -->
+<section class="mobileVersion">
+
+    <!-- main Header -->
+    <div class="mainHeader ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: white !important;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <div class="middleHeader-img">
+                        <img src="{% static 'app/Assets/Images/Header/logo.svg' %}" alt="">
                     </div>
-                </nav>
-            </div>
-        </div>
-        <!-- Middle Section -->
-    </section>
-    <!-- Desktop version end -->
+                </a>
+                <div class="d-flex align-items-center">
 
-
-    <!-- ==========================             mobile version start ============================= -->
-    <section class="mobileVersion">
-
-        <!-- main Header -->
-        <div class="mainHeader ">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: white !important;">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="{% url 'home' %}">
-                        <div class="middleHeader-img">
-                            <img src="{% static 'app/Assets/Images/Header/logo.svg' %}" alt="">
-                        </div>
-                    </a>
-                    <div class="d-flex align-items-center">
-
-                        <div class="header-image me-2">
-                            {% if user.profile_image %}
-                            <img src="{{user.profile_image.url}}" alt="">
-                            {% endif %}
-                        </div>
-                        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fas fa-align-center cl-pm "></i>
-                        </button>
+                    <div class="header-image me-2">
+                        
+                        <img src="{% if user.profile_image %}{{user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
+                        
                     </div>
-                    <div class="collapse navbar-collapse mt-5 px-4" id="navbarSupportedContent">
-
-                        <form class="mb-3">
-                            <form class="d-flex " action="{% url 'find_course' %}">
-                            <input class="form-control  mb-2 bg-cl-grey3" type="search" placeholder=" Search Subject"
-                                aria-label="Search" name="search">
-                            <button class="btn  btn3 bg-cl-pm w-100 " type="submit">Search Subject</button>
-                            </form>
+                    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-center cl-pm "></i>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse mt-5 px-4" id="navbarSupportedContent">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="dropdown">
+                          <div
+                            class="headerIcon cursor bg-cl-grey3 p-2 d-flex justify-content-center align-items-center rounded-3"
+                            id="chatIcon" data-bs-toggle="dropdown" aria-expanded="false">
+                            Message<i class="fas fa-sms ms-2 cl-pm"></i> 
+                            {% comment %} <span
+                              class="color-white d-flex justify-content-center align-items-center pt-1">7</span> {% endcomment %}
+                          </div>
+                          <div class="notification chat  bg-white px-3 py-4 dropdown-menu"
+                            aria-labelledby="chatIcon">
+                            <div class="d-flex justify-content-between mb-4">
+                              <div><small class="cl-pm fw-bold">Message</small></div>
+                              <div><small class="cl-pm cursor">Mark as Unread</small></div>
+                            </div>
+                            {% for u in users %}
+                            <div class="d-flex justify-content-between align-items-center cursor mb-4">
+                              <div class="chatImg w-10">
+                                
+                                <img src="{% if u.profile_image %}{{u.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
+                                
+                              </div>
+                              <div class="flex-wrap w-60">
+                                <small class="color-grey2 fw-bold">{{u.username}}</small>
+                              </div>
+                              <div class="w-30">
+                                {% comment %} <small class="color-grey2 fw-bold">08.59 am</small> {% endcomment %}
+                              </div>
+                            </div>
+                           {% endfor %}
+                          </div>
+                        </div>
+                        <div class="dropdown">
+                          <div id="notiIcon" data-bs-toggle="dropdown" aria-expanded="false"
+                            class="headerIcon cursor bg-cl-grey3 p-2  d-flex justify-content-center align-items-center rounded-3">
+                            Notification<i class="fas fa-bell cl-pm ms-2"></i> 
+                            {% comment %} <span
+                              class="color-white d-flex justify-content-center align-items-center pt-1">7</span> {% endcomment %}
+                          </div>
+                          <div class="notification bg-white px-3 py-4 dropdown-menu dropdown-menu-end" aria-labelledby="notiIcon">
+                            <div class="mb-3">
+                              <small class="cl-pm fw-bold">Notifications</small>
+                            </div>
+                            <div class="mb-3">
+                              <small class="color-grey2">
+                                <span class="cl-green fw-bold">Success!</span> You have registered successfully
+                              </small>
+                            </div>
+                            <div class="mb-3">
+                              <small class="color-grey2">
+                                <span class="color-yellow2 fw-bold">Warning!</span> You have entered an invalid access
+                              </small>
+                            </div>
+                            <div class="mb-3">
+                              <small class="color-grey2">
+                                <span class="color-red2 fw-bold">Danger!</span> Your registration is incomplete
+                              </small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <form class="mb-3">
+                        <form class="d-flex " action="{% url 'find_course' %}">
+                        <input class="form-control  mb-2 bg-cl-grey3" type="search" placeholder=" Search Subject"
+                            aria-label="Search" name="search">
+                        <button class="btn  btn3 bg-cl-pm w-100 " type="submit">Search Subject</button>
                         </form>
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ulmobile-font">
+                    </form>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ulmobile-font">
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="color: #380E86;">
-                                    Category
-                                </a>
-                                <ul class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                                    {% for cat in categories %}
-                                <li><a class="dropdown-item grey-gorib" href="{% url 'find_category' cat.id %}">{{cat.category_name}}</a></li>
-                                {% endfor %}
-                                    
-                                   
-                                </ul>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="#">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">FAQ</a>
-                            </li>
-                            <!-- nav cart is used for new notification in red color(method after) -->
-                            <li class="nav-item nav-cart ">
-                            <span class="nav-cart-number bg-cl-red color-white d-flex justify-content-center align-items-center" id="total-cart">0</span>
-                                <a class="nav-link pb-1" href="{% url 'show_cart' %}"><img class="pb-1"
-                                        src="{% static 'app/Assets/Images/Header/cart.png' %}" alt=""></a>
-                            
-                            </li>
-                        </ul>
-                        {% if user.is_authenticated %}
-                        <div class="login-hide justify-content-center w-100 mb-4">
-                            <a type="button" class="btn  btn1 cl-pm w-100 mb-2 bg-cl-grey3" href="{% url 'tutor:tutor_signin' %}">Join as
-                                Tutor</a>
-                            <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn2 mx-2 cl-pm" onclick="location.href='{% url 'logout'%}'">Logout</button>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false"
+                                style="color: #380E86;">
+                                Category
+                            </a>
+                            <ul class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
+                                {% for cat in categories %}
+                            <li><a class="dropdown-item grey-gorib" href="{% url 'find_category' cat.id %}">{{cat.category_name}}</a></li>
+                            {% endfor %}
                                 
-                            </div>
+                               
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">FAQ</a>
+                        </li>
+                        <!-- nav cart is used for new notification in red color(method after) -->
+                        <li class="nav-item nav-cart ">
+                        <span class="nav-cart-number bg-cl-red color-white d-flex justify-content-center align-items-center" id="total-cart">0</span>
+                            <a class="nav-link pb-1" href="{% url 'show_cart' %}"><img class="pb-1"
+                                    src="{% static 'app/Assets/Images/Header/cart.png' %}" alt=""></a>
+                        
+                        </li>
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <div class="login-hide justify-content-center w-100 mb-4">
+                        <a type="button" class="btn  btn1 cl-pm w-100 mb-2 bg-cl-grey3" href="{% url 'tutor:tutor_signin' %}">Join as
+                            Tutor</a>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn  btn2 mx-2 cl-pm" onclick="location.href='{% url 'logout'%}'">Logout</button>
+                            
                         </div>
-                        {% else %}
-                        <div class="login-hide justify-content-center w-100 mb-4">
-                            <a type="button" class="btn  btn1 cl-pm w-100 mb-2 bg-cl-grey3" href="{% url 'tutor:tutor_signin' %}">Join as
-                                Tutor</a>
-                            <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn2 mx-2 cl-pm" onclick="location.href='{% url 'login' %}'">Sign in</button>
-                                <button type="button" class="btn  btn3 bg-cl-pm" onclick="location.href='{% url 'registration' %}'">Sign up</button>
-                            </div>
+                    </div>
+                    {% else %}
+                    <div class="login-hide justify-content-center w-100 mb-4">
+                        <a type="button" class="btn  btn1 cl-pm w-100 mb-2 bg-cl-grey3" href="{% url 'tutor:tutor_signin' %}">Join as
+                            Tutor</a>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn  btn2 mx-2 cl-pm" onclick="location.href='{% url 'login' %}'">Sign in</button>
+                            <button type="button" class="btn  btn3 bg-cl-pm" onclick="location.href='{% url 'registration' %}'">Sign up</button>
                         </div>
-                        {% endif %}
-                        <div class="nav-footer">
-                            <small class="color-grey">Social :</small>
-                            <div class="footer-icon mt-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item ">
-                                            <a href="#"><i class="fab fa-facebook-f cl-pm"></i></a>
-                                        </li>
-                                        <li class="list-inline-item ">
-                                            <a href="#"><i class="fab fa-twitter cl-pm"></i></a>
-                                        </li>
-                                        <li class="list-inline-item ">
-                                            <a href="#"><i class="fab fa-youtube cl-pm"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="switch2">
-                                        <div class="switch">
-                                            <input id="language-toggle" class="check-toggle check-toggle-round-flat"
-                                                type="checkbox">
-                                            <label for="language-toggle"></label>
-                                            <span class="off">En</span>
-                                            <span class="on">Bn</span>
-                                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="nav-footer">
+                        <small class="color-grey">Social :</small>
+                        <div class="footer-icon mt-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item ">
+                                        <a href="#"><i class="fab fa-facebook-f cl-pm"></i></a>
+                                    </li>
+                                    <li class="list-inline-item ">
+                                        <a href="#"><i class="fab fa-twitter cl-pm"></i></a>
+                                    </li>
+                                    <li class="list-inline-item ">
+                                        <a href="#"><i class="fab fa-youtube cl-pm"></i></a>
+                                    </li>
+                                </ul>
+                                {% comment %} <div class="switch2">
+                                    <div class="switch">
+                                        <input id="language-toggle" class="check-toggle check-toggle-round-flat"
+                                            type="checkbox">
+                                        <label for="language-toggle"></label>
+                                        <span class="off">En</span>
+                                        <span class="on">Bn</span>
                                     </div>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                         </div>
                     </div>
                 </div>
-            </nav>
-        </div>
-    </section>
-    <!-- mobile version end -->
-    <!-- header end -->
-
-    {% block content %} {% endblock content %}
-
-    
-    <section class="homeSubscribe ">
-        <div class="container">
-            <div class="homeSubscribeImg">
-                <div class="homeSubscribePolygon homeSubscribe-hide">
-                    <img class="homeSubscribePolygonImg" src="{% static 'app/Assets/Images/HomeBody/Polygon1.png' %}" alt="">
-                </div>
-                <img class="homeSubscribeBanner" src="{% static 'app/Assets/Images/HomeBody/13footerBg.png' %}" alt="">
-                <div class="homeSubscribeContent">
-                    <h5 class="homeSubscribeContent-text text-center text-white mb-5">Subscribe our newsletter for
-                        newest <br> upcoming
-                        courses
-                    </h5>
-
-                    <div class="homeSubscribeContentButton">
-                        <input class="input" type="text" placeholder="Tour your email here...">
-                        <button class="button" type="submit">Subscribe</button>
-                    </div>
-
-                    <div class="input-group mb-3 homeSubscribeContentButton2">
-                        <input type="text" class="form-control" placeholder="Recipient's username"
-                            aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <button class="button" type="submit">Subscribe</button>
-                    </div>
-                </div>
-                
             </div>
-        </div>
-    </section>
-    <footer class="footer">
-        <div class="container">
-            <div class="footerContent d-flex justify-content-between">
-                <div class="footerContentOne me-5">
-                    <div class="footerContentOneLogo mb-4 mt-1">
-                        <img src="{% static 'app/Assets/Images/Footer/1Logo.png' %}" alt="">
-                    </div>
-                    <div class="footerContentOneContent footerContent">
-                        <p>House 15,Block-E,Road-07. <br>
-                            Sector-01,Uttara,Dhaka-1230.
-                        </p>
-                        <p>
-                            <a href="tellto:">+8801652563545</a>
-                        </p>
-                        <p>
-                            <a href="mailto:">info@livetechltd.com</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="footerContentTwo  me-5 mt-3">
-                    <div class="footerContentTwoHeading footerHeading mb-4">
-                        <h5>Navigations</h5>
-                    </div>
-                    <div class="footerContentTwoContent footerContent">
-                        <p>
-                            <a href="">About Us</a>
-                        </p>
-                        <p>
-                            <a href=""> Checkout</a>
+        </nav>
+    </div>
+</section>
+<!-- mobile version end -->
+<!-- header end -->
 
-                        </p>
-                        <p>
-                            <a href=""> Wishlist</a>
-                        </p>
-                        <p>
-                            <a href="">Contact</a>
-                        </p>
-                        <p>
-                            <a href=""> FAQ</a>
-                        </p>
-                    </div>
+{% block content %} {% endblock content %}
+
+
+<section class="homeSubscribe ">
+    <div class="container">
+        <div class="homeSubscribeImg">
+            <div class="homeSubscribePolygon homeSubscribe-hide">
+                <img class="homeSubscribePolygonImg" src="{% static 'app/Assets/Images/HomeBody/Polygon1.png' %}" alt="">
+            </div>
+            <img class="homeSubscribeBanner" src="{% static 'app/Assets/Images/HomeBody/13footerBg.png' %}" alt="">
+            <div class="homeSubscribeContent">
+                <h5 class="homeSubscribeContent-text text-center text-white mb-5">Subscribe our newsletter for
+                    newest <br> upcoming
+                    courses
+                </h5>
+
+                <div class="homeSubscribeContentButton">
+                    <input class="input" type="text" placeholder="Tour your email here...">
+                    <button class="button" type="submit">Subscribe</button>
                 </div>
-                <div class="footerContentThree me-5 mt-3">
-                    <div class="footerContentThreeHeading footerHeading mb-4">
-                        <h5>Catagory Courses</h5>
-                    </div>
-                    <div class="footerContentThreeContent footerContent">
-                        <p>
-                            <a href=""> Education</a>
-                        </p>
-                        <p>
-                            <a href="">Art & Music</a>
-                        </p>
-                        <p>
-                            <a href="">Homeconomics</a>
-                        </p>
-                        <p>
-                            <a href="">It & Software</a>
-                        </p>
-                        <p>
-                            <a href="">Business And Accounting</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="footerContentFour me-5 mt-3">
-                    <div class="footerContentFourHeading footerHeading mb-4">
-                        <h5>Help & Support</h5>
-                    </div>
-                    <div class="footerContentFourContent footerContent">
-                        <p>
-                            <a href="">Account</a>
-                        </p>
-                        <p>
-                            <a href="">Privacy & policy</a>
-                        </p>
-                        <p>
-                            <a href="">Terms & Conditions</a>
-                        </p>
-                        <p>
-                            <a href="">Live Chat</a>
-                        </p>
-                        <p>
-                            <a href="">Documentation</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="footerContentFive mt-3">
-                    <div class="footerContentFiveHeading footerHeading mb-4">
-                        <h5>Download App</h5>
-                    </div>
-                    <div class="footerContentFiveApp">
-                        <div class="downloadAppContentIcon footerAppContent d-flex">
-                            <a href="#" class="d-flex align-items-center ms-3"><i
-                                    class="flaticon-playstore cl-light-blue me-2 mt-1"></i>
-                                <p class="mt-3">Google Play <br> <span>get it now</span></p>
-                            </a>
-                        </div>
-                        <div class="downloadAppContentIcon footerAppContent d-flex mt-2">
-                            <a href="#" class="d-flex align-items-center ms-3"><i
-                                    class="flaticon-app-store cl-light-blue me-2 mt-1"></i>
-                                <p class="mt-3">App store <br> <span>get it now</span></p>
-                            </a>
-                        </div>
-                    </div>
+
+                <div class="input-group mb-3 homeSubscribeContentButton2">
+                    <input type="text" class="form-control" placeholder="Recipient's username"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <button class="button" type="submit">Subscribe</button>
                 </div>
             </div>
+            
         </div>
-    </footer>
-    
-    <footer class="CopyRight ">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div class="copyRightContentLeft w-50">
-                &copy; 2021 livetechltd. All rights Reserved
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <div class="footerContent d-flex justify-content-between">
+            <div class="footerContentOne me-5">
+                <div class="footerContentOneLogo mb-4 mt-1">
+                    <img src="{% static 'app/Assets/Images/Footer/1Logo.png' %}" alt="">
+                </div>
+                <div class="footerContentOneContent footerContent">
+                    <p>House 15,Block-E,Road-07. <br>
+                        Sector-01,Uttara,Dhaka-1230.
+                    </p>
+                    <p>
+                        <a href="tellto:">+8801652563545</a>
+                    </p>
+                    <p>
+                        <a href="mailto:">info@livetechltd.com</a>
+                    </p>
+                </div>
             </div>
-            <div class="copyRightContentRight text-white">
-                <a href=""><i class="fab fa-facebook-f me-3"></i></a>
-                <a href=""> <i class="fab fa-twitter me-3"></i></a>
-                <a href=""><i class="fab fa-youtube"></i></a>
+            <div class="footerContentTwo  me-5 mt-3">
+                <div class="footerContentTwoHeading footerHeading mb-4">
+                    <h5>Navigations</h5>
+                </div>
+                <div class="footerContentTwoContent footerContent">
+                    <p>
+                        <a href="">About Us</a>
+                    </p>
+                    <p>
+                        <a href=""> Checkout</a>
+
+                    </p>
+                    <p>
+                        <a href=""> Wishlist</a>
+                    </p>
+                    <p>
+                        <a href="">Contact</a>
+                    </p>
+                    <p>
+                        <a href=""> FAQ</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footerContentThree me-5 mt-3">
+                <div class="footerContentThreeHeading footerHeading mb-4">
+                    <h5>Catagory Courses</h5>
+                </div>
+                <div class="footerContentThreeContent footerContent">
+                    <p>
+                        <a href=""> Education</a>
+                    </p>
+                    <p>
+                        <a href="">Art & Music</a>
+                    </p>
+                    <p>
+                        <a href="">Homeconomics</a>
+                    </p>
+                    <p>
+                        <a href="">It & Software</a>
+                    </p>
+                    <p>
+                        <a href="">Business And Accounting</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footerContentFour me-5 mt-3">
+                <div class="footerContentFourHeading footerHeading mb-4">
+                    <h5>Help & Support</h5>
+                </div>
+                <div class="footerContentFourContent footerContent">
+                    <p>
+                        <a href="">Account</a>
+                    </p>
+                    <p>
+                        <a href="">Privacy & policy</a>
+                    </p>
+                    <p>
+                        <a href="">Terms & Conditions</a>
+                    </p>
+                    <p>
+                        <a href="">Live Chat</a>
+                    </p>
+                    <p>
+                        <a href="">Documentation</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footerContentFive mt-3">
+                <div class="footerContentFiveHeading footerHeading mb-4">
+                    <h5>Download App</h5>
+                </div>
+                <div class="footerContentFiveApp">
+                    <div class="downloadAppContentIcon footerAppContent d-flex">
+                        <a href="#" class="d-flex align-items-center ms-3"><i
+                                class="flaticon-playstore cl-light-blue me-2 mt-1"></i>
+                            <p class="mt-3">Google Play <br> <span>get it now</span></p>
+                        </a>
+                    </div>
+                    <div class="downloadAppContentIcon footerAppContent d-flex mt-2">
+                        <a href="#" class="d-flex align-items-center ms-3"><i
+                                class="flaticon-app-store cl-light-blue me-2 mt-1"></i>
+                            <p class="mt-3">App store <br> <span>get it now</span></p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
-    
+    </div>
+</footer>
+
+<footer class="CopyRight ">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="copyRightContentLeft w-50">
+            &copy; 2021 livetechltd. All rights Reserved
+        </div>
+        <div class="copyRightContentRight text-white">
+            <a href=""><i class="fab fa-facebook-f me-3"></i></a>
+            <a href=""> <i class="fab fa-twitter me-3"></i></a>
+            <a href=""><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+</footer>
+{% block script %}{% endblock script %}
 {% endblock main %}
 
 
-    
+

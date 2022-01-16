@@ -8,117 +8,266 @@
    
     
     <div class="tchRight">
-        <!-- Teacher-Profile Profile -->
-        <div class="tchProf-profile">
-            <!-- breadcrumb -->
-            <div class="profileBrd mt-3 mb-3">
-                <div class="sc-breadcrump d-flex align-items-center bg-white">
-                    <div class="mt-2">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
-                                        href="{% url 'home' %}">Home</a>
-                                </li>
-                                <li class="breadcrumb-item active fw-bold" aria-current="page">Profile
-                                </li>
-                            </ol>
-                        </nav>
+            <!-- Teacher-Profile Profile -->
+            <div class="tchProf-profile">
+                <!-- breadcrumb -->
+                <div class="profileBrd mt-3 mb-3">
+                    <div class="sc-breadcrump d-flex align-items-center bg-white">
+                        <div class="mt-2">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a class="cl-pm text-decoration-none"
+                                            href="{% url 'home' %}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active fw-bold" aria-current="page">Profile
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Profile Content 1 start-->
-            <div class="profileContent none-profileContent">
+                <!-- Profile Content 1 start-->
+                <div class="profileContent none-profileContent">
 
-                <h6 class="mb-5">Basic Information</h6>
+                    <h6 class="mb-5">Basic Information</h6>
 
-                <div class="row mb-4">
-                    
-                    <!-- ms-2 -->
-                    <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-10 col-12 ">
-                        <div class="tchEditBtn d-flex justify-content-between ">
-                            
-                            <div class="profileContent-btn">
-                                <a href="#">
-                                    <button class="color-white bg-cl-pm px-4 border-0"
-                                        onclick="toggleChange('change','profileContent')"><i
-                                            class="far fa-edit"></i> Edit</button>
-                                </a>
+                    <div class="row mb-4">
+                        <div class="col-lg-2 col-md-2 profile-image mb-2">
+                            <div class="">
+                                <img src="{% if user.profile_image %}{{user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
                             </div>
                         </div>
-                        
-                    </div>
-                </div>
-                <!-- Expertise -->
-                <div class="expertise mb-4">
-                    <h5 class="">Expertise</h5>
-                    <div class="expertise-btn mt-4">
-                        {% for s in tutor.speciality%}
-                        <button> {{s}}</button>
-                        {% endfor %}
-                        
-                        
-                    </div>
-                </div>
-                <!-- Overview -->
-                <div class="col-lg-6 col-md-7 col-12  mb-4 overview">
-                    <h5 class="">Overview</h5>
-                    <p class="color-span mt-4">
-                        {{tutor.instructor_intro}}
-                    </p>
-                </div>
-
-                <!-- Change Password -->
-
-                
-            </div>
-            <!-- Profile Content 1 end-->
-            <!-- Profile Content 2 start-->
-            <div class="profileContent mx-1 dnone block-profileContent mb-5">
-
-                <h6 class="mb-5">Basic Information</h6>
-
-                <form class="frm" method="POST">
-                    {% csrf_token %}
-                    
-                    <div class="row">
-                        <!-- 6/6 -->
-                        
-                        <div class="col-md-6 col-12 ">
-                            <div class="mb-4">
-                                <label for="exampleFormControlTextarea1"
-                                    class="form-label color-grey fw-bold">Overview</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
-                                    style="height: 148px;" name="overview">{{tutor.instructor_intro}}</textarea>
+                        <!-- ms-2 -->
+                        <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-10 col-12 ">
+                            <div class="tchEditBtn d-flex justify-content-between ">
+                                <div class="mb-2">
+                                    <h5 class="cl-pm fw-bold">{{user.first_name}} {{user.last_name}}</h5>
+                                    <small class="color-span">{{user.address}}</small>
+                                </div>
+                                <div class="profileContent-btn">
+                                    <a href="#">
+                                        <button class="color-white bg-cl-pm px-4 border-0"
+                                            onclick="location.href='{% url 'tutor:edit_tprofile' %}'"><i
+                                                class="far fa-edit"></i> Edit</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="row mt-4">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 color-span mb-3">
+                                        <small>
+                                            <span class="fw-bold">Email</span> <br>
+                                            {{user.email}}
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 color-span mb-3">
+                                        <small>
+                                            <span class="fw-bold">Contact</span> <br>
+                                            {{user.phone_number}}
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 color-span mb-3">
+                                        <small>
+                                            <span class="fw-bold">Education Level</span> <br>
+                                            {{user.student.get_education_level_display}}
+                                        </small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div >
-                        <div class="col-md-3 col-6 mt-4 mb-4">
-                            <label for="exampleFormControlInput1" class="form-label color-grey fw-bold">Instructor Expertise</label>
-                            <select class="selectpicker w-100" multiple aria-label="Default select example"
-                                data-live-search="true" data-live-search-placeholder="Type Here..."
-                                title="Specialization" name="speciality">
-                                <option value="Math" {% if 'Math' in tutor.speciality %}selected{% endif %}>Math</option>
-                                <option value="Physics" {% if 'Physics' in tutor.speciality %}selected{% endif %}>Physics</option>
-                                <option value="Chemistry" {% if 'Chemistry' in tutor.speciality %}selected{% endif %}>Chemistry</option>
-                                <option value="Biology" {% if 'Biology' in tutor.speciality %}selected{% endif %}>Biology</option>
-                                <option value="English" {% if 'English' in tutor.speciality %}selected{% endif %}>English</option>
-                                
-                            </select>
-                            
+                    <!-- Expertise -->
+                    <div class="expertise mb-4">
+                        <h5 class="">Expertise</h5>
+                        <div class="expertise-btn mt-4">
+                            {% for s in tutor.speciality%}
+                            <button> {{s}}</button>
+                            {% endfor %}
                         </div>
                     </div>
-                    <button type="submit" class="btn btn3 bg-cl-pm"
-                        >
-                        
-                        Save Changes
-                    </button>
+                    <!-- Overview -->
+                    <div class="col-lg-6 col-md-7 col-12  mb-4 overview">
+                        <h5 class="">Overview</h5>
+                        <p class="color-span mt-4">
+                            {{tutor.instructor_intro}}
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-12 mb-4 overview">
+                        <h5 class="color-grey">Change Password</h5>
+                        <form class="mt-3" method="POST">
+                            {% csrf_token %}
+                            {% if form.non_field_errors  %}
+                            {% for error in form.non_field_errors %}
+                            <p class="alert alert-danger my-3">{{error}}</p>
+                            {% endfor %}
+                            {% endif %}
+                            <div class="mb-2">
+                                <label for="inputPassword4" class="form-label fw-bold">Current Password</label>
+                                <div class="pass-hU">
+                                     <small class="text-danger">{{form.old_password.errors}}</small>{{form.old_password}}
+                                    <i class="toggle-password fas fa-eye"></i>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label for="inputPassword4" class="form-label fw-bold">New Password</label>
+                                <div class="pass-hU">
+                                    <small class="text-danger">{{form.new_password_1.errors}}</small>{{form.new_password1}}
+                                    <i class="toggle-password fas fa-eye"></i>
+                                </div>
+                            </div>
+                            <div class="mb-5">
+                                <label for="inputPassword4" class="form-label fw-bold">Confirm Password</label>
+                                <div class="pass-hU">
+                                    <small class="text-danger">{{form.new_password2.errors}}</small>{{form.new_password2}}
+                                    <i class="toggle-password fas fa-eye"></i>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn3 bg-cl-pm">Save Changes</button>
+                        </form>
+                    </div>
+                    <!-- Change Password -->
 
-                </form>
-                <!-- Profile Content 2 end-->
+                   
+                </div>
+                <!-- Profile Content 1 end-->
+                <!-- Profile Content 2 start-->
+                <div class="profileContent mx-1 dnone block-profileContent mb-5">
+
+                    <h6 class="mb-5">Basic Information</h6>
+
+                    <form class="frm">
+
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-md-2 profile-image mb-2">
+                                <div class="">
+                                    <img src="{% if user.profile_image %}{{user.profile_image.url}}{% else %}{% static 'app/Assets/Images/no_image.jpg' %}{% endif %}" alt="">
+                                </div>
+                            </div>
+
+                            <div class="tchProfile-edit col-xxl-2 col-xl-3 col-lg-6 col-md-7 col-12 mt-2   ">
+                                <div class="file-upload">
+                                    <div class="image-upload-wrap">
+                                        <input class="file-upload-input" type='file' onchange="readURL(this);"
+                                            accept="image/*" />
+                                        <div class="drag-text">
+                                            <p class="">
+                                                <i class="far fa-edit"></i>
+                                                Browse Photo
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="file-upload-content">
+                                        <img class="file-upload-image" src="#" alt="your image" />
+                                        <div class="image-title-wrap">
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove
+                                                <span class="image-title">Uploaded Image</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Middle Content -->
+                        <div class="row">
+                            <!-- 6/6 -->
+                            <div class="col-md-6 col-12">
+                                <div class="row mb-4">
+                                    <div class="col mb-4">
+                                        <label for="exampleFormControlInput1"
+                                            class="form-label color-grey fw-bold">First Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            value="Kesava">
+                                    </div>
+                                    <div class="col mb-4">
+                                        <label for="exampleFormControlInput1" class="form-label color-grey fw-bold">Last
+                                            Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            value="Vellette">
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-4">
+                                    <div class="col mb-4">
+                                        <label for="exampleFormControlInput1"
+                                            class="form-label color-grey fw-bold">Email</label>
+                                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                                            value="elan@gmail.com">
+                                    </div>
+                                    <div class="col mb-4">
+                                        <label for="exampleFormControlInput1"
+                                            class="form-label color-grey fw-bold">Contact</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            value="+880-1676044462">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 ">
+                                <div class="mb-4">
+                                    <label for="exampleFormControlTextarea1"
+                                        class="form-label color-grey fw-bold">Overview</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
+                                        style="height: 148px;">I want to welcome you to this Complete Networking Fundamentals course! I'm David Bombal, and I have been teaching networking  courses for over 15 years. I qualified as a Cisco Certified  Network Engineer (CCIE) in 2003 and hold with numerous other networking certifications.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <!-- 6/6 -->
+                            <div class="col-md-6 col-12">
+                                <div class="mb-4">
+                                    <label for="exampleFormControlTextarea1"
+                                        class="form-label color-grey fw-bold">Present Address</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
+                                        style="height: 148px;">Uttara, Dhaka.</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-4">
+                                    <label for="exampleFormControlTextarea1"
+                                        class="form-label color-grey fw-bold">Permanent Address
+                                        (Optional)</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        style="height: 148px;">Tongi, Dhaka.
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-4">Expertise</h6>
+
+                            <div class="col-md-3 col-6 mb-4">
+                                <label for="exampleFormControlInput1" class="form-label color-grey fw-bold">Education
+                                    Level</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>BBA</option>
+                                    <option value="1">BSc</option>
+                                    <option value="2">MSc</option>
+                                    <option value="3">MBA</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 col-6 mt-4 mb-4">
+                                <label for="exampleFormControlInput1" class="form-label color-grey fw-bold">Expertise
+                                    Category</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>1</option>
+                                    <option value="1">2</option>
+                                    <option value="2">3</option>
+                                    <option value="3">4</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <button type="submit" class="btn btn3 bg-cl-pm"
+                            onclick="toggleChange('unchange','profileContent')">
+                            <i class="fas fa-check me-1"></i>
+                            Save Changes
+                        </button>
+
+                    </form>
+                    <!-- Profile Content 2 end-->
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
 {% endblock main %}

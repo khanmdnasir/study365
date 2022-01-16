@@ -1,3 +1,4 @@
+from operator import mod
 from django.db import models
 from django.db.models.deletion import DO_NOTHING
 from users.models import User
@@ -5,7 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 from tutor.models import Instructor
 import os
 from django.core.validators import MaxValueValidator,MinValueValidator
-
+import math
 
 # Create your models here.
 
@@ -69,7 +70,7 @@ class Course(models.Model):
 
     @property
     def discounted_price(self):
-        return self.course_price-((self.course_price/100)*self.course_offer)
+        return self.course_price-math.ceil((self.course_price/100)*self.course_offer)
     @property
     def total_lesson(self):
         lessons=Lesson.objects.filter(course_id=self.id)
@@ -321,3 +322,6 @@ class MyBooks(models.Model):
     
 
 
+class TempFile(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    file=models.FileField(upload_to='videos')
